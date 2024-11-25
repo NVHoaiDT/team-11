@@ -15,6 +15,11 @@ import java.time.LocalDateTime;
 public class InsertChatServlet extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String outgoingIDRequest = request.getParameter("outgoing_id");
         String incomingIDRequest = request.getParameter("incoming_id");

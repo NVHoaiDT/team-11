@@ -228,7 +228,7 @@
             <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/calendars.svg" alt="img"><span> Công việc </span> <span class="menu-arrow"></span></a>
             <ul>
 
-                <li><a href="${pageContext.request.contextPath}/Staff/quotationList.jsp">Xử lý đơn</a></li>
+                <li><a href="${pageContext.request.contextPath}/Staff/quotationList">Xử lý đơn</a></li>
                 <li><a href="${pageContext.request.contextPath}/Staff/loadCustomerList">Chat (NV)</a></li>
                 <li><a href="${pageContext.request.contextPath}/Staff/loadStaffChatList">Chat (kH)</a></li>
 

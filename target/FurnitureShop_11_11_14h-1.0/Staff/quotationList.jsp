@@ -34,9 +34,10 @@
 </head>
 
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+
+    <%--<div id="global-loader">--%>
+    <%--    <div class="whirly-loader"></div>--%>
+    <%--</div>--%>
 
 <div class="main-wrapper">
 
@@ -396,7 +397,7 @@
                                         </td>
 
                                         <%-- Mã Order --%>
-                                        <td>${order.orderID}</td>
+                                        <td>${order.id}</td>
 
                                         <%-- Tên khach hàng --%>
                                         <td>${order.customer.name}</td>
@@ -414,7 +415,7 @@
                                         <%-- Dropdown cập nhật trạng thái --%>
                                         <td>
                                             <label>
-                                                <select name="status-${order.orderID}" class="badges bg-lightgrey">
+                                                <select name="status-${order.id}" class="badges bg-lightgrey">
                                                     <option value="">Cập nhật:</option>
                                                     <option value="WAITING_PROCESS">Chờ duyệt</option>
                                                     <option value="CANCELED">Đã hủy</option>
@@ -429,7 +430,7 @@
 
                                         <%-- Nút xử lý --%>
                                         <td>
-                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.orderID}">
+                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.id}">
                                                 <img src="${pageContext.request.contextPath}/assets/img/icons/transfer1.svg" alt="Xử lý">
                                             </button>
                                         </td>
@@ -449,7 +450,7 @@
                                         </td>
 
                                         <%-- Mã Order --%>
-                                        <td>${order.orderID}</td>
+                                        <td>${order.id}</td>
 
                                         <%-- Tên khách hàng --%>
                                         <td>${order.customer.name}</td>
@@ -467,7 +468,7 @@
                                         <%-- Dropdown cập nhật trạng thái --%>
                                         <td>
                                             <label>
-                                                <select name="status-${order.orderID}" class="badges bg-lightgrey">
+                                                <select name="status-${order.id}" class="badges bg-lightgrey">
                                                     <option value="">Cập nhật:</option>
                                                     <option value="WAITING_PROCESS">Chờ duyệt</option>
                                                     <option value="CANCELED">Đã hủy</option>
@@ -482,7 +483,7 @@
 
                                         <%-- Nút xử lý --%>
                                         <td>
-                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.orderID}">
+                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.id}">
                                                 <img src="${pageContext.request.contextPath}/assets/img/icons/transfer1.svg" alt="Xử lý">
                                             </button>
                                         </td>
@@ -545,7 +546,7 @@
             type: 'POST',
             data: { orderId: orderId, newStatus: newStatus },
             success: function (response) {
-                alert(response);
+                // alert(response);
                 location.reload();
             },
             error: function (xhr) {

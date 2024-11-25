@@ -19,18 +19,18 @@ public class UpdateOrderStatusServlet extends HttpServlet {
         super.init();
         orderDAO = new OrderDAO();
     }
-
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Lấy các tham số từ request
             Long orderId = Long.parseLong(request.getParameter("orderId"));
             String newStatus = request.getParameter("newStatus");
 
-            // Cập nhật trạng thái đơn hàng
             orderDAO.updateOrderStatus(orderId, newStatus);
 
-            // Phản hồi lại client
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("Order status updated successfully!");
         } catch (Exception e) {

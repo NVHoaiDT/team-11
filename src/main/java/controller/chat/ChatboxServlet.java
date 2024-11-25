@@ -15,7 +15,12 @@ import java.io.IOException;
 public class ChatboxServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String incomingIdRequest = request.getParameter("incoming_id");
         String outgoingIdRequest = request.getParameter("outgoing_id");
         String currentRole = request.getParameter("currentRole");
