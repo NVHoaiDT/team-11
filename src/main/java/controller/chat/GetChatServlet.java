@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/getChat")
+@WebServlet("/Staff/getChat")
 public class GetChatServlet extends HttpServlet {
 
     @Override

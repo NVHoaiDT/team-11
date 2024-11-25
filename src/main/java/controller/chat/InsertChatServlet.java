@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@WebServlet("/insertChat")
+@WebServlet("/Staff/insertChat")
 public class InsertChatServlet extends HttpServlet {
 
     @Override

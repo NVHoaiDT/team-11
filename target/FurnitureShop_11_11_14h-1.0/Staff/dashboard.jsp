@@ -219,13 +219,13 @@
       <div id="sidebar-menu" class="sidebar-menu">
         <ul>
           <li class="active">
-            <a href="index.jsp"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Trang chủ</span> </a>
+            <a href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Trang chủ</span> </a>
           </li>
           <li class="submenu">
 
 
           <li class="submenu">
-            <a href="javascript:void(0);"><img src="assets/img/icons/calendars.svg" alt="img"><span> Công việc </span> <span class="menu-arrow"></span></a>
+            <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/calendars.svg" alt="img"><span> Công việc </span> <span class="menu-arrow"></span></a>
             <ul>
 
                 <li><a href="${pageContext.request.contextPath}/Staff/quotationList.jsp">Xử lý đơn</a></li>

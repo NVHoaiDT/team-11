@@ -30,13 +30,16 @@ public class GetCustomerChatListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Lấy staffID từ session
+        // Session
         HttpSession session = request.getSession();
 
-        session.setAttribute("staffID", "11");
-
+        // Fa ke session
+        session.setAttribute("staffID", "2151");
         String staffIDString = (String) session.getAttribute("staffID");
         Long staffID = Long.parseLong(staffIDString);
+
+        // Staff staffSession = (Staff) session.getAttribute("staff");
+        // Long staffID = staffSession.getPersonID();
 
 
         try {
