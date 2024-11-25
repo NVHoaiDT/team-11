@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/loadCustomerList")
+@WebServlet("/Staff/loadCustomerList")
 public class GetCustomerChatListServlet extends HttpServlet {
 
     private ChatDAO chatDAO;

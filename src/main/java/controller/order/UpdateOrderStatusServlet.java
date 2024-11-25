@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/updateOrderStatus")
+@WebServlet("/Staff/updateOrderStatus")
 public class UpdateOrderStatusServlet extends HttpServlet {
 
     private OrderDAO orderDAO;

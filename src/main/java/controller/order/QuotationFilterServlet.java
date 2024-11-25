@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/filterQuotations")
+@WebServlet("/Staff/filterQuotations")
 public class QuotationFilterServlet extends HttpServlet {
 
     @Override
@@ -29,10 +29,13 @@ public class QuotationFilterServlet extends HttpServlet {
                 filteredOrders = orderDAO.filterOrdersByStatus(status);
             }
             request.setAttribute("filteredOrders", filteredOrders);
+            System.out.println(filteredOrders);
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Lỗi khi lọc đơn hàng: " + e.getMessage());
         }
+
         request.getRequestDispatcher("quotationList.jsp").forward(request, response);
     }
 }
