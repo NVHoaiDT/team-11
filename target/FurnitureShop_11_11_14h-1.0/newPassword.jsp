@@ -80,7 +80,7 @@
                         <!-- Submit Button -->
                         <div class="form-group row justify-content-center">
                             <div class="col-3 px-3 mt-3">
-                                <input type="submit" value="Đổi mật khẩu" class="btn btn-info btn-block">
+                                <input type="submit" value="Xác nhận" class="btn btn-info btn-block">
                             </div>
                         </div>
                     </form>

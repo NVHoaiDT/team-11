@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/quotationList")
+@WebServlet("/Staff/quotationList")
 public class QuotationListServlet extends HttpServlet {
 
     private OrderDAO orderDAO;
@@ -19,14 +19,21 @@ public class QuotationListServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        orderDAO = new OrderDAO(); // Khởi tạo DAO
+        orderDAO = new OrderDAO();
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<Order> orders = orderDAO.getAllOrders();
             request.setAttribute("orders", orders);
+
+            System.out.println(orders);
 
         } catch (Exception e) {
             e.printStackTrace();
