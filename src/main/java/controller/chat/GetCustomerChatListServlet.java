@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/loadCustomerList")
+@WebServlet("/Staff/loadCustomerList")
 public class GetCustomerChatListServlet extends HttpServlet {
 
     private ChatDAO chatDAO;
@@ -29,14 +29,22 @@ public class GetCustomerChatListServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Lấy staffID từ session
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Session
         HttpSession session = request.getSession();
 
-        session.setAttribute("staffID", "11");
+        // Fa ke session
+//        session.setAttribute("staffID", "2151");
+//        String staffIDString = (String) session.getAttribute("staffID");
+//        Long staffID = Long.parseLong(staffIDString);
 
-        String staffIDString = (String) session.getAttribute("staffID");
-        Long staffID = Long.parseLong(staffIDString);
+         Staff staffSession = (Staff) session.getAttribute("staff");
+         Long staffID = staffSession.getPersonID();
 
 
         try {
@@ -60,6 +68,7 @@ public class GetCustomerChatListServlet extends HttpServlet {
 
             request.setAttribute("staff", staff);
             request.setAttribute("customers", customers);
+            request.setAttribute("staffID", staffID);
             request.setAttribute("latestMessages", latestMessages);
 
         } catch (Exception e) {
