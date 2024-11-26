@@ -20,6 +20,14 @@ public class ImageFeedback implements Serializable {
     @Transient // Không lưu thuộc tính này vào cơ sở dữ liệu
     private String base64Image;
 
+    public ImageFeedback(byte[] feedbackImage) {
+        this.feedbackImage = feedbackImage;
+    }
+
+    public ImageFeedback() {
+
+    }
+
     public Long getId() {
         return id;
     }

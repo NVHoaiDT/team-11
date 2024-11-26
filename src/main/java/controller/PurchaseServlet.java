@@ -27,7 +27,7 @@ public class PurchaseServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/cart.jsp";
+        String url = "/KhachHang/cart.jsp";
         ServletContext sc = getServletContext();
         String action = request.getParameter("action");
         if(action == null) {
@@ -36,13 +36,13 @@ public class PurchaseServlet extends HttpServlet {
         HttpSession session = request.getSession(); // không tạo sesion mới nếu có
         Customer customer = (Customer) session.getAttribute("customer");
         if(customer == null) {
-            url = "/login.jsp";
+            url = "/KhachHang/login.jsp";
             sc.getRequestDispatcher(url).forward(request, response);
             return;  // Dừng thực thi ở đây
         }
 
         if (action.equals("addtocart")) {
-            url = "/shop.jsp";
+            url = "/shopServlet";
             int furnitureID = Integer.parseInt(request.getParameter("furnitureID"));
             Furniture fur = FurnitureDB.getFurnitureByID(furnitureID);
             boolean check = CartDB.addToCart(customer, fur);
@@ -72,7 +72,7 @@ public class PurchaseServlet extends HttpServlet {
             request.setAttribute("listFurniture", cart.getListFurniture());
             sc.getRequestDispatcher(url).forward(request, response);
         } else if (action.equals("purchase")) { // thiếu coupon !! sửa ở đây
-            url = "/checkout.jsp";
+            url = "/KhachHang/checkout.jsp";
             String listID = request.getParameter("listFurnitureID"); //Toàn bộ tên được chọn
             if (listID != null && !listID.isEmpty()) {
                 // Chuyển chuỗi thành mảng các ID sản phẩm

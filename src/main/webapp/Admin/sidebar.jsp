@@ -13,11 +13,6 @@
                 </li>
             </ul>
             <ul>
-                <li id="dashboard">
-                    <a href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
-                </li>
-            </ul>
-            <ul>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span> <span class="menu-arrow"></span> </a>
                     <ul>
@@ -48,16 +43,6 @@
                         </li>
                         <li ><a href="category-controller?action=null" id="add-category">Thêm danh mục sản phẩm</a></li>
                     </ul>
-                </li>
-            </ul>
-            <ul>
-                <li id="profile">
-                    <a href="profile.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img" class=""><span>Thông tin cá nhân</span> </a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="updatepassword.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img" class=""><span>Cập nhập mật khẩu</span> </a>
                 </li>
             </ul>
         </div>

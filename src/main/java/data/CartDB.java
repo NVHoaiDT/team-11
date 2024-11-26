@@ -49,7 +49,6 @@ public class CartDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         trans.begin();
-
         try {
             Cart cart = getCart(customer);
             if (cart == null) {
@@ -84,7 +83,9 @@ public class CartDB {
             }
         } catch (Exception e) {
             System.out.println("Có lỗi: " + e.getMessage());
-            trans.rollback();
+            if (trans.isActive()) {
+                trans.rollback();
+            }
             return false; // Gặp lỗi trong quá trình thêm
         } finally {
             em.close();

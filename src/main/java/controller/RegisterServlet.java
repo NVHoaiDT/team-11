@@ -23,22 +23,22 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/verifyEmail.jsp";
+        String url = "/KhachHang/verifyEmail.jsp";
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
         String messageDK = "";
         if (name == null || name.equals("") || email == null || email.equals("") || password == null || password.equals("")) {
-            url = "/login.jsp";
+            url = "/KhachHang/login.jsp";
             messageDK = "Vui lòng nhập đủ thông tin";
         }
         else if  (!ValidationUtils.isValidEmail(email)){
-            url = "/login.jsp";
+            url = "/KhachHang/login.jsp";
             messageDK = "Vui lòng nhập đúng định dạng email";
         }
         else if (CustomerDB.emailExists(email)){
-            url = "/login.jsp";
+            url = "/KhachHang/login.jsp";
             messageDK = "Email này đã được đăng kí trong hệ thống";
         }
 

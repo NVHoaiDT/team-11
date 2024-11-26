@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/login.jsp";
+        String url = "/KhachHang/login.jsp";
         String email = request.getParameter("email");
         String pass = request.getParameter("password");
         String role = request.getParameter("role");
@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("customer", customer);
-                    url = "/index.jsp";
+                    url = "/KhachHang/index.jsp";
                 }
             } else if (role.equals("staff")) {
                 Staff staff = StaffDB.getStaffByEmailPass(email, pass);
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("owner", owner);
-                    url = "/Chu.jsp";
+                    url = "/listStaff";
                 }
             } else {
                 message = "Vui lòng chọn vai trò của bạn";

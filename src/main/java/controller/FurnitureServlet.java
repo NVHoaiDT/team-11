@@ -34,7 +34,7 @@ public class FurnitureServlet extends HttpServlet {
             List<Furniture> listFurniture = FurnitureDB.getFurnitureNew();
             request.setAttribute("listFurniture", listFurniture);
             request.setAttribute("furniture", furniture);
-            context.getRequestDispatcher("/furniture.jsp").forward(request, response);
+            context.getRequestDispatcher("/KhachHang/furniture.jsp").forward(request, response);
         }
     }
 }

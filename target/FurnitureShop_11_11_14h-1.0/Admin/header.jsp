@@ -36,10 +36,10 @@
 
         <div class="header-left active">
             <a href="listStaff" class="logo">
-                <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
+                <img src="${pageContext.request.contextPath}/images/logoshop2.png" alt="" style="height: 100px;">
             </a>
             <a href="listStaff" class="logo-small">
-                <img src="${pageContext.request.contextPath}/assets/img/logo-small.png" alt="">
+                <img src="${pageContext.request.contextPath}/images/logoFurni.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
             </a>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="${pageContext.request.contextPath}/login.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="${pageContext.request.contextPath}/KhachHang/login.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>

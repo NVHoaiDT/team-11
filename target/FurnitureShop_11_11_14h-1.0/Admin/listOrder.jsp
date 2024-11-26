@@ -22,10 +22,15 @@
             <!-- Phần thông tin khách hàng -->
             <div class="customer-profile" style="display: flex; gap: 20px; align-items: stretch; height: auto;">
                 <!-- Ảnh đại diện -->
-                <div href="javascript:void(0);" class="product-img" style="flex-shrink: 0; height: 200px; width: 180px; display: flex; align-items: stretch;">
-                    <img src="data:image/jpeg;base64,${customer.avatar}"
-                         alt="Avatar"
-                         style="height: 100%; width: 100%; object-fit: cover; display: block;" />
+                <div class="product-img" style="flex-shrink: 0; height: 200px; width: 180px; display: flex; align-items: stretch;">
+                    <c:choose>
+                        <c:when test="${not empty customer.avatar}">
+                            <img src="data:image/jpeg;base64,${customer.avatar}" alt="Avatar" style="height: 100%; width: 100%; object-fit: cover; display: block;" />
+                        </c:when>
+                        <c:otherwise>
+                            <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="Avatar" style="height: 100%; width: 100%; object-fit: cover; display: block;" />
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <!-- Thông tin khách hàng -->

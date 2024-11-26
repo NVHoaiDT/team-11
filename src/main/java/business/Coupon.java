@@ -21,8 +21,10 @@ public class Coupon implements Serializable {
     private Date endDate;
     private String useCondition;
     private double minOrderValue;
-    @OneToMany
+
+    @ManyToMany
     private List<Category> applicableFurniture;
+
     private int useLimit;
     private int currentUsage;
 

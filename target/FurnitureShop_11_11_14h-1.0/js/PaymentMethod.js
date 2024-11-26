@@ -218,13 +218,7 @@ function checkMethodPayment() {
                 // Kiểm tra nếu URL mã QR hợp lệ
                 document.getElementById('overlay').style.display = 'none';
                 if (qrCodeUrl !== 'False') {
-                    showPaymentModal(qrCodeUrl);
-                    setTimeout(() =>{
-                        setInterval(() =>{
-                            checkPaid(amount,description);
-                        },1000);
-                    },20000);
-
+                    showPaymentModal(qrCodeUrl,amount,description);
                 } else {
                     alert('Sản phẩm không đủ hoặc đã ngưng kinh doanh!');
                 }
@@ -249,9 +243,10 @@ function checkMethodPayment() {
             })
     }
 }
+let checkPaidInterval; // Biến lưu ID của setInterval
 
 // Hàm hiển thị modal với mã QR
-function showPaymentModal(qrCodeUrl) {
+function showPaymentModal(qrCodeUrl,amount,description) {
     const modal = document.getElementById('paymentModal');
     const qrCodeImage = document.getElementById('qr-code-img');
     qrCodeImage.src = qrCodeUrl;
@@ -266,10 +261,17 @@ function showPaymentModal(qrCodeUrl) {
     countdownTime = 600;
     timerDisplay.textContent = `${String(Math.floor(countdownTime / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`;
     startCountdown(); // Gọi hàm bắt đầu đếm ngược
+    setTimeout(() =>{
+        checkPaidInterval = setInterval(() => {
+            checkPaid(amount,description);
+        },1000);
+    },20000);
 }
 // Đóng modal khi nhấn vào dấu X
 function closeModal() {
     document.getElementById("paymentModal").style.display = "none";
+    clearInterval(checkPaidInterval);
+
 }
 
 // Đóng modal nếu nhấn ra ngoài modal hoặc dấu X

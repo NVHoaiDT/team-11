@@ -28,7 +28,7 @@ public class VerifyServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        String url = "/verifyEmail.jsp";
+        String url = "/KhachHang/verifyEmail.jsp";
         String messageDK = "";
         HttpSession session = request.getSession();
 
@@ -80,7 +80,7 @@ public class VerifyServlet extends HttpServlet {
                             session.removeAttribute("otp");
                             session.removeAttribute("customerInfor");
                             messageDK = "Đăng kí tài khoản thành công";
-                            url = "/login.jsp";
+                            url = "/KhachHang/login.jsp";
                         }
                         else{
                             messageDK = "Lỗi hệ thống";

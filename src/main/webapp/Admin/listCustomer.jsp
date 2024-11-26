@@ -151,11 +151,16 @@
                             </td>
                             <td class="productimgname">
                                 <a href="javascript:void(0);" class="product-img">
-                                    <img src="data:image/jpeg;base64,${customer.avatar} "
-                                         alt="Avatar" />
+                                    <c:choose>
+                                        <c:when test="${not empty customer.avatar}">
+                                            <img src="data:image/jpeg;base64,${customer.avatar}" alt="Avatar" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="Avatar" />
+                                        </c:otherwise>
+                                    </c:choose>
                                 </a>
                                 <a href="javascript:void(0);">${customer.name}</a>
-
                             </td>
                             <td>${customer.phone}</td>
                             <td>${customer.email}</td>
