@@ -33,7 +33,7 @@
 		</header>
 
 		<div class="search">
-			<span class="text">Select a user to start chat...</span>
+			<span class="text">Chọn khách hàng để bắt đầu chat...</span>
 			<input type="text" placeholder="Enter name to search...">
 			<button><i class="fa fa-search"></i></button>
 		</div>

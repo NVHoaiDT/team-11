@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("staff", staff);
-                    url = "/NhanVien.jsp";
+                    url = "/Staff/dashboard.jsp";
                 }
             } else if (role.equals("owner")) {
                 Owner owner = OwnerDB.getOwnerByEmailPass(email, pass);

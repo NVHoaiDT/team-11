@@ -42,7 +42,7 @@
       </header>
 
       <div class="search">
-        <span class="text">Select a user to start chat...</span>
+        <span class="text">Chọn nhân viên muốn chat...</span>
         <input type="text" placeholder="Enter name to search...">
         <button><i class="fas fa-search"></i></button>
       </div>

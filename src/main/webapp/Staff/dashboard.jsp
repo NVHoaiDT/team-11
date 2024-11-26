@@ -13,18 +13,18 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Our Staff</title>
 
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.jpg">
+  <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/img/favicon.jpg">
 
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css">
 
-  <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dataTables.bootstrap4.min.css">
 
-  <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-  <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/all.min.css">
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 <body>
 <div id="global-loader">
@@ -36,11 +36,11 @@
   <div class="header">
 
     <div class="header-left active">
-      <a href="index.jsp" class="logo">
-        <img src="assets/img/logo.png" alt="">
+      <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp" class="logo">
+        <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
       </a>
-      <a href="index.jsp" class="logo-small">
-        <img src="assets/img/logo-small.png" alt="">
+      <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp" class="logo-small">
+        <img src="${pageContext.request.contextPath}/assets/img/logo-small.png" alt="">
       </a>
       <a id="toggle_btn" href="javascript:void(0);">
       </a>
@@ -65,10 +65,10 @@
             <div class="searchinputs">
               <input type="text" placeholder="Search Here ...">
               <div class="search-addon">
-                <span><img src="assets/img/icons/closes.svg" alt="img"></span>
+                <span><img src="${pageContext.request.contextPath}/assets/img/icons/closes.svg" alt="img"></span>
               </div>
             </div>
-            <a class="btn" id="searchdiv"><img src="assets/img/icons/search.svg" alt="img"></a>
+            <a class="btn" id="searchdiv"><img src="${pageContext.request.contextPath}/assets/img/icons/search.svg" alt="img"></a>
           </form>
         </div>
       </li>
@@ -77,16 +77,16 @@
       <li class="nav-item dropdown has-arrow flag-nav">
         <div class="dropdown-menu dropdown-menu-right">
           <a href="javascript:void(0);" class="dropdown-item">
-            <img src="assets/img/flags/us.png" alt="" height="16"> English
+            <img src="${pageContext.request.contextPath}/assets/img/flags/us.png" alt="" height="16"> English
           </a>
           <a href="javascript:void(0);" class="dropdown-item">
-            <img src="assets/img/flags/fr.png" alt="" height="16"> French
+            <img src="${pageContext.request.contextPath}/assets/img/flags/fr.png" alt="" height="16"> French
           </a>
           <a href="javascript:void(0);" class="dropdown-item">
-            <img src="assets/img/flags/es.png" alt="" height="16"> Spanish
+            <img src="${pageContext.request.contextPath}/assets/img/flags/es.png" alt="" height="16"> Spanish
           </a>
           <a href="javascript:void(0);" class="dropdown-item">
-            <img src="assets/img/flags/de.png" alt="" height="16"> German
+            <img src="${pageContext.request.contextPath}/assets/img/flags/de.png" alt="" height="16"> German
           </a>
         </div>
       </li>
@@ -94,7 +94,7 @@
 
       <li class="nav-item dropdown">
         <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-          <img src="assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill">4</span>
+          <img src="${pageContext.request.contextPath}/assets/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill">4</span>
         </a>
         <div class="dropdown-menu notifications">
           <div class="topnav-dropdown-header">
@@ -133,7 +133,7 @@
                 <a href="activities.html">
                   <div class="media d-flex">
 <span class="avatar flex-shrink-0">
-<img alt="" src="assets/img/profiles/avatar-06.jpg">
+<img alt="" src="${pageContext.request.contextPath}/assets/img/profiles/avatar-06.jpg">
 </span>
                     <div class="media-body flex-grow-1">
                       <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
@@ -146,7 +146,7 @@
                 <a href="activities.html">
                   <div class="media d-flex">
 <span class="avatar flex-shrink-0">
-<img alt="" src="assets/img/profiles/avatar-17.jpg">
+<img alt="" src="${pageContext.request.contextPath}/assets/img/profiles/avatar-17.jpg">
 </span>
                     <div class="media-body flex-grow-1">
                       <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
@@ -159,7 +159,7 @@
                 <a href="activities.html">
                   <div class="media d-flex">
 <span class="avatar flex-shrink-0">
-<img alt="" src="assets/img/profiles/avatar-13.jpg">
+<img alt="" src="${pageContext.request.contextPath}/assets/img/profiles/avatar-13.jpg">
 </span>
                     <div class="media-body flex-grow-1">
                       <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
@@ -178,13 +178,13 @@
 
       <li class="nav-item dropdown has-arrow main-drop">
         <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img src="${pageContext.request.contextPath}/assets/img/profiles/avator1.jpg" alt="">
 <span class="status online"></span></span>
         </a>
         <div class="dropdown-menu menu-drop-user">
           <div class="profilename">
             <div class="profileset">
-<span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img src="${pageContext.request.contextPath}/assets/img/profiles/avator1.jpg" alt="">
 <span class="status online"></span></span>
               <div class="profilesets">
                 <h6>John Doe</h6>
@@ -219,7 +219,7 @@
       <div id="sidebar-menu" class="sidebar-menu">
         <ul>
           <li class="active">
-            <a href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Trang chủ</span> </a>
+            <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Trang chủ</span> </a>
           </li>
           <li class="submenu">
 
@@ -228,9 +228,34 @@
             <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/calendars.svg" alt="img"><span> Công việc </span> <span class="menu-arrow"></span></a>
             <ul>
 
+
+
+
+
+
+
+
+
+
+
                 <li><a href="${pageContext.request.contextPath}/Staff/quotationList">Xử lý đơn</a></li>
                 <li><a href="${pageContext.request.contextPath}/Staff/loadCustomerList">Chat (NV)</a></li>
-                <li><a href="${pageContext.request.contextPath}/Staff/loadStaffChatList">Chat (kH)</a></li>
+<%--                <li><a href="${pageContext.request.contextPath}/Staff/loadStaffChatList">Chat (KH)</a></li>--%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </ul>
           </li>
@@ -248,7 +273,7 @@
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget">
             <div class="dash-widgetimg">
-              <span><img src="assets/img/icons/dash1.svg" alt="img"></span>
+              <span><img src="${pageContext.request.contextPath}/assets/img/icons/dash1.svg" alt="img"></span>
             </div>
             <div class="dash-widgetcontent">
               <h5><span class="counters" data-count="307144.00">1</span></h5>
@@ -259,7 +284,7 @@
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget dash1">
             <div class="dash-widgetimg">
-              <span><img src="assets/img/icons/dash2.svg" alt="img"></span>
+              <span><img src="${pageContext.request.contextPath}/assets/img/icons/dash2.svg" alt="img"></span>
             </div>
             <div class="dash-widgetcontent">
               <h5><span class="counters" data-count="4385.00">100</span></h5>
@@ -270,7 +295,7 @@
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget dash2">
             <div class="dash-widgetimg">
-              <span><img src="assets/img/icons/dash3.svg" alt="img"></span>
+              <span><img src="${pageContext.request.contextPath}/assets/img/icons/dash3.svg" alt="img"></span>
             </div>
             <div class="dash-widgetcontent">
               <h5><span class="counters" data-count="385656.50">385,656.50</span></h5>
@@ -281,7 +306,7 @@
         <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget dash3">
             <div class="dash-widgetimg">
-              <span><img src="assets/img/icons/dash4.svg" alt="img"></span>
+              <span><img src="${pageContext.request.contextPath}/assets/img/icons/dash4.svg" alt="img"></span>
             </div>
             <div class="dash-widgetcontent">
               <h5><span class="counters" data-count="40000.00">400.00</span></h5>
@@ -351,7 +376,7 @@
                 </ul>
                 <div class="dropdown">
                   <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    2022 <img src="assets/img/icons/dropdown.svg" alt="img" class="ms-2">
+                    2022 <img src="${pageContext.request.contextPath}/assets/img/icons/dropdown.svg" alt="img" class="ms-2">
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
@@ -405,7 +430,7 @@
                     <td>1</td>
                     <td class="productimgname">
                       <a href="productlist.jsp" class="product-img">
-                        <img src="assets/img/product/product22.jpg" alt="product">
+                        <img src="${pageContext.request.contextPath}/assets/img/product/product22.jpg" alt="product">
                       </a>
                       <a href="productlist.jsp">Apple Earpods</a>
                     </td>
@@ -415,7 +440,7 @@
                     <td>2</td>
                     <td class="productimgname">
                       <a href="productlist.jsp" class="product-img">
-                        <img src="assets/img/product/product23.jpg" alt="product">
+                        <img src="${pageContext.request.contextPath}/assets/img/product/product23.jpg" alt="product">
                       </a>
                       <a href="productlist.jsp">iPhone 11</a>
                     </td>
@@ -425,7 +450,7 @@
                     <td>3</td>
                     <td class="productimgname">
                       <a href="productlist.jsp" class="product-img">
-                        <img src="assets/img/product/product24.jpg" alt="product">
+                        <img src="${pageContext.request.contextPath}/assets/img/product/product24.jpg" alt="product">
                       </a>
                       <a href="productlist.jsp">samsung</a>
                     </td>
@@ -435,7 +460,7 @@
                     <td>4</td>
                     <td class="productimgname">
                       <a href="productlist.jsp" class="product-img">
-                        <img src="assets/img/product/product6.jpg" alt="product">
+                        <img src="${pageContext.request.contextPath}/assets/img/product/product6.jpg" alt="product">
                       </a>
                       <a href="productlist.jsp">Macbook Pro</a>
                     </td>
@@ -469,7 +494,7 @@
                 <td><a href="javascript:void(0);">IT0001</a></td>
                 <td class="productimgname">
                   <a class="product-img" href="productlist.jsp">
-                    <img src="assets/img/product/product2.jpg" alt="product">
+                    <img src="${pageContext.request.contextPath}/assets/img/product/product2.jpg" alt="product">
                   </a>
                   <a href="productlist.jsp">Orange</a>
                 </td>
@@ -482,7 +507,7 @@
                 <td><a href="javascript:void(0);">IT0002</a></td>
                 <td class="productimgname">
                   <a class="product-img" href="productlist.jsp">
-                    <img src="assets/img/product/product3.jpg" alt="product">
+                    <img src="${pageContext.request.contextPath}/assets/img/product/product3.jpg" alt="product">
                   </a>
                   <a href="productlist.jsp">Pineapple</a>
                 </td>
@@ -495,7 +520,7 @@
                 <td><a href="javascript:void(0);">IT0003</a></td>
                 <td class="productimgname">
                   <a class="product-img" href="productlist.jsp">
-                    <img src="assets/img/product/product4.jpg" alt="product">
+                    <img src="${pageContext.request.contextPath}/assets/img/product/product4.jpg" alt="product">
                   </a>
                   <a href="productlist.jsp">Stawberry</a>
                 </td>
@@ -508,7 +533,7 @@
                 <td><a href="javascript:void(0);">IT0004</a></td>
                 <td class="productimgname">
                   <a class="product-img" href="productlist.jsp">
-                    <img src="assets/img/product/product5.jpg" alt="product">
+                    <img src="${pageContext.request.contextPath}/assets/img/product/product5.jpg" alt="product">
                   </a>
                   <a href="productlist.jsp">Avocat</a>
                 </td>
@@ -526,20 +551,20 @@
 </div>
 
 
-<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>
 
-<script src="assets/js/feather.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>
 
-<script src="assets/js/jquery.slimscroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>
 
-<script src="assets/js/jquery.dataTables.min.js"></script>
-<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap4.min.js"></script>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
-<script src="assets/plugins/apexchart/chart-data.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/apexchart/apexcharts.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/apexchart/chart-data.js"></script>
 
-<script src="assets/js/script.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
 </body>
 </html>
