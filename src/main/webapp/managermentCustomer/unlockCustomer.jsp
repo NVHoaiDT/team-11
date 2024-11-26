@@ -97,7 +97,7 @@
             $('#confirmUnlockModal').modal('hide');
 
             $.ajax({
-                url: "${pageContext.request.contextPath}/admin/customer-list/" + customerId,
+                url: "${pageContext.request.contextPath}/admin-customer-list/" + customerId,
                 type: "POST",
                 data: {
                     action: "unlock"

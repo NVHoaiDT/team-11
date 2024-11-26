@@ -1,7 +1,7 @@
 const rowsPerPage = 5;
 let currentPage = 1;
 
-const rows = Array.from(document.querySelectorAll('#user-table tr'));
+const rows = Array.from(document.querySelectorAll('#employee-table tr'));
 const totalPages = Math.ceil(rows.length / rowsPerPage);
 
 function displayRows(page) {
@@ -16,7 +16,7 @@ function displayRows(page) {
         }
     });
 
-    document.getElementById('page-info').textContent = `Page ${page} of ${totalPages}`;
+    document.getElementById('page-info').textContent = `Page ${page} of ${totalPages} `;
     document.getElementById('prev-page').disabled = page === 1;
     document.getElementById('next-page').disabled = page === totalPages;
 }

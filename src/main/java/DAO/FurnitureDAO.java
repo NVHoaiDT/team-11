@@ -210,17 +210,17 @@ public class FurnitureDAO {
             // Lọc theo priceRange nếu có
             if (priceRange != null && !priceRange.isEmpty()) {
                 switch (priceRange) {
-                    case "<150":
-                        query.append(" AND f1.furniturePrice < 150");
+                    case "<5000000":
+                        query.append(" AND f1.furniturePrice < 5000000");
                         break;
-                    case "150 - 200":
-                        query.append(" AND f1.furniturePrice BETWEEN 150 AND 200");
+                    case "5000000 - 10000000":
+                        query.append(" AND f1.furniturePrice BETWEEN 5000000 AND 10000000");
                         break;
-                    case "250 - 300":
-                        query.append(" AND f1.furniturePrice BETWEEN 250 AND 300");
+                    case "10000000 - 20000000":
+                        query.append(" AND f1.furniturePrice BETWEEN 10000000 AND 20000000");
                         break;
-                    case ">300":
-                        query.append(" AND f1.furniturePrice > 300");
+                    case ">20000000":
+                        query.append(" AND f1.furniturePrice > 20000000");
                         break;
                 }
             }

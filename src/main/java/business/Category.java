@@ -3,8 +3,9 @@ package business;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
+import DAO.StatisticDTO;
 @Entity
 public class Category implements Serializable {
     @Id
@@ -65,6 +66,33 @@ public class Category implements Serializable {
 
     public void setFurnitures(List<Furniture> furnitures) {
         this.furnitures = furnitures;
+    }
+
+    public static List<String> getListImage(List<String> categoryNames) {
+        List<String> images = new ArrayList<>();
+        for (String categoryName : categoryNames) {
+            Category category = StatisticDTO.findCategoryByName(categoryName);
+            if (category != null && !category.getFurnitures().isEmpty()) {
+                Furniture firstFurniture = category.getFurnitures().get(0);
+                Image representativeImage = firstFurniture.getRepresentativeImage();
+                if (representativeImage != null) {
+                    images.add(representativeImage.getBase64Data());
+                }
+            }
+        }
+        return images;
+    }
+
+    public static List<Furniture> getListFirstFurniture(List<String> categoryNames) {
+        List<Furniture> Furnitures = new ArrayList<>();
+        for (String categoryName : categoryNames) {
+            Category category = StatisticDTO.findCategoryByName(categoryName);
+            if (category != null && !category.getFurnitures().isEmpty()) {
+                Furniture firstFurniture = category.getFurnitures().get(0);
+                Furnitures.add(firstFurniture);
+            }
+        }
+        return Furnitures;
     }
 }
 

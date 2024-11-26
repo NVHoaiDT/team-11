@@ -9,6 +9,8 @@ import services.ICategoryServices;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 public class CategoryServiceImpl implements ICategoryServices {
 
     private final CategoryDAO categoryDAO;
@@ -19,17 +21,13 @@ public class CategoryServiceImpl implements ICategoryServices {
 
     @Override
     public List<CategoryResponse> getListCategory() {
-        /*
         //todo
         // call dbutil, get list model, transfer model to dto, return dto
         List<Category> categories = categoryDAO.getCategoryList();
         categories.sort(Comparator.comparing(Category::getId));
-        // Chuyển đổi sang DTO
         return categories.stream()
-                .map(CategoryResponse::new).toList();
-
-         */
-        return  null;
+                .map(CategoryResponse::new)
+                .collect(Collectors.toList());
     }
 
     @Override

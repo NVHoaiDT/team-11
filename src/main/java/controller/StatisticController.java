@@ -1,6 +1,7 @@
 package controller;
 
 
+import DAO.CategoryDAO;
 import DAO.StatisticDTO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import business.Category;
 import business.Furniture;
 import com.google.gson.Gson;
 
@@ -28,15 +30,15 @@ public class StatisticController extends HttpServlet {
         if ("index2".equals(page)) {
             productStatistic(request,response,availableYears);
             request.setAttribute("availableYears", availableYears);
-            request.getRequestDispatcher("/index2.jsp").forward(request, response);
+            request.getRequestDispatcher("/Admin/index2.jsp").forward(request, response);
         } else if ("index3".equals(page)) {
             statusStatistic(request,response,availableYears);
             request.setAttribute("availableYears", availableYears);
-            request.getRequestDispatcher("/index3.jsp").forward(request, response);
+            request.getRequestDispatcher("/Admin/index3.jsp").forward(request, response);
         } else {
             revenueStatistic(request,response,availableYears);
             request.setAttribute("availableYears", availableYears);
-            request.getRequestDispatcher("/index1.jsp").forward(request, response);
+            request.getRequestDispatcher("/Admin/index1.jsp").forward(request, response);
         }
     }
 
@@ -108,8 +110,8 @@ public class StatisticController extends HttpServlet {
 
             Long totalSale = StatisticDTO.getTotalSalesByCategory();
 
-            List<String> imageLists = StatisticDTO.getListImage(categoriesName);
-            List<Furniture> listFirstFurniture = StatisticDTO.getListFirstFurniture(categoriesName);
+            List<String> imageLists = Category.getListImage(categoriesName);
+            List<Furniture> listFirstFurniture = Category.getListFirstFurniture(categoriesName);
 
             request.setAttribute("categorySales", sales);
             request.setAttribute("topCategoriesName", topCategoriesName);
@@ -136,9 +138,9 @@ public class StatisticController extends HttpServlet {
             String topCategoriesName = categoriesName.get(0);
             Long totalSale = StatisticDTO.getTotalSalesByCategoryByYear(year);
 
-            List<String> imageLists = StatisticDTO.getListImage(categoriesName);
+            List<String> imageLists = Category.getListImage(categoriesName);
 
-            List<Furniture> listFirstFurniture = StatisticDTO.getListFirstFurniture(categoriesName);
+            List<Furniture> listFirstFurniture = Category.getListFirstFurniture(categoriesName);
 
             request.setAttribute("categorySales", sales);
             request.setAttribute("topCategoriesName", topCategoriesName);

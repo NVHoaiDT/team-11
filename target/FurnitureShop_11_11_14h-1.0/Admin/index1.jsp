@@ -126,7 +126,7 @@
             <c:forEach var="payment" items="${payments}">
               <tr>
                 <td>${payment.paymentID}</td>
-                <td><a href="javascript:void(0);">${payment.order.id}</a></td>
+                <td><a href="javascript:void(0);" onclick="viewListProduct(${payment.order.id})">${payment.order.id}</a></td>
                 <td>${payment.method}</td>
                 <td>${payment.money}</td>
                 <td><fmt:formatDate value="${empty payment.paymentDate ? payment.order.orderDate : payment.paymentDate}" pattern="dd-MM-yyyy"/></td>
@@ -139,6 +139,69 @@
     </div>
   </div>
 </div>
-
+<div class="modal fade" id="productOfOrderList" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document" style="max-width: 90%; width: 90%;">
+    <div class="modal-content" id="orderModalContent">
+      <div class="modal-header" id="orderModalHeader">
+        <h5 class="modal-title" id="modalTitle">Chi Tiết Hóa Đơn</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#productOfOrderList').modal('hide')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="orderModalBody">
+        <!-- Thông tin thanh toán -->
+        <div id="paymentInfo">
+          <h5>Thông Tin Thanh Toán</h5>
+          <table>
+            <tr>
+              <td class="payment-label">Tổng chi phí:</td>
+              <td class="payment-value" id="paymentTotalPrice">13,500,000 VNĐ</td>
+            </tr>
+            <tr>
+              <td class="payment-label">Mã giảm giá:</td>
+              <td class="payment-value" id="paymentCoupon">Giảm giá 5%</td>
+            </tr>
+            <tr>
+              <td class="payment-label">Phương thức thanh toán:</td>
+              <td class="payment-value" id="paymentMethod">Cash on Delivery</td>
+            </tr>
+            <tr>
+              <td class="payment-label">Tiền thanh toán:</td>
+              <td class="payment-value" id="paymentMoney">2,000,000 VNĐ</td>
+            </tr>
+          </table>
+        </div>
+        <!-- Danh sách sản phẩm -->
+        <div id="productList">
+          <h5>Danh Sách Sản Phẩm</h5>
+          <div class="table-responsive1">
+            <table class="table table-bordered1">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Nội Thất</th>
+                <th>Mô Tả</th>
+                <th>Giá Một Sản Phẩm</th>
+                <th>Trạng Thái</th>
+                <th>Số Lượng</th>
+                <th>Tổng Chi Phí</th>
+              </tr>
+              </thead>
+              <tbody id="productOrderTableBody">
+              <!-- Dữ liệu sẽ được điền động từ JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" id="orderModalFooter">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#productOfOrderList').modal('hide')">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <c:import url="footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/ordercustomer/loadProductOfOrder.jsp"></jsp:include>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/ordercustomer/customer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/ordercustomer/modelDetailBill.css">
