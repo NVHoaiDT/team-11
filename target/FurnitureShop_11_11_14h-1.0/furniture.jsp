@@ -36,26 +36,36 @@
             <div class="row justify-content-between">
                 <div class="col-lg-7 mb-5 mb-lg-0">
                     <div class="imgs-grid">
-                        <c:forEach var="i" begin="0" end="${fn:length(furniture.furnitureImages) - 1}">
-                            <div class="grid grid-${i + 1}">
-                                <img src="data:image/png;base64,${furniture.furnitureImages[i].base64Data}"
-                                                          alt="${furniture.furnitureImages[i].fileName}"
-                                                          class="img-fluid product-thumbnail">
-                            </div>
-                        </c:forEach>
+                        <c:if test="${not empty furniture.furnitureImages}">
+                            <c:forEach var="i" begin="0" end="${fn:length(furniture.furnitureImages) > 3 ? 2 : fn:length(furniture.furnitureImages) - 1}">
+                                <div class="grid grid-${i + 1}">
+                                    <img src="data:image/png;base64,${furniture.furnitureImages[i].base64Data}"
+                                         alt="${furniture.furnitureImages[i].fileName}"
+                                         class="img-fluid product-thumbnail">
+                                </div>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
                 <div class="col-lg-5 ps-lg-5">
                     <h2 class="section-title mb-4">${furniture.category.categoryName}</h2>
-                    <p>Mô tả: ${furniture.furnitureDescription}</p>
+                    <p class="fur_des">Mô tả: ${furniture.furnitureDescription}</p>
 
                     <ul class="list-unstyled custom-list my-4">
-                        <li>Giá: ${furniture.furniturePrice} VND</li>
+                        <li class="priceValue"> ${furniture.furniturePrice} </li>
                         <li>Màu: ${furniture.furnitureColor}</li>
                         <li>NSX: ${furniture.category.manufacture}</li>
                         <li>Danh mục: ${furniture.category.categoryName}</li>
                     </ul>
-                    <p><a href="#" class="btn">Thêm</a></p>
+                    <form action="PurchaseServlet" method="POST" class="btn-form" style="display:inline;">
+                        <input type="hidden" name="furnitureID" value="${furniture.id}">
+                        <input type="hidden" name="action" value="addtocart">
+                        <button type="submit" class="btn-submit">
+											<span class="icon-cross">
+												<img src="images/cross.svg" class="img-fluid">
+											</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -68,8 +78,8 @@
             <div class="row">
                 <!-- Cột Mô Tả -->
                 <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-                    <h2 class="mb-4 section-title">Các sản phẩm cùng danh mục</h2>
-                    <p class="mb-4">${furniture.category.categoryDescription}</p>
+                    <h2 class="mb-4 section-title">Các sản phẩm mới nhất của shop</h2>
+                    <p class="mb-4">Đây là các sản phẩm mới ra mắt gần đây</p>
                     <p><a href="#" class="btn">Explore</a></p>
                 </div>
 
@@ -86,8 +96,8 @@
                                                 <img src="data:image/png;base64,${Furniture.representativeImage.base64Data}"
                                                      alt="${Furniture.representativeImage.fileName}" class="img-fluid product-thumbnail">
                                                 <h3 class="product-title">${Furniture.category.categoryName}</h3>
-                                                <h3 class="product-title">${Furniture.furnitureColor}</h3>
-                                                <strong class="product-price">${Furniture.furniturePrice} VND</strong>
+                                                <h3 class="product-title">Màu: ${Furniture.furnitureColor}</h3>
+                                                <strong class="product-price priceValue">${Furniture.furniturePrice}</strong>
                                             </a>
                                         </form>
                                     </div>
@@ -129,5 +139,6 @@
     <script src="js/tiny-slider.js"></script>
     <script src="js/custom.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/furniture.js"></script>
 </body>
 </html>

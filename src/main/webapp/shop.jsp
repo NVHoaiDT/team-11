@@ -50,15 +50,36 @@
 
 		<div class="untree_co-section product-section before-footer-section">
 		    <div class="container">
-				<form action="searchServlet" method="POST" class="d-flex mb-3">
+				<form id="formSearch" action="shopServlet" method="POST" class="d-flex mb-3">
 					<input
 							type="text"
 							name="keyword"
+							value="${keyword}"
 							class="form-control me-2"
 							placeholder="Nhập từ khóa tìm kiếm..."
 							style="width: 85%;"
 					>
+					<input
+							type="hidden"
+							name="price"
+							value="${not empty price ? price : "70000000"}"
+					>
+					<input
+							type="hidden"
+							name="page"
+					>
+					<input
+							type="hidden"
+							name="Color"
+							value="${not empty color ? color : ""}"
+					>
+					<input
+							type="hidden"
+							name="NSX"
+							value="${not empty nsx ? nsx : ""}"
+					>
 					<button
+							id = "buttonSubmitSearch"
 							type="submit"
 							class="btn btn-primary"
 							style="width: 10%;"
@@ -76,61 +97,41 @@
 							<!-- Mức giá -->
 							<div class="filter-section">
 								<h3>Mức giá</h3>
-								<div class="filter-options">
-									<label><input type="radio" name="price" value="under-100"> Dưới 100.000đ</label>
-									<label><input type="radio" name="price" value="100-200"> Từ 100.000đ - 200.000đ</label>
-									<label><input type="radio" name="price" value="200-300"> Từ 200.000đ - 300.000đ</label>
-									<label><input type="radio" name="price" value="300-500"> Từ 300.000đ - 500.000đ</label>
-									<label><input type="radio" name="price" value="500-1mil"> Từ 500.000đ - 1 triệu</label>
-									<label><input type="radio" name="price" value="1mil-2mil"> Từ 1 triệu - 2 triệu</label>
-									<label><input type="radio" name="price" value="2mil-5mil"> Từ 2 triệu - 5 triệu</label>
-									<label><input type="radio" name="price" value="5mil-10mil"> Từ 5 triệu - 10 triệu</label>
-									<label><input type="radio" name="price" value="over-10mil"> Trên 10 triệu</label>
+								<div class="price-range">
+									<input type="range" id="priceSlider" name="price" min="0" max="100000000" value="${not empty price ? price : "70000000"}" step="1000000">
+									<span class="priceValue" id="priceValue">${not empty price ? price : "70000000"}</span>
 								</div>
 							</div>
 
-							<!-- Loại sản phẩm -->
-							<div class="filter-section">
-								<h3>Loại</h3>
-								<div class="filter-options">
-									<label><input type="radio" name="type" value="decor-table"> Bàn trang trí</label>
-									<label><input type="radio" name="type" value="decor-pot"> Chậu trang trí</label>
-									<label><input type="radio" name="type" value="chandelier"> Đèn chùm</label>
-									<label><input type="radio" name="type" value="floor-lamp"> Đèn đứng</label>
-									<label><input type="radio" name="type" value="pendant-lamp"> Đèn thả trần</label>
-									<!-- Add more options as needed -->
+							<!-- Nhà sản xuất -->
+							<c:if test="${not empty listNSX}">
+								<div class="filter-section">
+									<h3>Nhà sản xuất</h3>
+									<c:set var="selectedNSX" value="${nsx}" />
+									<div class="filter-options">
+										<c:forEach var="nsx" items="${listNSX}">
+											<label><input type="radio" name="nsx" value="${nsx}" <c:if test="${selectedNSX == nsx}">checked</c:if>> ${nsx}</label>
+										</c:forEach>
+									</div>
 								</div>
-							</div>
+							</c:if>
 
-							<div class="filter-section">
-								<h3>Màu sắc</h3>
-								<div class="filter-options">
-									<label><input type="radio" name="color"> Đen</label>
-									<label><input type="radio" name="color"> Đen Cam</label>
-									<label><input type="radio" name="color"> Đỏ</label>
-									<label><input type="radio" name="color"> Đồng Xám</label>
-									<label><input type="radio" name="color"> Nâu Đậm</label>
-									<label><input type="radio" name="color"> Xanh Rêu</label>
-									<label><input type="radio" name="color"> Sồi Đậm</label>
-									<label><input type="radio" name="color"> Nâu Đen</label>
+							<!-- Màu sản phẩm -->
+							<c:if test="${not empty listColor}">
+								<div class="filter-section">
+									<h3>Màu</h3>
+									<!-- Lấy giá trị color từ request -->
+									<c:set var="selectedColor" value="${color}" />
+									<div class="filter-options">
+										<select name="color" id="colorSelect">
+											<option value="">Tất cả</option>
+											<c:forEach var="color" items="${listColor}">
+												<option value="${color}" <c:if test="${selectedColor == color}">selected</c:if>>${color}</option>
+											</c:forEach>
+										</select>
+									</div>
 								</div>
-							</div>
-
-							<div class="filter-section">
-								<h3>Chất liệu</h3>
-								<div class="filter-options">
-									<label><input type="radio" name="material"> Gỗ</label>
-									<label><input type="radio" name="material"> Kim loại</label>
-									<label><input type="radio" name="material"> Da</label>
-									<label><input type="radio" name="material"> Nhựa</label>
-									<label><input type="radio" name="material"> Gỗ công nghiệp</label>
-									<label><input type="radio" name="material"> Sắt</label>
-									<label><input type="radio" name="material"> Vải</label>
-								</div>
-							</div>
-
-
-							<!-- Các tiêu chí lọc khác -->
+							</c:if>
 						</div>
 					</div>
 					<div class="col-md-9">
@@ -143,9 +144,10 @@
 											<img src="data:image/png;base64,${furniture.representativeImage.base64Data}"
 												 alt="${furniture.representativeImage.fileName}"
 												 class="img-fluid product-thumbnail">
-											<h3 class="product-title">${furniture.getCategory().getCategoryName()}</h3>
-											<strong class="product-color">${furniture.furnitureColor}</strong><br>
-											<strong class="product-price">${furniture.furniturePrice}</strong>
+											<h3 class="product-title">${furniture.category.categoryName}</h3>
+											<h3 class="product-color">Màu: ${furniture.furnitureColor}</h3>
+											<h3 class="product-color">NSX: ${furniture.category.manufacture}</h3>
+											<strong class="product-price priceValue">${furniture.furniturePrice}</strong>
 										</a>
 									</form>
 									<!-- Form chứa nút submit -->

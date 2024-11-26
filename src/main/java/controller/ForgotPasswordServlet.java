@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import business.Person;
 import data.PersonDB;
 import mail.EmailSender;
 import mail.OTPGenerater;
@@ -50,6 +51,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                 session.setAttribute("otp", generatedOTP);
                 try{
                     EmailSender.sendOTP(email, generatedOTP);
+                    session.setAttribute("otpCreationTime", System.currentTimeMillis());
                 } catch(Exception e){
                     url = "forgotpass.jsp";
                     request.setAttribute("message", "Có lỗi xảy ra khi gửi OTP, vui lòng thử lại.");
@@ -65,13 +67,22 @@ public class ForgotPasswordServlet extends HttpServlet {
             String otp = request.getParameter("otp");
             HttpSession session = request.getSession();
             String OTPss = (String) session.getAttribute("otp");
-            if(OTPss.equals(otp)){
-                url = "newPassword.jsp";
+            Long otpCreationTime = (Long) session.getAttribute("otpCreationTime");
+            long otpExpiryTime = 2 * 60 * 1000;
+            long currentTime = System.currentTimeMillis();
+
+            if(OTPss != null && otpCreationTime != null && OTPss.equals(otp)){
+                if(currentTime - otpCreationTime > otpExpiryTime){
+                    url = "enterOtp.jsp";
+                    request.setAttribute("message","Mã OTP đã hết hạn");
+                } else {
+                    url = "newPassword.jsp";
+                    session.removeAttribute("otp");
+                }
             } else {
                 url = "enterOtp.jsp";
                 request.setAttribute("message", "OTP đã nhập không đúng");
             }
-            session.removeAttribute("otp");
             dispatcher=request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }
@@ -84,16 +95,24 @@ public class ForgotPasswordServlet extends HttpServlet {
             String url = "newPassword.jsp";
             if(!pass.equals(confPass)){
                 request.setAttribute("message", "Xác nhận mật khẩu không khớp");
-            } else if( pass == null || confPass == null || pass.equals("") || confPass.equals("")){
+            } else if (!Person.isValidPassword(pass)){
+                request.setAttribute("message", "Độ dài tối thiểu: 8 ký tự.\n" +
+                        "Có ít nhất một chữ cái viết thường.\n" +
+                        "Có ít nhất một chữ cái viết hoa.\n" +
+                        "Có ít nhất một chữ số.\n" +
+                        "Có ít nhất một ký tự đặc biệt.");
+            }
+            else if( pass == null || confPass == null || pass.equals("") || confPass.equals("")){
                 request.setAttribute("message", "Vui lòng nhập đầy đủ");
-            } else{
+            } else {
                 if(PersonDB.updatePassword(email, pass)){
                     request.setAttribute("message_success", "Đổi mật khẩu thành công");
+                    session.removeAttribute("email");
+                    url = "login.jsp";
                 } else {
                     request.setAttribute("message", "Đổi mật khẩu thất bại");
                 }
             }
-            session.removeAttribute("email");
             dispatcher=request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }

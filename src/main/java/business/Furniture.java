@@ -21,7 +21,7 @@ public class Furniture implements Serializable {
     @JoinColumn(name = "order_id") // Cột `order_id` trong bảng FURNITURE
     private Order order;
     @ManyToMany(mappedBy = "listFurniture")
-    private List<Cart> carts;
+    private List<Cart> cart;
 
     @Enumerated(EnumType.STRING)
     private EFurnitureStatus furnitureStatus;

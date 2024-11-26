@@ -17,7 +17,7 @@ Author     : HUY
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="register" method="post">
+        <form action="registerServlet" method="post">
             <h1>Tạo tài khoản</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook"></i></a>
@@ -28,6 +28,13 @@ Author     : HUY
             <input type="text" name="name" placeholder="Name" required/>
             <input type="email" name="email" placeholder="Email" required/>
             <input type="password" name="password" placeholder="Password" required/>
+            <%
+                String messageDK = (String) session.getAttribute("messageDK");
+                if (session.getAttribute("messageDK") != null) {
+                    out.print("<div class='alert alert-danger mt-3'>" + session.getAttribute("messageDK") + "</div>");
+                    session.removeAttribute("messageDK");
+                }
+            %>
             <button>Đăng ký</button>
         </form>
     </div>
@@ -75,6 +82,6 @@ Author     : HUY
         </div>
     </div>
 </div>
-<script src="./js/script.js"></script>
+<script src="./js/login.js"></script>
 </body>
 </html>

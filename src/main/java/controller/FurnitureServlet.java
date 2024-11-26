@@ -31,7 +31,7 @@ public class FurnitureServlet extends HttpServlet {
         else{
             int id = Integer.parseInt(idParam);
             Furniture furniture = FurnitureDB.getFurnitureByID(id);
-            List<Furniture> listFurniture = FurnitureDB.getFurnitureInCategory(furniture);
+            List<Furniture> listFurniture = FurnitureDB.getFurnitureNew();
             request.setAttribute("listFurniture", listFurniture);
             request.setAttribute("furniture", furniture);
             context.getRequestDispatcher("/furniture.jsp").forward(request, response);

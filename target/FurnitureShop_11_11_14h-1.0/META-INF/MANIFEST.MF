@@ -1,6 +1,13 @@
 <<<<<<< HEAD
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
+Built-By: HUY
+Build-Jdk: Oracle OpenJDK 17.0.12
+
+=======
+<<<<<<< HEAD
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
 Built-By: hdpha
 Build-Jdk: Oracle OpenJDK 21.0.4
 
@@ -11,3 +18,4 @@ Built-By: nguye
 Build-Jdk: Amazon Corretto 17.0.13
 
 >>>>>>> 45f525b305917e3bfc9977d16cc42433b2dc902b
+>>>>>>> c88b16095f73a0be5f9eb8abd8718b03b52a0af1

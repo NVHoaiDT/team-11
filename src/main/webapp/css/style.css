@@ -696,6 +696,7 @@ textarea {
   font-weight: 600;
 }
 
+
 .filter-options label {
   display: block;
   margin: 5px 0;
@@ -705,6 +706,34 @@ textarea {
 .filter-options input[type="radio"] {
   margin-right: 8px;
   accent-color: #4CAF50;
+}
+.filter-options select {
+  width: 100%; /* Để select chiếm toàn bộ chiều ngang của container */
+  padding: 8px; /* Tạo khoảng cách bên trong */
+  font-size: 0.95em; /* Đồng bộ kích thước với các phần tử khác */
+  border: 1px solid #ccc; /* Viền nhẹ */
+  border-radius: 4px; /* Góc bo tròn */
+  background-color: #f9f9f9; /* Màu nền nhạt */
+  color: #333; /* Màu chữ */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-options select:focus {
+  border-color: #4CAF50; /* Đổi viền sang màu nổi bật khi focus */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Hiệu ứng ánh sáng */
+  outline: none; /* Bỏ viền mặc định */
+}
+
+.filter-options option {
+  padding: 5px; /* Tạo khoảng cách trong option */
+  font-size: 0.95em; /* Đồng bộ kích thước */
+  background-color: #ffffff; /* Màu nền */
+  color: #333; /* Màu chữ */
+}
+
+.filter-options option:hover {
+  background-color: #4CAF50; /* Nền nổi bật khi hover */
+  color: #fff; /* Màu chữ khi hover */
 }
 
 .pagination {
