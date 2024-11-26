@@ -13,7 +13,7 @@
     }
     function loadListProduct(orderID) {
         $.ajax({
-            url: '/admin/customer-order/' + orderID,
+            url: '/admin-customer-order/' + orderID,
             type: 'PUT',
             dataType: 'json',
             success: function(response) {

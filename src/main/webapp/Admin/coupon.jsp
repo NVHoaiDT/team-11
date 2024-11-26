@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Entity.Category" %>
+<%@ page import="business.Category" %>
 
 <%
   String couponName = (String) session.getAttribute("couponName");
@@ -204,6 +204,7 @@
                   <th>Ngày Kết Thúc</th>
                   <th>Điều kiện áp dụng</th>
                   <th>Số lần được áp dụng</th>
+                  <th>Số lần đã áp dụng</th>
                   <th>Hành Động</th>
                 </tr>
                 </thead>
@@ -228,13 +229,20 @@
                       </c:choose>
                     </td>
                     <td>${coupon.useLimit}</td>
+                    <td>${coupon.currentUsage}</td>
                     <td>
                       <a class="me-3" href="CouponController?action=edit&id=${coupon.couponID}">
-                        <img src="assets/img/icons/edit.svg" alt="Edit">
+                        <img src="${pageContext.request.contextPath}/assets/img/icons/edit.svg" alt="Edit">
                       </a>
-                      <a class="confirm-text2" href="CouponController?action=delete&id=${coupon.couponID}">
-                        <img src="assets/img/icons/delete.svg" alt="Delete">
-                      </a>
+                      <c:if test="${coupon.currentUsage == 0}">
+                        <form id="deleteForm" action="CouponController" method="POST" style="display:none;">
+                          <input type="hidden" name="action" value="delete">
+                          <input type="hidden" name="id" value="${coupon.couponID}">
+                        </form>
+                        <a class="confirm-click" href="javascript:void(0);">
+                          <img src="assets/img/icons/delete.svg" alt="Delete">
+                        </a>
+                      </c:if>
                     </td>
                   </tr>
                 </c:forEach>

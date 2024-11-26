@@ -4,22 +4,22 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li id ="list-staff">
-                    <a href="listStaff"><img src="assets/img/icons/users1.svg" alt="img"><span> Quản lý nhân viên</span> </a>
+                    <a href="${pageContext.request.contextPath}/listStaff"><img src="${pageContext.request.contextPath}/assets/img/icons/users1.svg" alt="img"><span> Quản lý nhân viên</span> </a>
                 </li>
             </ul>
             <ul>
                 <li id="set-shift">
-                    <a href="setShiftStaff"><img src="assets/img/icons/transcation.svg" alt="img"><span>Phân ca làm việc</span> </a>
+                    <a href="setShiftStaff"><img src="${pageContext.request.contextPath}/assets/img/icons/transcation.svg" alt="img"><span>Phân ca làm việc</span> </a>
                 </li>
             </ul>
             <ul>
                 <li id="dashboard">
-                    <a href="index.jsp"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
+                    <a href="index.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
                 </li>
             </ul>
             <ul>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span> <span class="menu-arrow"></span> </a>
+                    <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span> <span class="menu-arrow"></span> </a>
                     <ul>
                         <li><a href="statistics?page=index1" id="revenue"> Doanh Thu</a></li>
                         <li><a href="statistics?page=index2" id="top-product">Sản Phẩm Bán Chạy</a></li>
@@ -29,35 +29,35 @@
             </ul>
             <ul>
                 <li id="create-coupon">
-                    <a href="CouponController"><img src="assets/img/icons/coupon.svg" alt="img"><span> Tạo Mã Khuyến Mãi</span> </a>
+                    <a href="CouponController"><img src="${pageContext.request.contextPath}/assets/img/icons/coupon.svg" alt="img"><span> Tạo Mã Khuyến Mãi</span> </a>
                 </li>
             </ul>
             <ul>
                 <li id="list-customer">
-                    <a href="listCustomer.jsp"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Quản lý Khách Hàng</span> </a>
+                    <a href="${pageContext.request.contextPath}/admin-customer-list"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Quản lý Khách Hàng</span> </a>
                 </li>
             </ul>
             <ul>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="assets/img/icons/product.svg" alt="img"><span> Sản phẩm</span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/product.svg" alt="img"><span> Sản phẩm</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li ><a href="product-controller?action=getFurnitureList" id="list-product">Danh sách sản phẩm</a></li>
                         <li ><a href="product-controller?action=displayCategory" id="add-product">Thêm sản phẩm</a></li>
                         <li >
                             <a href="category-controller?action=getCategoryList" id="list-category">Danh sách danh mục sản phẩm</a>
                         </li>
-                        <li ><a href="addcategory.jsp" id="add-category">Thêm danh mục sản phẩm</a></li>
+                        <li ><a href="category-controller?action=null" id="add-category">Thêm danh mục sản phẩm</a></li>
                     </ul>
                 </li>
             </ul>
             <ul>
                 <li id="profile">
-                    <a href="profile.jsp"><img src="assets/img/icons/dashboard.svg" alt="img" class=""><span>Thông tin cá nhân</span> </a>
+                    <a href="profile.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img" class=""><span>Thông tin cá nhân</span> </a>
                 </li>
             </ul>
             <ul>
                 <li>
-                    <a href="updatepassword.jsp"><img src="assets/img/icons/dashboard.svg" alt="img" class=""><span>Cập nhập mật khẩu</span> </a>
+                    <a href="updatepassword.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img" class=""><span>Cập nhập mật khẩu</span> </a>
                 </li>
             </ul>
         </div>

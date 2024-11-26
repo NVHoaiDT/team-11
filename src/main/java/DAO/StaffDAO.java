@@ -17,7 +17,7 @@ import java.util.Map;
 public class StaffDAO {
 
     //hàm lấy NV bằng ID
-    public static Staff getStaffById(String staffId) {
+    public static Staff getStaffById(Long staffId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try{
             Staff staff = em.find(Staff.class, staffId);

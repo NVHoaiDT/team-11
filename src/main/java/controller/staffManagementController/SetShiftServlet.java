@@ -51,10 +51,11 @@ public class SetShiftServlet extends HttpServlet {
                 year += 1;
             }
         } else if ("submit".equals(action)) {
-            String empId = request.getParameter("listStaff");
+            String strStaffId = request.getParameter("listStaff");
+            Long staffId = Long.parseLong(strStaffId);
             String warningMessage ="";
-            if(empId != null) {
-                Staff staff = StaffDAO.getStaffById(empId);
+            if(strStaffId != null) {
+                Staff staff = StaffDAO.getStaffById(staffId);
                 String[] amShifts = request.getParameterValues("shift-selection-am");
                 String[] pmShifts = request.getParameterValues("shift-selection-pm");
                 List<Shift> listShift = staff.getListShift();
@@ -109,6 +110,6 @@ public class SetShiftServlet extends HttpServlet {
         request.setAttribute("calendarTable", calendarTable);
         request.setAttribute("currentMonth", month);
         request.setAttribute("currentYear", year);
-        request.getRequestDispatcher("setShift.jsp").forward(request, response);
+        request.getRequestDispatcher("/Admin/setShift.jsp").forward(request, response);
     }
 }

@@ -53,7 +53,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Mô tả</label>
-                  <textarea class="form-control" name="furnitureDescription">${furniture.furnitureDescription}</textarea>
+                  <textarea class="form-control" name="furnitureDescription" style="height: 150px">${furniture.furnitureDescription}</textarea>
                 </div>
               </div>
               <div class="col-lg-12">

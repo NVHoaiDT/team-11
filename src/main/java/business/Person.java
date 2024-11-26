@@ -15,7 +15,7 @@ public abstract class Person implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ADDRESSID") // Tên cột khóa ngoại trùng với tên khóa chính của Address
     private Address address;
     private String email;

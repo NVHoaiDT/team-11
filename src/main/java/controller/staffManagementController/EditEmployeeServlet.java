@@ -24,13 +24,13 @@ public class EditEmployeeServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String message = "";
-        Staff staff = StaffDAO.getStaffById(request.getParameter("emp-id"));
+        Staff staff = StaffDAO.getStaffById(Long.parseLong(request.getParameter("emp-id")));
         List<Shift> listShift = StaffDAO.getShiftInMonth(staff, LocalDate.now().getMonthValue(), LocalDate.now().getYear());
         System.out.println(listShift.size());
         request.setAttribute("listShift", listShift);
         if (action == null) {
             request.setAttribute("staff", staff);
-            getServletContext().getRequestDispatcher("/editStaff.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/Admin/editStaff.jsp").forward(request, response);
         }
         else if(action.equals("edit")) {
             Boolean isSuccess = false;
@@ -78,7 +78,7 @@ public class EditEmployeeServlet extends HttpServlet {
             }
             request.setAttribute("message", message);
             request.setAttribute("isSuccess", isSuccess);
-            getServletContext().getRequestDispatcher("/editStaff.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/Admin/editStaff.jsp").forward(request, response);
         }
     }
 }

@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/admin/customer-list/*"})
-
+@WebServlet(urlPatterns = {"/admin-customer-list/*"})
 public class ManagermentCustomerController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     // Thêm AddressDAO
@@ -41,7 +40,7 @@ public class ManagermentCustomerController extends HttpServlet {
         List<CustomerResponseDTO> customerList = customerService.getAllCustomers(reqDTO);
         req.setAttribute("customerList", customerList);
         req.setAttribute("customerSearch", reqDTO);
-        String url = "/listCustomer.jsp";
+        String url = "/Admin/listCustomer.jsp";
         getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
 

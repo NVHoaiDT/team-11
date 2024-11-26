@@ -19,6 +19,11 @@ import java.util.List;
 @MultipartConfig
 public class AddStaffServlet extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/Admin/addStaff.jsp").forward(request, response);
+    }
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String name = request.getParameter("emp-name");
@@ -73,6 +78,6 @@ public class AddStaffServlet extends HttpServlet {
         */
         request.setAttribute("message", message);
         request.setAttribute("isSuccess", isSuccess);
-        request.getRequestDispatcher("addStaff.jsp").forward(request, response);
+        request.getRequestDispatcher("/Admin/addStaff.jsp").forward(request, response);
     }
 }

@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <form action="${pageContext.request.contextPath}/admin/customer-order" method="get"
+        <form action="${pageContext.request.contextPath}/admin-customer-order" method="get"
               id="listForm">
             <div class="card">
 
@@ -291,27 +291,25 @@
 </div>
 
 
-<script src="scripts/pagination.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap4.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
-<script src="${pageContext.request.contextPath}/https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="${pageContext.request.contextPath}/https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<%--<script src="scripts/pagination.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap4.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>--%>
+<c:import url="footer.jsp"/>
 
 <script src="${pageContext.request.contextPath}/ordercustomer/pageorderCustomer.js"></script>
 <script src="${pageContext.request.contextPath}/ordercustomer/loadAndSearchOrder.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/ordercustomer/customer.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/ordercustomer/modelDetailBill.css">
 
-
-
 <jsp:include page="${pageContext.request.contextPath}/ordercustomer/loadFeedback.jsp"></jsp:include>
 <jsp:include page="${pageContext.request.contextPath}/ordercustomer/loadProductOfOrder.jsp"></jsp:include>
-<c:import url="footer.jsp"/>

@@ -25,7 +25,7 @@
                 <h6>Thêm/Chỉnh sửa nhân viên</h6>
             </div>
             <div class="page-btn">
-                <a href="addStaff.jsp" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img">Thêm nhân viên</a>
+                <a href="${pageContext.request.contextPath}/addStaff" class="btn btn-added"><img src="assets/img/icons/plus.svg" alt="img">Thêm nhân viên</a>
             </div>
 
         </div>
@@ -40,7 +40,7 @@
                                 <span><img src="assets/img/icons/closes.svg" alt="img"></span>
                             </a>
                         </div>
-                        <form action="searchStaff" method="post" class="d-flex justify-content-center">
+                        <form action="${pageContext.request.contextPath}/searchStaff" method="post" class="d-flex justify-content-center">
                             <input type="text" class="form-control" name="search-name" value="${searchName}" placeholder="Nhập tên tìm kiếm..." style="margin-right: 5px;">
                             <button type="submit" name="search-action" value="search-name" class="btn btn-filters ms-auto">
                                 <img src="assets/img/icons/search-whites.svg" alt="img">
@@ -51,7 +51,7 @@
 
                 <div class="card" id="filter_inputs">
                     <div class="card-body pb-0">
-                        <form action="searchStaff" method="post">
+                        <form action="${pageContext.request.contextPath}/searchStaff" method="post">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <select name="search-salary" id="search-salary" class="form-control select mb-3">
@@ -112,7 +112,7 @@
                                             <img src="data:image/jpeg;base64,${ImageUtil.DisplayImage(staff.avatar)}" alt="Avatar" class="rounded-circle me-2" style="width: 50px; height: 50px;">
                                         </c:if>
                                         <c:if test="${staff.avatar == null}">
-                                            <img src="styles/blankavatar.jpg" alt="Avatar" class="rounded-circle me-2" style="width: 50px; height: 50px;">
+                                            <img src="images/blankavatar.jpg" alt="Avatar" class="rounded-circle me-2" style="width: 50px; height: 50px;">
                                         </c:if>
                                         <span>${staff.name}</span>
                                     </div>
@@ -122,13 +122,13 @@
                                 <td><fmt:formatNumber value="${staff.salary}" pattern="0.##" /></td>
                                 <td><fmt:formatDate value="${staff.workDate}" pattern="yyyy-MM-dd" /></td>
                                 <td>
-                                    <form action="editStaff" method="post" class="d-inline me-3" title="Chi tiết">
+                                    <form action="${pageContext.request.contextPath}/editStaff" method="post" class="d-inline me-3" title="Chi tiết">
                                         <input type="hidden" name="emp-id" value="${staff.personID}"/>
                                         <button type="submit" class="btn p-0 border-0 bg-transparent">
                                             <img src="assets/img/icons/edit.svg" alt="Edit" style="width: 24px; height: 24px;">
                                         </button>
                                     </form>
-                                    <form action="deleteStaff" method="post" id="delete-form" class="d-inline me-3" title="Xóa">
+                                    <form action="${pageContext.request.contextPath}/deleteStaff" method="post" id="delete-form" class="d-inline me-3" title="Xóa">
                                         <input type="hidden" name="emp-id" value="${staff.personID}"/>
                                         <button type="submit" class="btn p-0 border-0 bg-transparent" id="delete-button" onclick="return confirmSubmission()">
                                             <img src="assets/img/icons/delete.svg" alt="Delete" style="width: 24px; height: 24px;">
@@ -155,7 +155,6 @@
 </div>
 </div>
 <script src="scripts/pagination.js"></script>
-<script src="scripts/confirmDelete.js"></script>
 <script>
     function confirmSubmission() {
         const userConfirmed = confirm("Xác nhận xóa nhân viên này?");

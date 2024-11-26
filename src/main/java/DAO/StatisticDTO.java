@@ -502,34 +502,9 @@ public class StatisticDTO {
         }
     }
 
-    public static List<String> getListImage(List<String> categoryNames) {
-        List<String> images = new ArrayList<>();
-        for (String categoryName : categoryNames) {
-            Category category = findCategoryByName(categoryName);
-            if (category != null && !category.getFurnitures().isEmpty()) {
-                Furniture firstFurniture = category.getFurnitures().get(0);
-                Image representativeImage = firstFurniture.getRepresentativeImage();
-                if (representativeImage != null) {
-                    images.add(representativeImage.getBase64Data());
-                }
-            }
-        }
-        return images;
-    }
 
-    public static List<Furniture> getListFirstFurniture(List<String> categoryNames) {
-        List<Furniture> Furnitures = new ArrayList<>();
-        for (String categoryName : categoryNames) {
-            Category category = findCategoryByName(categoryName);
-            if (category != null && !category.getFurnitures().isEmpty()) {
-                Furniture firstFurniture = category.getFurnitures().get(0);
-                Furnitures.add(firstFurniture);
-            }
-        }
-        return Furnitures;
-    }
 
-    private static Category findCategoryByName(String categoryName) {
+    public static Category findCategoryByName(String categoryName) {
         // Sử dụng EntityManager để tìm danh mục từ cơ sở dữ liệu
         EntityManager em = DBUtil.getEntityManager();
         TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.categoryName = :name", Category.class);

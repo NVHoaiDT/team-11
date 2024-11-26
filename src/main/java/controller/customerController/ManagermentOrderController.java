@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/admin/customer-order/*"})
+@WebServlet(urlPatterns = {"/admin-customer-order/*"})
 public class ManagermentOrderController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private IOrderService orderService=new OrderServiceImpl();
@@ -66,7 +66,7 @@ public class ManagermentOrderController extends HttpServlet {
         req.setAttribute("orders", orders);
         req.setAttribute("searchOrder", searchOrder);
         req.setAttribute("customer", responseDTO);
-        String url = "/listOrder.jsp";
+        String url = "/Admin/listOrder.jsp";
         getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
     @Override
