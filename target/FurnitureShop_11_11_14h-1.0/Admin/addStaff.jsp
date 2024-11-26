@@ -29,7 +29,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="addStaff" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/addStaff" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <c:if test="${not empty message}">
                             <c:if test="${isSuccess == true}">
@@ -48,7 +48,7 @@
                         <div class="d-flex justify-content-center">
                             <div class="col-lg-3">
                                 <div class="form-group avatar-preview text-center">
-                                    <img id="avatar-image" src="styles/blankavatar.jpg" alt="Avatar Preview" class="img-thumbnail mb-3" style="width: 150px; height: 150px;">
+                                    <img id="avatar-image" src="images/blankavatar.jpg" alt="Avatar Preview" class="img-thumbnail mb-3" style="width: 150px; height: 150px;">
                                     <label for="avatar" class="btn btn-primary btn-sm">Upload Avatar</label>
                                     <input type="file" class="form-control-file" id="avatar" name="avatar" accept="image/*" onchange="previewAvatar(event)" style="display: none;">
                                 </div>

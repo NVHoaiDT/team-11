@@ -38,13 +38,18 @@ public class CouponController extends HttpServlet {
             return;
         }
 
-        forwardToPage("/coupon.jsp", request, response);
+        forwardToPage("/Admin/coupon.jsp", request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         action = request.getParameter("action");
-        if ("add".equals(action) || "edit".equals(action)) {
+        if (action.equals("delete")) {
+            couponIdParam = request.getParameter("id");
+            couponDAO.delete(couponIdParam);
+            response.sendRedirect("CouponController");
+        }
+        else if ("add".equals(action) || "edit".equals(action)) {
             handleAddOrEditCoupon(action, request, response);
         }
         else {
@@ -59,10 +64,7 @@ public class CouponController extends HttpServlet {
     }
 
     private void handleCouponActions(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if ("delete".equals(action)) {
-            couponDAO.delete(couponIdParam);
-            response.sendRedirect("CouponController");
-        } else if ("edit".equals(action)) {
+        if ("edit".equals(action)) {
             Coupon coupon = couponDAO.getCouponById(couponIdParam);
             if (coupon != null) {
                 if (coupon.getUseCondition().equals("product")) {
@@ -72,7 +74,7 @@ public class CouponController extends HttpServlet {
                 }
                 request.setAttribute("coupon", coupon);
             }
-            forwardToPage("/editCoupon.jsp", request, response);
+            forwardToPage("/Admin/editCoupon.jsp", request, response);
         }
     }
 
@@ -165,7 +167,7 @@ public class CouponController extends HttpServlet {
 
                 request.setAttribute("successMessage", "Cập nhật thông tin thành công.");
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/editCoupon.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/editCoupon.jsp");
                 dispatcher.forward(request, response);
                 return;
             }

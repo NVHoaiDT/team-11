@@ -12,7 +12,7 @@
     }
     function loadFeedback(orderID) {
         $.ajax({
-            url: "/admin/customer-order/" + orderID,
+            url: "/admin-customer-order/" + orderID,
             type: "POST",
             // data: JSON.stringify(json),
             // contentType: "application/json",

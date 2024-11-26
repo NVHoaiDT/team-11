@@ -19,8 +19,11 @@ public class ManageCategoryController extends HttpServlet {
     ICategoryServices categoryService = new CategoryServiceImpl();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getParameter("action");
-        if (action == null) {
-            action = "getCategoryList";
+        if (action == null || action.equals("null") ) {
+            String url="/Admin/addcategory.jsp";
+            getServletContext()
+                    .getRequestDispatcher(url)
+                    .forward(request, response);
         }
         if (action.equals("getCategoryList")) {
             getCategoryList(request, response);
@@ -38,7 +41,6 @@ public class ManageCategoryController extends HttpServlet {
         }
     }
     private void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-            String url = "/addcategory.jsp";
             String categoryName = request.getParameter("categoryName");
             String manufacturerName = request.getParameter("manufacturerName");
             String description = request.getParameter("description");
@@ -57,7 +59,7 @@ public class ManageCategoryController extends HttpServlet {
         }
     }
     private void getCategoryList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url="/categorylist.jsp";
+        String url="/Admin/categorylist.jsp";
         var listDTO = categoryService.getListCategory();
         request.setAttribute("categoryList", listDTO);
         getServletContext()
@@ -65,7 +67,7 @@ public class ManageCategoryController extends HttpServlet {
                 .forward(request, response);
     }
     private void displayCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = "/editcategory.jsp";
+        String url = "/Admin/editcategory.jsp";
         // Lấy categoryID từ request
         String categoryID = request.getParameter("categoryID");
         if (categoryID != null && !categoryID.isEmpty()) {

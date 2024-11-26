@@ -54,7 +54,7 @@
                                         <img id="avatar-image" src="data:image/jpeg;base64,${ImageUtil.DisplayImage(staff.avatar)}" alt="Avatar" class="img-thumbnail mb-3" style="width: 150px; height: 150px;">
                                     </c:if>
                                     <c:if test="${staff.avatar == null}">
-                                        <img id="avatar-image" src="styles/blankavatar.jpg" alt="Avatar" class="img-thumbnail mb-3" style="width: 150px; height: 150px;">
+                                        <img id="avatar-image" src="images/blankavatar.jpg" alt="Avatar" class="img-thumbnail mb-3" style="width: 150px; height: 150px;">
                                     </c:if>
                                     <label for="avatar" class="btn btn-primary btn-sm">Upload Avatar</label>
                                     <input type="file" class="form-control-file" id="avatar" name="avatar" accept="image/*" onchange="previewAvatar(event)" value="${staff.avatar}" style="display: none;">

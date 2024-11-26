@@ -14,7 +14,7 @@
         }
     });
 </script>
-<form action="${pageContext.request.contextPath}/admin/customer-list" method="get"
+<form action="${pageContext.request.contextPath}/admin-customer-list" method="get"
       id="listForm">
     <div class="page-wrapper">
     <div class="content">
@@ -171,7 +171,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <a class="me-3" href="${pageContext.request.contextPath}/admin/customer-order?customerId=${customer.personID}" title="Xem Đơn Hàng">
+                                <a class="me-3" href="${pageContext.request.contextPath}/admin-customer-order?customerId=${customer.personID}" title="Xem Đơn Hàng">
                                     <img src="${pageContext.request.contextPath}/assets/img/icons/product.svg" alt="order">
                                 </a>
                                 <a class="me-3" href="javascript:void(0);" onclick="deleteCustomer('${customer.personID}', '${customer.status}')" title="Khóa Tài Khoản">
@@ -411,21 +411,22 @@
         </div>
     </div>
 </div>
-<script src="${pageContext.request.contextPath}/scripts/pagination.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap4.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>
-<script
-        src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script
-        src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+<%--<script src="${pageContext.request.contextPath}/scripts/pagination.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap4.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>--%>
+<%--<script--%>
+<%--        src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>--%>
+<%--<script--%>
+<%--        src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>--%>
+<%--<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>--%>
 
 <%--<script src="${pageContext.request.contextPath}/managermentCustomer/loader.js"></script>--%>
+<c:import url="footer.jsp"/>
 
 <script src="${pageContext.request.contextPath}/managermentCustomer/searchCustomer.js"></script>
 <script src="${pageContext.request.contextPath}/managermentCustomer/pagination.js"></script>
@@ -433,4 +434,3 @@
 <jsp:include page="${pageContext.request.contextPath}/managermentCustomer/lockCustomer.jsp"></jsp:include>
 
 <jsp:include page="${pageContext.request.contextPath}/managermentCustomer/unlockCustomer.jsp"></jsp:include>
-<c:import url="footer.jsp"/>

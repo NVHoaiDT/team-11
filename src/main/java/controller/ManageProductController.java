@@ -82,7 +82,7 @@ public class ManageProductController extends HttpServlet {
         }
     }
     private void displayCategory(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
-        String url= "/addproduct.jsp";
+        String url= "/Admin/addproduct.jsp";
         var categories = categoryService.getListCategory();
         request.setAttribute("categories", categories);
         getServletContext()
@@ -119,16 +119,16 @@ public class ManageProductController extends HttpServlet {
         }
     }
     private void getFurnitureList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String url = "/productlist.jsp";
+        String url = "/Admin/productlist.jsp";
         List<FurnitureResponse> furnitureResponseList = furnitureServices.getFurnitureList();
         // Truyền dữ liệu vào request
         request.setAttribute("furnitureList", furnitureResponseList);
         request.setAttribute("categories", categoryService.getListCategory()); // Nếu cần, truyền thêm thông tin về các categories
         // Chuyển tiếp tới trang JSP
-        getServletContext().getRequestDispatcher("/productlist.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
     private void displayFurniture(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-        String url= "/editproduct.jsp";
+        String url= "/Admin/editproduct.jsp";
         HttpSession session = request.getSession();
         String idPram =request.getParameter("id");
         Long id = Long.parseLong(idPram);
@@ -182,7 +182,7 @@ public class ManageProductController extends HttpServlet {
     }
 
     private void displayDetailFurniture(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
-        String url="/product-details.jsp";
+        String url="/Admin/product-details.jsp";
         String idPram= request.getParameter("id");
         Long id = Long.parseLong(idPram);
         FurnitureResponse furnitureResponse = furnitureServices.getFurnitureByID(id);
@@ -225,7 +225,7 @@ public class ManageProductController extends HttpServlet {
     }
     private void filterFurniture(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy các tham số từ request
-        String url = "/productlist.jsp";
+        String url = "/Admin/productlist.jsp";
         String categoryId = request.getParameter("categoryId");
         Long id = null;
 

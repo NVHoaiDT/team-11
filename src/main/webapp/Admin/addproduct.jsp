@@ -58,13 +58,13 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số lượng</label>
-                                    <input type="number" name="quantity" required min="1" value="1">
+                                    <input type="number" name="quantity" class="form-control" required min="1" value="1">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Mô tả sản phẩm</label>
-                                    <textarea class="form-control" name="description" required></textarea>
+                                    <textarea class="form-control" name="description" style="height: 150px" required></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -95,5 +95,4 @@
         </div>
     </div>
 </div>
-
 <c:import url="footer.jsp"/>

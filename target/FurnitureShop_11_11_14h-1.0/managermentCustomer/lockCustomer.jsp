@@ -119,7 +119,7 @@
 
             $('#confirmDeleteModal').modal('hide');
             $.ajax({
-                url: "${pageContext.request.contextPath}/admin/customer-list/" + data,
+                url: "${pageContext.request.contextPath}/admin-customer-list/" + data,
                 type: "POST",
                 data: {
                     reason: deleteMessage,

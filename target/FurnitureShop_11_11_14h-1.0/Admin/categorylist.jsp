@@ -21,7 +21,7 @@
           <h6>Xem danh mục sản phẩm</h6>
         </div>
         <div class="page-btn">
-          <a href="addcategory.jsp" class="btn btn-added">
+          <a href="category-controller?action=null" class="btn btn-added">
             <img src="assets/img/icons/plus.svg" class="me-1" alt="img">Thêm danh mục sản phẩm mới
           </a>
         </div>

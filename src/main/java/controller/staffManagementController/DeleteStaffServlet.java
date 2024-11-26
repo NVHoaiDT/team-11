@@ -17,8 +17,8 @@ public class DeleteStaffServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String empId = request.getParameter("emp-id");
-        Staff staff = StaffDAO.getStaffById(empId);
+        Long staffId = Long.parseLong(request.getParameter("emp-id"));
+        Staff staff = StaffDAO.getStaffById(staffId);
         StaffDAO.delete(staff);
         HttpSession session = request.getSession();
         List<Staff> listStaff = (List<Staff>) session.getAttribute("listStaff");

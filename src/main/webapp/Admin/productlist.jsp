@@ -7,7 +7,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.title = "Danh sách sản phẩm";
-    const listStaffElement = document.getElementById("add-product");
+    const listStaffElement = document.getElementById("list-product");
     if (listStaffElement) {
       listStaffElement.classList.add("active");
     }
@@ -43,10 +43,10 @@
             <div class="wordset">
               <ul>
                 <li>
-                  <span class="badges bg-lightgreen">Đang bán</span>
+                  <span class="badges bg-lightgreen">ON_SALE</span>
                 </li>
                 <li>
-                  <span class="badges bg-lightred">Ngừng bán</span>
+                  <span class="badges bg-lightred">STOP_SELLING</span>
                 </li>
               </ul>
             </div>
@@ -74,10 +74,10 @@
                         <div class="form-group">
                           <select name="priceRange" class="select">
                             <option value="">Giá</option>
-                            <option value="<150"><150</option>
-                            <option value="150 - 200">150 - 200</option>
-                            <option value="250 - 300">250 - 300</option>
-                            <option value=">300">>300</option>
+                            <option value="<5000000"><5000000</option>
+                            <option value="5000000 - 10000000">5000000 - 10000000</option>
+                            <option value="10000000 - 20000000">10000000 - 20000000</option>
+                            <option value=">20000000">>20000000</option>
                           </select>
                         </div>
                       </div>

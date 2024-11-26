@@ -98,7 +98,7 @@ public class SearchEmployeeServlet extends HttpServlet {
             request.setAttribute("listStaff", searchStaff);
         }
 
-        request.getRequestDispatcher("listStaff.jsp").forward(request, response);
+        request.getRequestDispatcher("/Admin/listStaff.jsp").forward(request, response);
     }
 
 }
