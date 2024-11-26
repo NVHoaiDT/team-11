@@ -2,10 +2,7 @@ package data;
 
 import business.Customer;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 
 public class CustomerDB {
     public static Customer accountExists(String email, String pass){
@@ -21,6 +18,22 @@ public class CustomerDB {
         }
         catch(NoResultException e){
             return null;
+        }
+        finally{
+            em.close();
+        }
+    }
+    public static boolean emailExists(String email){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT c.email FROM Customer c WHERE c.email = :email";
+        Query query = em.createQuery(qString);
+        query.setParameter("email", email);
+        try{
+            String emailResult = (String) query.getSingleResult();
+            return !emailResult.isEmpty();
+        }
+        catch(NoResultException e){
+            return false;
         }
         finally{
             em.close();
@@ -72,6 +85,27 @@ public class CustomerDB {
         }
     }
 
+    public static int insert(Customer customer) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin(); // Bắt đầu giao dịch
+            em.persist(customer); // Lưu đối tượng Customer vào database
+            trans.commit(); // Commit giao dịch
+            return 1; // Trả về 1 nếu thành công
+        } catch (Exception e) {
+            if (trans != null && trans.isActive()) { // Kiểm tra nếu giao dịch đang hoạt động
+                trans.rollback(); // Rollback giao dịch nếu có lỗi
+            }
+            e.printStackTrace(); // In lỗi ra console để kiểm tra
+            return 0; // Trả về 0 nếu gặp lỗi
+        } finally {
+            if (em != null && em.isOpen()) { // Đảm bảo EntityManager được đóng
+                em.close();
+            }
+        }
+    }
+
     public static void addCustomer(Customer customer) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -88,4 +122,6 @@ public class CustomerDB {
             em.close();
         }
     }
+
+
 }

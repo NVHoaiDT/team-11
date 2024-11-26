@@ -27,6 +27,12 @@ public abstract class Person implements Serializable {
     public Person() {
     }
 
+    public Person (String name, String email, String password){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
     public Person(String name, Date birthDate, Address address, String email, String password, String phone, byte[] avatar) {
         this.name = name;
         this.birthDate = birthDate;
@@ -99,6 +105,32 @@ public abstract class Person implements Serializable {
 
     public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
+    }
+
+    public static boolean isValidPassword(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+
+        boolean hasLowercase = false;
+        boolean hasUppercase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isLowerCase(c)) {
+                hasLowercase = true;
+            } else if (Character.isUpperCase(c)) {
+                hasUppercase = true;
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (!Character.isLetterOrDigit(c)) {
+                hasSpecialChar = true; // Ký tự đặc biệt
+            }
+        }
+
+        // Kiểm tra tất cả tiêu chí
+        return hasLowercase && hasUppercase && hasDigit && hasSpecialChar;
     }
 
 }

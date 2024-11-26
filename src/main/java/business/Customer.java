@@ -19,6 +19,10 @@ public class Customer extends Person {
         this.status = status;
     }
 
+    public Customer(String name, String email, String password) {
+        super(name, email, password);
+    }
+
     public String getGoogleLogin() {
         return googleLogin;
     }

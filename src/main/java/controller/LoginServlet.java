@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             if(role.equals("customer")) {
                 Customer customer = CustomerDB.getCustomerByEmailPass(email, pass);
-                if(customer == null) {
+                if(customer == null || customer.getStatus().equals("InActive")) {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("customer", customer);

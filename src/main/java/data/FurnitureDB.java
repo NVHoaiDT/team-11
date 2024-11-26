@@ -11,17 +11,27 @@ import java.util.List;
 
 public class FurnitureDB {
 
-    public static List<Furniture> getAllFurnitures(int limit, int skip) {
+    public static List<Furniture> getAllFurnitures(int limit, int skip, String keyword, int price, String color, String nsx) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         String qString = "SELECT f FROM Furniture f WHERE f.id IN (" +
-                "SELECT MIN(f2.id) FROM Furniture f2 " +
-                "WHERE f2.order IS NULL " +
-                "AND f2.furnitureStatus = :status " +
+                "SELECT MIN(f2.id) FROM Furniture f2 WHERE " +
+                "f2.order IS NULL AND " +
+                "f2.furnitureStatus = :status AND " +
+                "f2.category.categoryName LIKE :keyword AND " +
+                "f2.furniturePrice <= :price AND " +
+                "f2.furnitureColor LIKE :color AND " +
+                "f2.category.manufacture LIKE :nsx " +
                 "GROUP BY f2.category.id)";
-        TypedQuery<Furniture> q = em.createQuery(qString, Furniture.class);
-        q.setParameter("status", EFurnitureStatus.ON_SALE); // Gắn enum giá trị 'Active'
+        Query q = em.createQuery(qString);
+        q.setParameter("status", EFurnitureStatus.ON_SALE);
+        q.setParameter("price", price);
+        q.setParameter("keyword", "%" + keyword + "%");
+        q.setParameter("color", "%" + color + "%");
+        q.setParameter("nsx", "%" + nsx + "%");
+
         q.setFirstResult(skip); // Số lượng record bỏ qua
         q.setMaxResults(limit);  // Số lượng record lấy
+
         try {
             List<Furniture> listFurniture = q.getResultList();
             return listFurniture;
@@ -32,44 +42,53 @@ public class FurnitureDB {
         }
     }
 
-    public static List<Furniture> getFurnitureInCategory (Furniture furniture){
+    public static List<Furniture> getFurnitureNew (){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        String qString = "SELECT f FROM  Furniture  f" +
-                " where f.category.id = :categoryId" +
-                " and f.id <> :furnitureId" +
-                " and f.furnitureStatus = :status" +
-                " and  f.order Is NULL";
-        TypedQuery<Furniture> q = em.createQuery(qString, Furniture.class);
-        q.setParameter("categoryId", furniture.getCategory().getId());
-        q.setParameter("furnitureId", furniture.getId());
+        String qString = "SELECT f FROM Furniture f WHERE f.id IN (" +
+                "SELECT MIN(f2.id) FROM Furniture f2 WHERE " +
+                "f2.order IS NULL AND " +
+                "f2.furnitureStatus = :status " +
+                "GROUP BY f2.category.id) " +
+                "order by f.category.id desc ";
+        TypedQuery q = em.createQuery(qString, Furniture.class);
         q.setParameter("status", EFurnitureStatus.ON_SALE);
+        q.setMaxResults(5);
         try{
             List<Furniture> listFurniture = q.getResultList();
             return listFurniture;
         }
-        catch (NoResultException e){
+        catch (NoResultException exception){
             return null;
         }
         finally {
             em.close();
         }
     }
-    public static long countFurniture() {
+    public static long countFurniture(String keyword, int price, String color, String nsx) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
         String qString = "SELECT COUNT(f) FROM Furniture f WHERE f.id IN (" +
-                "SELECT MIN(f2.id) FROM Furniture f2 " +
-                "WHERE f2.order IS NULL " +
-                "AND f2.furnitureStatus = :status " +
+                "SELECT MIN(f2.id) FROM Furniture f2 WHERE " +
+                "f2.order IS NULL AND " +
+                "f2.furnitureStatus = :status AND " +
+                "f2.category.categoryName LIKE :keyword AND " +
+                "f2.furniturePrice <= :price AND " +
+                "f2.furnitureColor LIKE :color AND " +
+                "f2.category.manufacture LIKE :nsx " +
                 "GROUP BY f2.category.id)";
+
         Query q = em.createQuery(qString);
         q.setParameter("status", EFurnitureStatus.ON_SALE);
+        q.setParameter("price", price);
+        q.setParameter("keyword", "%" + keyword + "%");
+        q.setParameter("color", "%" + color + "%");
+        q.setParameter("nsx", "%" + nsx + "%");
+
         try {
-            return (long)q.getSingleResult();
-        }
-        catch (NoResultException e) {
+            return (long) q.getSingleResult();
+        } catch (NoResultException e) {
             return 0;
-        }
-        finally {
+        } finally {
             em.close();
         }
     }
@@ -145,6 +164,38 @@ public class FurnitureDB {
             em.close();  // Đảm bảo EntityManager được đóng
         }
     }
+    public static List<String> getListColor (){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT f.furnitureColor FROM Furniture f group by f.furnitureColor";
+        Query q = em.createQuery(qString);
+        q.setMaxResults(10);
+        try {
+            List<String> listColor = (List<String>) q.getResultList();
+            return listColor;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
+        finally {
+            em.close();
+        }
+    }
 
+    public static List<String> getListNSX (){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String qString = "SELECT f.category.manufacture FROM Furniture f group by f.category.manufacture";
+        Query q = em.createQuery(qString);
+        q.setMaxResults(7);
+        try {
+            List<String> listColor = (List<String>) q.getResultList();
+            return listColor;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
+        finally {
+            em.close();
+        }
+    }
 
 }

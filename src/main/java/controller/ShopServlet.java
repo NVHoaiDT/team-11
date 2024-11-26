@@ -24,12 +24,28 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext sc = getServletContext();
-        HttpSession session = request.getSession();  // Nếu chưa có session, nó sẽ tạo mới
+        String keyword = request.getParameter("keyword");
+        String priceParam = request.getParameter("price");
+        String color = request.getParameter("Color");
+        String nsx = request.getParameter("NSX");
 
+        if (keyword == null){
+            keyword = "";
+        }
+        if (color == null){
+            color = "";
+        }
+        if (nsx == null){
+            nsx = "";
+        }
+        if (priceParam == null){
+            priceParam = "70000000";
+        }
+        int price = Integer.parseInt(priceParam);
         // xu li pagination
         int page = 1;
-        int limitPage = 4;
-        long totalItem = FurnitureDB.countFurniture();
+        int limitPage = 8;
+        long totalItem = FurnitureDB.countFurniture(keyword, price, color, nsx);
 
         String pageParam = request.getParameter("page");
         if (pageParam != null &&  !pageParam.equals("")) {
@@ -42,12 +58,19 @@ public class ShopServlet extends HttpServlet {
         }
 
         PaginationHelper pagination = new PaginationHelper(page, limitPage, totalItem);
+        List <String> listColor = FurnitureDB.getListColor();
+        List <String> listNSX = FurnitureDB.getListNSX();
 
 
 
-        List<Furniture> listFurnitures = FurnitureDB.getAllFurnitures(pagination.getLimitItem(),pagination.getSkip());
-
-        session.setAttribute("listFurnitures", listFurnitures);
-        session.setAttribute("pagination", pagination);
+        List<Furniture> listFurnitures = FurnitureDB.getAllFurnitures(pagination.getLimitItem(),pagination.getSkip(), keyword, price,color,nsx);
+        request.setAttribute("listFurnitures", listFurnitures);
+        request.setAttribute("pagination", pagination);
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("price", priceParam);
+        request.setAttribute("color", color);
+        request.setAttribute("listColor", listColor);
+        request.setAttribute("nsx", nsx);
+        request.setAttribute("listNSX", listNSX);
         sc.getRequestDispatcher("/shop.jsp").forward(request, response);    }
 }
