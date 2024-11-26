@@ -17,7 +17,7 @@
   <head>
     <meta charset="ISO-8859-1">
     <title>Chat</title>
-    <link rel="stylesheet" href="assets/css/chatModule.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/chatModule.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
   </head>
@@ -42,7 +42,7 @@
       </header>
 
       <div class="search">
-        <span class="text">Select a user to start chat...</span>
+        <span class="text">Chọn nhân viên muốn chat...</span>
         <input type="text" placeholder="Enter name to search...">
         <button><i class="fas fa-search"></i></button>
       </div>
@@ -52,7 +52,7 @@
         <c:forEach var="staff" items="${staffs}">
 
           <!-------------------------------- Forward chatbox -------------------------------->
-          <a href="${pageContext.request.contextPath}/chatbox?incoming_id=${customerID}&outgoing_id=${staff.personID}&currentRole=${"customer"}">
+          <a href="${pageContext.request.contextPath}/Staff/chatbox?incoming_id=${customerID}&outgoing_id=${staff.personID}&currentRole=${"customer"}">
 
             <div class="content">
 

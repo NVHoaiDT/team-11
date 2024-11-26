@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/filterQuotations")
+@WebServlet("/Staff/filterQuotations")
 public class QuotationFilterServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String status = request.getParameter("status");
 
         try {
@@ -29,10 +33,13 @@ public class QuotationFilterServlet extends HttpServlet {
                 filteredOrders = orderDAO.filterOrdersByStatus(status);
             }
             request.setAttribute("filteredOrders", filteredOrders);
+            System.out.println(filteredOrders);
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Lỗi khi lọc đơn hàng: " + e.getMessage());
         }
+
         request.getRequestDispatcher("quotationList.jsp").forward(request, response);
     }
 }

@@ -15,39 +15,40 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Xử lý đơn</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/img/favicon.jpg">
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css">
 
-    <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/select2/css/select2.min.css">
 
-    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-datetimepicker.min.css">
 
-    <link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dataTables.bootstrap4.min.css">
 
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
 </head>
 
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+
+    <%--<div id="global-loader">--%>
+    <%--    <div class="whirly-loader"></div>--%>
+    <%--</div>--%>
 
 <div class="main-wrapper">
 
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
-                <img src="assets/img/logo.png" alt="">
+            <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp" class="logo">
+                <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
-                <img src="assets/img/logo-small.png" alt="">
+            <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp" class="logo-small">
+                <img src="${pageContext.request.contextPath}/assets/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
             </a>
@@ -72,10 +73,10 @@
                         <div class="searchinputs">
                             <input type="text" placeholder="Search Here ...">
                             <div class="search-addon">
-                                <span><img src="assets/img/icons/closes.svg" alt="img"></span>
+                                <span><img src="${pageContext.request.contextPath}/assets/img/icons/closes.svg" alt="img"></span>
                             </div>
                         </div>
-                        <a class="btn" id="searchdiv"><img src="assets/img/icons/search.svg" alt="img"></a>
+                        <a class="btn" id="searchdiv"><img src="${pageContext.request.contextPath}/assets/img/icons/search.svg" alt="img"></a>
                     </form>
                 </div>
             </li>
@@ -84,16 +85,16 @@
             <li class="nav-item dropdown has-arrow flag-nav">
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="assets/img/flags/us.png" alt="" height="16"> English
+                        <img src="${pageContext.request.contextPath}/assets/img/flags/us.png" alt="" height="16"> English
                     </a>
                     <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="assets/img/flags/fr.png" alt="" height="16"> French
+                        <img src="${pageContext.request.contextPath}/assets/img/flags/fr.png" alt="" height="16"> French
                     </a>
                     <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="assets/img/flags/es.png" alt="" height="16"> Spanish
+                        <img src="${pageContext.request.contextPath}/assets/img/flags/es.png" alt="" height="16"> Spanish
                     </a>
                     <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="assets/img/flags/de.png" alt="" height="16"> German
+                        <img src="${pageContext.request.contextPath}/assets/img/flags/de.png" alt="" height="16"> German
                     </a>
                 </div>
             </li>
@@ -101,7 +102,7 @@
 
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <img src="assets/img/icons/notification-bing.svg" alt="img"> <span
+                    <img src="${pageContext.request.contextPath}/assets/img/icons/notification-bing.svg" alt="img"> <span
                         class="badge rounded-pill">4</span>
                 </a>
                 <div class="dropdown-menu notifications">
@@ -112,10 +113,10 @@
                     <div class="noti-content">
                         <ul class="notification-list">
                             <li class="notification-message">
-                                <a href="activities.html">
+                                <a href="">
                                     <div class="media d-flex">
 <span class="avatar flex-shrink-0">
-<img alt="" src="assets/img/profiles/avatar-02.jpg">
+<img alt="" src="${pageContext.request.contextPath}/assets/img/profiles/avatar-02.jpg">
 </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">John Doe</span> added new
@@ -126,10 +127,10 @@
                                 </a>
                             </li>
                             <li class="notification-message">
-                                <a href="activities.html">
+                                <a href="">
                                     <div class="media d-flex">
 <span class="avatar flex-shrink-0">
-<img alt="" src="assets/img/profiles/avatar-03.jpg">
+<img alt="" src="${pageContext.request.contextPath}/assets/img/profiles/avatar-03.jpg">
 </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
@@ -141,10 +142,10 @@
                                 </a>
                             </li>
                             <li class="notification-message">
-                                <a href="activities.html">
+                                <a href="">
                                     <div class="media d-flex">
 <span class="avatar flex-shrink-0">
-<img alt="" src="assets/img/profiles/avatar-06.jpg">
+<img alt="" src="${pageContext.request.contextPath}/assets/img/profiles/avatar-06.jpg">
 </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Misty Tison</span> added
@@ -157,7 +158,7 @@
                                 </a>
                             </li>
                             <li class="notification-message">
-                                <a href="activities.html">
+                                <a href="">
                                     <div class="media d-flex">
 <span class="avatar flex-shrink-0">
 <img alt="" src="assets/img/profiles/avatar-17.jpg">
@@ -241,19 +242,19 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li class="active">
-                        <a href="index.jsp"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Trang chủ</span> </a>
+                        <a href="dashboard.jsp"><img src="${pageContext.request.contextPath}/assets/img/icons/dashboard.svg" alt="img"><span> Trang chủ</span> </a>
                     </li>
                     <li class="submenu">
 
 
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="assets/img/icons/quotation1.svg" alt="img"><span> Công việc </span> <span class="menu-arrow"></span></a>
+                        <a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/assets/img/icons/quotation1.svg" alt="img"><span> Công việc </span> <span class="menu-arrow"></span></a>
 
                         <ul>
 
-                            <li><a href="${pageContext.request.contextPath}/quotationList">Xử lý đơn</a></li>
-                            <li><a href="${pageContext.request.contextPath}/loadCustomerList">Chat (NV)</a></li>
-                            <li><a href="${pageContext.request.contextPath}/loadStaffChatList">Chat (kH)</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Staff/quotationList.jsp">Xử lý đơn</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Staff/loadCustomerList">Chat (NV)</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Staff/loadStaffChatList">Chat (kH)</a></li>
 
                         </ul>
                     </li>
@@ -287,14 +288,14 @@
                             <%-------------------------Btn filter-------------------------%>
                             <div class="search-path">
                                 <a class="btn btn-filter" id="filter_search">
-                                    <img src="assets/img/icons/filter.svg" alt="img">
-                                    <span><img src="assets/img/icons/closes.svg" alt="img"></span>
+                                    <img src="${pageContext.request.contextPath}/assets/img/icons/filter.svg" alt="img">
+                                    <span><img src="${pageContext.request.contextPath}/assets/img/icons/closes.svg" alt="img"></span>
                                 </a>
                             </div>
 
                             <%-------------------------Btn search-------------------------%>
                             <div class="search-input">
-                                <a class="btn btn-searchset"><img src="assets/img/icons/search-white.svg" alt="img"></a>
+                                <a class="btn btn-searchset"><img src="${pageContext.request.contextPath}/assets/img/icons/search-white.svg" alt="img"></a>
                             </div>
                         </div>
 
@@ -303,15 +304,15 @@
                             <ul>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                            src="assets/img/icons/pdf.svg" alt="img"></a>
+                                            src="${pageContext.request.contextPath}/assets/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                            src="assets/img/icons/excel.svg" alt="img"></a>
+                                            src="${pageContext.request.contextPath}/assets/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
                                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                            src="assets/img/icons/printer.svg" alt="img"></a>
+                                            src="${pageContext.request.contextPath}/assets/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
                         </div>
@@ -350,7 +351,7 @@
                                     <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-filters ms-auto">
-                                                <img src="assets/img/icons/search-whites.svg" alt="img">
+                                                <img src="${pageContext.request.contextPath}/assets/img/icons/search-whites.svg" alt="img">
                                             </button>
                                         </div>
                                     </div>
@@ -396,7 +397,7 @@
                                         </td>
 
                                         <%-- Mã Order --%>
-                                        <td>${order.orderID}</td>
+                                        <td>${order.id}</td>
 
                                         <%-- Tên khach hàng --%>
                                         <td>${order.customer.name}</td>
@@ -414,7 +415,7 @@
                                         <%-- Dropdown cập nhật trạng thái --%>
                                         <td>
                                             <label>
-                                                <select name="status-${order.orderID}" class="badges bg-lightgrey">
+                                                <select name="status-${order.id}" class="badges bg-lightgrey">
                                                     <option value="">Cập nhật:</option>
                                                     <option value="WAITING_PROCESS">Chờ duyệt</option>
                                                     <option value="CANCELED">Đã hủy</option>
@@ -429,8 +430,8 @@
 
                                         <%-- Nút xử lý --%>
                                         <td>
-                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.orderID}">
-                                                <img src="assets/img/icons/transfer1.svg" alt="Xử lý">
+                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.id}">
+                                                <img src="${pageContext.request.contextPath}/assets/img/icons/transfer1.svg" alt="Xử lý">
                                             </button>
                                         </td>
                                     </tr>
@@ -449,7 +450,7 @@
                                         </td>
 
                                         <%-- Mã Order --%>
-                                        <td>${order.orderID}</td>
+                                        <td>${order.id}</td>
 
                                         <%-- Tên khách hàng --%>
                                         <td>${order.customer.name}</td>
@@ -467,7 +468,7 @@
                                         <%-- Dropdown cập nhật trạng thái --%>
                                         <td>
                                             <label>
-                                                <select name="status-${order.orderID}" class="badges bg-lightgrey">
+                                                <select name="status-${order.id}" class="badges bg-lightgrey">
                                                     <option value="">Cập nhật:</option>
                                                     <option value="WAITING_PROCESS">Chờ duyệt</option>
                                                     <option value="CANCELED">Đã hủy</option>
@@ -482,8 +483,8 @@
 
                                         <%-- Nút xử lý --%>
                                         <td>
-                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.orderID}">
-                                                <img src="assets/img/icons/transfer1.svg" alt="Xử lý">
+                                            <button class="btn btn-primary update-status-btn" data-order-id="${order.id}">
+                                                <img src="${pageContext.request.contextPath}/assets/img/icons/transfer1.svg" alt="Xử lý">
                                             </button>
                                         </td>
                                     </tr>
@@ -499,26 +500,26 @@
             <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
             <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
 
-<script src="assets/js/jquery-3.6.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>
 
-<script src="assets/js/feather.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>
 
-<script src="assets/js/jquery.slimscroll.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>
 
-<script src="assets/js/jquery.dataTables.min.js"></script>
-<script src="assets/js/dataTables.bootstrap4.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap4.min.js"></script>
 
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="assets/js/moment.min.js"></script>
-<script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="assets/plugins/select2/js/select2.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>
 
-<script src="assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script src="assets/plugins/sweetalert/sweetalerts.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
-<script src="assets/js/script.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
 
 
 <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
@@ -545,7 +546,7 @@
             type: 'POST',
             data: { orderId: orderId, newStatus: newStatus },
             success: function (response) {
-                alert(response);
+                // alert(response);
                 location.reload();
             },
             error: function (xhr) {
