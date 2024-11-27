@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements ICategoryServices {
 
     private final CategoryDAO categoryDAO;
-//     Constructor để inject CategoryDAO
+    //     Constructor để inject CategoryDAO
     public CategoryServiceImpl() {
         this.categoryDAO = new CategoryDAO();  // Khởi tạo CategoryDAO
     }
@@ -39,12 +39,18 @@ public class CategoryServiceImpl implements ICategoryServices {
         return CategoryMapper.convertToDTO(category);
     }
     @Override
-    public void addCategory(CategoryRequest categoryRequest) {
+    public boolean addCategory(CategoryRequest categoryRequest) {
         // Kiểm tra đầu vào của DTO nếu cần
         if (categoryRequest == null) {
             throw new IllegalArgumentException("CategoryDTO cannot be null");
         }
+        boolean exists = categoryDAO.existsByCategoryName(categoryRequest.getCategoryName());
+        if (exists) {
+            // Nếu tồn tại, trả về false để báo hiệu lỗi trùng lặp
+            return false;
+        }
         categoryDAO.addCategory(CategoryMapper.convertToEntity(categoryRequest));
+        return true;
     }
     @Override
     public void updateCategory(CategoryRequest categoryRequest) {

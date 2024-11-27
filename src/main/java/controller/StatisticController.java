@@ -106,7 +106,8 @@ public class StatisticController extends HttpServlet {
             Gson gson = new Gson();
             String jsonListName = gson.toJson(categoriesName);
 
-            String topCategoriesName = categoriesName.get(0);
+            String topCategoriesName="";
+            if (!categoriesName.isEmpty()) {topCategoriesName = categoriesName.get(0);}
 
             Long totalSale = StatisticDTO.getTotalSalesByCategory();
 
@@ -134,8 +135,9 @@ public class StatisticController extends HttpServlet {
 
             Gson gson = new Gson();
             String jsonListName = gson.toJson(categoriesName);
+            String topCategoriesName="";
+            if (!categoriesName.isEmpty()) {topCategoriesName = categoriesName.get(0);}
 
-            String topCategoriesName = categoriesName.get(0);
             Long totalSale = StatisticDTO.getTotalSalesByCategoryByYear(year);
 
             List<String> imageLists = Category.getListImage(categoriesName);

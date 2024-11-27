@@ -8,6 +8,6 @@ import java.util.List;
 public interface ICategoryServices {
     List<CategoryResponse> getListCategory();
     CategoryResponse getCategoryById(Long id);
-    void addCategory(CategoryRequest category);
+    boolean addCategory(CategoryRequest category);
     void updateCategory(CategoryRequest category);
 }

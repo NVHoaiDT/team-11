@@ -2,6 +2,7 @@ package controller.staffManagementController;
 
 
 import DAO.StaffDAO;
+import config.UtilsEmail;
 import data.AccountManagement;
 import data.ImageUtil;
 import business.Address;
@@ -14,6 +15,8 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @WebServlet("/addStaff")
 @MultipartConfig
@@ -56,26 +59,22 @@ public class AddStaffServlet extends HttpServlet {
                 session.setAttribute("listStaff", listStaff);
                 message = "Thêm nhân viên thành công!";
                 isSuccess = true;
+                // gửi mail chứa password
+                ExecutorService executorService = Executors.newFixedThreadPool(1);
+                executorService.submit(() -> {
+                    String subject = "Tạo tài khoản thành công!";
+                    String content = "Xin chào " + name + ",\n\n"
+                            + "Tài khoản nhân viên của bạn đã được tạo thành công.\n"
+                            + "Mật khẩu đăng nhập: " + password + "\n\n"
+                            + "Không chia sẻ mật khẩu này với bất kỳ ai!";
+                    UtilsEmail.sendEmail(email, subject, content);
+                });
+                executorService.shutdown();
             } catch (Exception e) {
                 e.printStackTrace();
                 message = "Thêm nhân viên thất bại!";
             }
         }
-
-        /*
-        try{
-            String fromMail = "hdphat123@gmail.com";
-            String subject = "Tạo tài khoản thành công!";
-            String content = "Xin chào " + empName +",\n\n"
-                    + "Tài khoản nhân viên của bạn đã được tạo thành công.\n"
-                    + "Mật khẩu đăng nhập: " + password + "\n\n"
-                    + "Không chia sẻ mật khẩu này với bất kỳ ai!";
-            MailUtil.sendMail(fromMail, email, subject, content);
-        }
-        catch (MessagingException e){
-            System.out.println(e.getMessage());
-        }
-        */
         request.setAttribute("message", message);
         request.setAttribute("isSuccess", isSuccess);
         request.getRequestDispatcher("/Admin/addStaff.jsp").forward(request, response);

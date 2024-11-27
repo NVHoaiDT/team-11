@@ -3,7 +3,7 @@ Document   : index
 Created on : Oct 16, 2024, 11:25:38 PM
 Author     : HUY
 --%>
-
+<%@ page import="constant.constant" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@ Author     : HUY
 <body>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="registerServlet" method="post">
+        <form action="../registerServlet" method="post">
             <h1>Tạo tài khoản</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook"></i></a>
@@ -43,7 +43,7 @@ Author     : HUY
             <h1>Đăng nhập</h1>
             <div class="social-container">
                 <a href="#" class="social"><i class="fab fa-facebook"></i></a>
-                <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:8080/FurnitureShop_11_11_14h_war/loginGG&response_type=code&client_id=121656116147-na8us5c1uluts0pmsm70bg99ggjgj3dc.apps.googleusercontent.com&approval_prompt=force" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=${constant.GOOGLE_REDIRECT_URI}&response_type=code&client_id=121656116147-na8us5c1uluts0pmsm70bg99ggjgj3dc.apps.googleusercontent.com&approval_prompt=force" class="social"><i class="fab fa-google-plus-g"></i></a>
                 <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <span>Hoặc dùng tài khoản của bạn</span>

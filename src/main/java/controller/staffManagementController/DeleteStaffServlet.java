@@ -2,6 +2,7 @@ package controller.staffManagementController;
 
 import DAO.StaffDAO;
 import business.Staff;
+import config.UtilsEmail;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @WebServlet("/deleteStaff")
 public class DeleteStaffServlet extends HttpServlet {
@@ -31,21 +34,18 @@ public class DeleteStaffServlet extends HttpServlet {
         }
 
         session.setAttribute("listStaff", listStaff);
-        /*
-        try{
-            String toMail = employee.getEmail();
-            String fromMail = "hdphat123@gmail.com";
-            String subject = "Thông báo xóa tài khoản!";
-            String content = "Xin chào " + employee.getEmpName() +",\n\n"
+        //gửi mail thông báo xóa tài khoản
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.submit(() -> {
+            String subject = "Tạo tài khoản thành công!";
+            String content = "Xin chào " + staff.getName() + ",\n\n"
                     + "Tài khoản nhân viên của bạn đã bị xóa khỏi hệ thống.\n"
                     + "Cảm ơn bạn đã làm việc tại hệ thống trong thời gian qua." + "\n\n"
                     + "Mọi thắc mắc vui lòng liên hệ Đặng Bá Hiền (0xxx-xxx-xxx)!";
-            MailUtil.sendMail(fromMail, toMail, subject, content);
-        }
-        catch (MessagingException e){
-            System.out.println(e.getMessage());
-        }
-        */
+            UtilsEmail.sendEmail(staff.getEmail(), subject, content);
+        });
+        executorService.shutdown();
+
         response.sendRedirect("listStaff");
     }
 }

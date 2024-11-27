@@ -1,5 +1,3 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
@@ -196,7 +194,7 @@
 
 
 									<input type="hidden" name="description" id="description"
-										   value="CUSTID${customer.getPersonID()}<c:forEach var='item' items='${listFurniture}'>${item.category.id}</c:forEach>${dateTimeNow}"/>
+										   value="CUSTID${customer.getPersonID()}<c:forEach var='item' items='${listFurniture}'>${item.category.id}</c:forEach>"/>
 									<label class="form-check-label payment" for="paymentBank">
 										Thanh toán ngân hàng
 									</label>
@@ -206,7 +204,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="form-check">
 									<input class="form-check-input" type="radio" name="paymentMethod" id="paymentCash" value="cash">
 									<label class="form-check-label payment" for="paymentCash" >
@@ -257,7 +254,6 @@
 		<script src="../js/tiny-slider.js"></script>
 		<script src="../js/custom.js"></script>
 		<script src="../js/PaymentMethod.js"></script>
-
 	</body>
 
 </html>

@@ -83,7 +83,7 @@ if (buttonSubmitSearch){
         const priceInput = formSearch.querySelector("input[name=price]");
         const nsxInput = formSearch.querySelector("input[name=NSX]");
         colorInput.value = "";
-        priceInput.value = "10000000";
+        priceInput.value = "70000000";
         nsxInput.value = "";
         formSearch.submit();
     })

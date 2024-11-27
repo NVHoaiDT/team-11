@@ -398,14 +398,6 @@
 
 		<c:import url="../includes/footer.jsp" />
 
-		<script>
-			function confirmLogout() {
-				if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-					window.location.href = "LogoutServlet"; // Chuyển hướng đến servlet nếu người dùng chọn "OK"
-				}
-			}
-		</script>
-
 		<script src="../js/bootstrap.bundle.min.js"></script>
 		<script src="../js/tiny-slider.js"></script>
 		<script src="../js/custom.js"></script>

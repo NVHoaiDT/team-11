@@ -5,6 +5,7 @@ import VietQR.BankService;
 import VietQR.QRCodeRequest;
 import VietQR.QRCodeResponse;
 import business.*;
+import config.UtilsEmail;
 import data.*;
 
 import javax.servlet.*;
@@ -13,10 +14,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @WebServlet(name = "PurchaseServlet", value = "/PurchaseServlet")
 public class PurchaseServlet extends HttpServlet {
@@ -90,9 +92,6 @@ public class PurchaseServlet extends HttpServlet {
                 request.setAttribute("total", total);
                 request.setAttribute("listFurniture", listFurniture);
                 request.setAttribute("customer", customer);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HHmmss");
-                String dateTimeNow = sdf.format(new Date());
-                request.setAttribute("dateTimeNow", dateTimeNow);
                 sc.getRequestDispatcher(url).forward(request, response);
 
             }
@@ -124,6 +123,8 @@ public class PurchaseServlet extends HttpServlet {
                 long accountNumber = 797322626;
                 int amount = Integer.parseInt(request.getParameter("amount"));
                 String description = request.getParameter("description");
+
+
                 int acqId = 970422;
                 QRCodeRequest QRrequest = new QRCodeRequest(accountNumber, accountName, acqId, amount, description, "text", "print");
                 BankService bankService = new BankService();
@@ -165,6 +166,7 @@ public class PurchaseServlet extends HttpServlet {
             }
             double Giamgia = selectedCoupon.calculateDiscount(list,quantities,total);
             String GiamgiaString = String.valueOf(Giamgia);
+            session.setAttribute("giamgia",GiamgiaString);
             System.out.println(GiamgiaString);
             if(selectedCoupon.getUseLimit() <= selectedCoupon.getCurrentUsage())
             {
@@ -222,6 +224,42 @@ public class PurchaseServlet extends HttpServlet {
                 payment = new Payment(coupon,paymentDate,money,paymentMethod,order);
 
                 if (OrderDB.insertOrder(order) && PaymentDB.insert(payment)) {
+                    String hoadon = new String();
+                    Object[][] listFur = order.getFurnitureQuantity();
+                    for (int i = 0; i < listFur.length; i++) {
+                        Furniture furniture = (Furniture) listFur[i][0];
+                        int quantity = (int) listFur[i][1];
+                        hoadon += "Tên sản phẩm " + furniture.getCategory().getCategoryName()
+                                + " - Màu sắc " + furniture.getFurnitureColor() + " - Nhà sản xuất "
+                                + furniture.getCategory().getManufacture() + " - Giá tiền " + furniture.getFurniturePrice()
+                                + " - Số lượng " + quantity + "\n\n";
+                    }
+                    String giamgia = (String) session.getAttribute("giamgia");
+                    long discount = 0;
+                    if (giamgia != null) {
+                        try {
+                            discount = (long) Double.parseDouble(giamgia);
+                        } catch (NumberFormatException e) {
+                            discount = 0; // Gán giá trị mặc định nếu chuỗi không hợp lệ
+                        }
+                    }
+                    long totalPayment = payment.getMoney().longValue();
+                    long total = discount + totalPayment;
+
+                    hoadon += "Tổng cộng: " + total + " VNĐ\n";
+                    hoadon += "Giảm giá: " + discount + " VNĐ\n";
+                    hoadon += "Tổng thanh toán: " + totalPayment + " VNĐ\n\n";
+                    System.out.println(hoadon);
+                    /*
+                    ExecutorService executorService = Executors.newFixedThreadPool(1);
+                    executorService.submit(() -> {
+                        String subject = "Hóa đơn mua hàng!";
+                        String content = "Xin chào " + customer.getName() + ",\n\n"
+                                + "Đây là hóa đơn mua hàng của bạn.\n";
+                        UtilsEmail.sendEmail(customer.getEmail(), subject, content);
+                    });
+                    executorService.shutdown();
+                     */
                     String flag = "True";
                     response.getWriter().write(flag);
                 } else {

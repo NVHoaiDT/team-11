@@ -80,4 +80,17 @@ public class CategoryDAO {
             }
         }
     }
+    public boolean existsByCategoryName(String categoryName) {
+        EntityManager em = DBUtil.getEntityManager();
+        try {
+            String jpql = "SELECT COUNT(c) FROM Category c WHERE c.categoryName = :categoryName";
+            TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+            query.setParameter("categoryName", categoryName);
+            Long count = query.getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

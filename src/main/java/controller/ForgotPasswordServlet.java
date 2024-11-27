@@ -40,12 +40,12 @@ public class ForgotPasswordServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
             if(!PersonDB.emailExists(email)){
-                url = "forgotpass.jsp";
+                url = "/KhachHang/forgotpass.jsp";
                 request.setAttribute("message", "Email này không tồn tại trong hệ thống");
             }
             else{
                 session.setAttribute("email", email);
-                url = "enterOtp.jsp";
+                url = "/KhachHang/enterOtp.jsp";
                 session.removeAttribute("otp");
                 String generatedOTP = OTPGenerater.generateOTP(6);
                 session.setAttribute("otp", generatedOTP);
@@ -53,7 +53,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                     EmailSender.sendOTP(email, generatedOTP);
                     session.setAttribute("otpCreationTime", System.currentTimeMillis());
                 } catch(Exception e){
-                    url = "forgotpass.jsp";
+                    url = "/KhachHang/forgotpass.jsp";
                     request.setAttribute("message", "Có lỗi xảy ra khi gửi OTP, vui lòng thử lại.");
                 }
             }
@@ -73,14 +73,14 @@ public class ForgotPasswordServlet extends HttpServlet {
 
             if(OTPss != null && otpCreationTime != null && OTPss.equals(otp)){
                 if(currentTime - otpCreationTime > otpExpiryTime){
-                    url = "enterOtp.jsp";
+                    url = "/KhachHang/enterOtp.jsp";
                     request.setAttribute("message","Mã OTP đã hết hạn");
                 } else {
-                    url = "newPassword.jsp";
+                    url = "/KhachHang/newPassword.jsp";
                     session.removeAttribute("otp");
                 }
             } else {
-                url = "enterOtp.jsp";
+                url = "/KhachHang/enterOtp.jsp";
                 request.setAttribute("message", "OTP đã nhập không đúng");
             }
             dispatcher=request.getRequestDispatcher(url);
@@ -92,7 +92,7 @@ public class ForgotPasswordServlet extends HttpServlet {
             String confPass = request.getParameter("confPassword");
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
-            String url = "newPassword.jsp";
+            String url = "/KhachHang/newPassword.jsp";
             if(!pass.equals(confPass)){
                 request.setAttribute("message", "Xác nhận mật khẩu không khớp");
             } else if (!Person.isValidPassword(pass)){
@@ -108,7 +108,7 @@ public class ForgotPasswordServlet extends HttpServlet {
                 if(PersonDB.updatePassword(email, pass)){
                     request.setAttribute("message_success", "Đổi mật khẩu thành công");
                     session.removeAttribute("email");
-                    url = "login.jsp";
+                    url = "/KhachHang/login.jsp";
                 } else {
                     request.setAttribute("message", "Đổi mật khẩu thất bại");
                 }

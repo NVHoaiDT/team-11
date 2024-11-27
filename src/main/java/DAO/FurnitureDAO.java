@@ -16,17 +16,29 @@ public class FurnitureDAO {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
-            int batchSize = 20; // Số lượng bản ghi mỗi batch
+            int batchSize = 50; // Batch size cho mỗi lần chèn
             for (int i = 0; i < furnitures.size(); i++) {
-                em.persist(furnitures.get(i));
-                if (i > 0 && i % batchSize == 0) {
-                    em.flush();
-                    em.clear(); // Giải phóng bộ nhớ sau mỗi batch
+                Furniture furniture = furnitures.get(i);
+                // Nếu sử dụng CascadeType.PERSIST, không cần gọi em.persist() cho images nữa
+                // mà chỉ cần chắc chắn rằng các image đã được thêm vào list images của furniture
+                List<Image> images = furniture.getFurnitureImages();
+                if (images != null && !images.isEmpty()) {
+                    for (Image image : images) {
+                        em.persist(image); // Chèn ảnh vào bảng Image
+                    }
+                }
+
+                em.persist(furniture); // Chèn vào bảng Furniture
+
+                // Thực hiện flush và clear sau mỗi batchSize để tối ưu bộ nhớ
+                if ((i + 1) % batchSize == 0) {
+                    em.flush();  // Ghi các thay đổi vào DB
+                    em.clear();  // Giải phóng bộ nhớ của EntityManager
                 }
             }
             trans.commit();
         } catch (Exception e) {
-            System.err.println("Error while adding furniture list: " + e.getMessage());
+            System.err.println("Lỗi khi thêm danh sách sản phẩm: " + e.getMessage());
             e.printStackTrace();
             if (trans.isActive()) {
                 trans.rollback();

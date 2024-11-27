@@ -252,9 +252,9 @@
 
                         <ul>
 
-                            <li><a href="${pageContext.request.contextPath}/Staff/quotationList.jsp">Xử lý đơn</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Staff/loadCustomerList">Chat (NV)</a></li>
-                            <li><a href="${pageContext.request.contextPath}/Staff/loadStaffChatList">Chat (kH)</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Staff/quotationList">Xử lý đơn</a></li>
+                            <li><a href="${pageContext.request.contextPath}/Staff/loadCustomerList">Tư vấn khách hàng</a></li>
+                            <%--<li><a href="${pageContext.request.contextPath}/Staff/loadStaffChatList">Chat (KH)</a></li>--%>
 
                         </ul>
                     </li>

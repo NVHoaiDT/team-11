@@ -4,7 +4,7 @@ function confirmAction(orderId, action) {
     if (userConfirmed) {
         // Gửi yêu cầu đến servlet để cập nhật trạng thái
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "manageOrdersServlet", true);
+        xhr.open("POST", "../manageOrdersServlet", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         xhr.onload = function() {
@@ -24,5 +24,5 @@ function confirmAction(orderId, action) {
 
 function feedbackOrder(orderId, customerId) {
     // Chuyển hướng sang feedback.jsp với orderId dưới dạng tham số URL
-    window.location.href = "feedback.jsp?orderId=" + orderId + "&customerId=" + customerId;
+    window.location.href = "/KhachHang/feedback.jsp?orderId=" + orderId + "&customerId=" + customerId;
 }

@@ -200,7 +200,26 @@ function checkMethodPayment() {
         action = 'QRCODE'
         formData.append('action', action);
         // Lấy giá trị của mô tả và số tiền từ các trường input
-        const description = document.getElementById('description').value;
+        const descriptionElement = document.getElementById('description');
+        let description = descriptionElement.value;
+
+        if (description.length > 15) {
+            description = description.substring(0, description.length - 15).trim();
+        }
+
+        const now = new Date();
+        const dateTimeNow = now.getFullYear().toString() +
+            String(now.getMonth() + 1).padStart(2, '0') +
+            String(now.getDate()).padStart(2, '0') + ' ' +
+            String(now.getHours()).padStart(2, '0') +
+            String(now.getMinutes()).padStart(2, '0') +
+            String(now.getSeconds()).padStart(2, '0');
+
+        description += " " + dateTimeNow;
+
+        descriptionElement.value = description;
+
+        console.log("Updated description:", description);
         const amount = document.getElementById('amount').textContent || document.getElementById('amount').innerText;
         // Hiển thị lớp phủ và thông báo chờ
         document.getElementById('overlay').style.display = 'flex';
@@ -346,6 +365,7 @@ async function checkPaid(price, content) {
             lastContent = lastPaid["Mô tả"];
             console.log(lastPaid["Giá trị"]);
             console.log(lastPaid["Mô tả"]);
+            console.log(content);
             if(lastPrice>= price && lastContent.includes(content))
             {
                 isSsucess = true;

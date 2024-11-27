@@ -4,11 +4,16 @@
 	<persistence-unit name="employeePU">
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-b86aa12-student-189d.e.aivencloud.com:18941/FurnitureStore?ssl-mode=REQUIRED"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-b86aa12-student-189d.e.aivencloud.com:18941/Furniture?ssl-mode=REQUIRED"/>
 			<property name="javax.persistence.jdbc.user" value="avnadmin"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.password" value="AVNS_HaRzMLhIdgMhg30-SDc"/>
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+			<property name="eclipselink.connection-pool.default.initial" value="5"/>
+			<property name="eclipselink.connection-pool.default.min" value="10"/>
+			<property name="eclipselink.connection-pool.default.max" value="100"/>
+			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+			<property name="eclipselink.jdbc.batch-writing.size" value="50"/>
 		</properties>
 	</persistence-unit>
 </persistence>

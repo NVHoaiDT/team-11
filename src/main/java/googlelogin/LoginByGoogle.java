@@ -37,12 +37,12 @@ public class LoginByGoogle extends HttpServlet {
         Customer customer = CustomerDB.getCustomerByGoogleLogin(newCustomer.getGoogleLogin());
         if(customer != null) {
             session.setAttribute("customer", customer);
-            url = "/index.jsp";
+            url = "/KhachHang/index.jsp";
         } else {
             newCustomer.setStatus("Active");
             CustomerDB.addCustomer(newCustomer);
             session.setAttribute("customer", newCustomer);
-            url = "/index.jsp";
+            url = "/KhachHang/index.jsp";
         }
         response.sendRedirect(request.getContextPath() + url);
     }

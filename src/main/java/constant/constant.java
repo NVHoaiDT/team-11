@@ -5,7 +5,7 @@ public class constant {
 
     public static final String GOOGLE_CLIENT_SECRET = "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";
 
-    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/FurnitureShop_11_11_14h_war/loginGG";
+    public static final String GOOGLE_REDIRECT_URI = "http://localhost:8080/loginGG";
 
     public static final String GOOGLE_GRANT_TYPE = "authorization_code";
 

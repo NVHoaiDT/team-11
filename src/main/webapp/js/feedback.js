@@ -65,7 +65,7 @@ function feedbackOrder(customerId, orderId) {
         description: description
     };
 
-    fetch('manageOrdersServlet', {
+    fetch('../manageOrdersServlet', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ function feedbackOrder(customerId, orderId) {
         .then(data => {
             console.log('Success:', data);
             alert('Gửi phản hồi thành công!');
-            window.location.href = 'manageOrdersServlet?action=loadOrders';
+            window.location.href = '../manageOrdersServlet?action=loadOrders';
         })
         .catch(error => {
             console.error('Error:', error);

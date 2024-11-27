@@ -72,5 +72,6 @@ public class ShopServlet extends HttpServlet {
         request.setAttribute("listColor", listColor);
         request.setAttribute("nsx", nsx);
         request.setAttribute("listNSX", listNSX);
+        System.out.println(keyword);
         sc.getRequestDispatcher("/KhachHang/shop.jsp").forward(request, response);    }
 }

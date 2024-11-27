@@ -41,20 +41,26 @@ public class ManageCategoryController extends HttpServlet {
         }
     }
     private void addCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-            String categoryName = request.getParameter("categoryName");
-            String manufacturerName = request.getParameter("manufacturerName");
-            String description = request.getParameter("description");
-            CategoryRequest categoryRequest = new CategoryRequest();
-            categoryRequest.setCategoryName(categoryName);
-            categoryRequest.setCategoryDescription(description);
-            categoryRequest.setManufacture(manufacturerName);
+        String categoryName = request.getParameter("categoryName");
+        String manufacturerName = request.getParameter("manufacturerName");
+        String description = request.getParameter("description");
+
+        CategoryRequest categoryRequest = new CategoryRequest();
+        categoryRequest.setCategoryName(categoryName);
+        categoryRequest.setCategoryDescription(description);
+        categoryRequest.setManufacture(manufacturerName);
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8"); // Đảm bảo mã hóa là UTF-8 để tránh lỗi phông chữ
         try {
-            categoryService.addCategory(categoryRequest);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"status\":\"success\", \"message\":\"Sản phẩm đã được thêm thành công\"}");
+            boolean isAdded = categoryService.addCategory(categoryRequest); // Service trả về boolean
+            if (isAdded) {
+                response.getWriter().write("{\"status\":\"success\", \"message\":\"Danh mục đã được thêm thành công\"}");
+            } else {
+                response.getWriter().write("{\"status\":\"\", \"message\":\"Danh mục đã tồn tại\"}");
+            }
         } catch (Exception e) {
-            // Trả về JSON lỗi
-            response.setContentType("application/json");
+            // Trường hợp lỗi khác
             response.getWriter().write("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
         }
     }
@@ -115,8 +121,8 @@ public class ManageCategoryController extends HttpServlet {
             categoryService.updateCategory(categoryRequest);
             // Trả về thông báo thành công dưới dạng JSON
             response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8"); // Đảm bảo mã hóa là UTF-8 để tránh lỗi phông chữ
             response.getWriter().write("{\"status\":\"success\", \"message\":\"Danh mục đã được cập nhật thành công\"}");
-
         } catch (Exception e) {
             // Trả về JSON lỗi nếu có ngoại lệ
             response.setContentType("application/json");
