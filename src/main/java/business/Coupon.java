@@ -149,6 +149,10 @@ public class Coupon implements Serializable {
     public double calculateDiscount(List<Furniture> listFur, int[] quantity, int total) {
         double discount = 0;
         // 1. Coupon loại "all" (Áp dụng cho toàn bộ đơn hàng)
+        if(this.getCurrentUsage() >= this.getUseLimit())
+        {
+            return discount;
+        }
         switch (this.getUseCondition()) {
             case "all" -> {
                 if (this.getCouponType().equals("money")) {

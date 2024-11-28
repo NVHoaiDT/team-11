@@ -43,6 +43,7 @@ public abstract class Person implements Serializable {
         this.avatar = avatar;
     }
 
+
     public Long getPersonID() {
         return personID;
     }

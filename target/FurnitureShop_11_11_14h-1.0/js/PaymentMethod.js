@@ -42,51 +42,45 @@ function updateTotal() {
 function updateAmount() {
     // Lấy giá trị tổng tiền (order) và giảm giá từ các phần tử trong giao diện
     let order = document.getElementById('grand-total').textContent;
-    let discount = document.getElementById('discount').textContent;
 
     // Lấy mã giảm giá (coupon code) đã chọn
     let couponCode = document.getElementById('c_code').value;
 
-    // Kiểm tra mã giảm giá và tính toán giảm giá
-    if (couponCode) {
-        const formData = new URLSearchParams();
-        formData.append('couponCode', couponCode);
-        formData.append('action', 'coupon');
-        formData.append('total', order);
-        const furnitureQuantities = getFurnitureQuantities();
+    const formData = new URLSearchParams();
+    formData.append('couponCode', couponCode);
+    formData.append('action', 'coupon');
+    formData.append('total', order);
+    const furnitureQuantities = getFurnitureQuantities();
 
-        // Thêm dữ liệu số lượng các sản phẩm vào formData
-        furnitureQuantities.forEach(furniture => {
-            formData.append('listCategoryID', furniture.furnitureID);  // Dùng [] để gửi một mảng
-            formData.append('quantity', furniture.quantity);
+    // Thêm dữ liệu số lượng các sản phẩm vào formData
+    furnitureQuantities.forEach(furniture => {
+        formData.append('listCategoryID', furniture.furnitureID);  // Dùng [] để gửi một mảng
+        formData.append('quantity', furniture.quantity);
+    });
+    // Gửi yêu cầu POST đến servlet
+    fetch('PurchaseServlet', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // Đảm bảo rằng servlet có thể xử lý request
+        },
+        body: formData.toString() // Gửi couponCode trong body
+    })
+        .then(response => response.text())  // Chuyển đổi phản hồi thành văn bản
+        .then(data => {
+            let discount = 0;
+            if (data === 'FullUse') {
+                alert('Mã giảm giá đã hết lượt sử dụng');
+            } else if (data !== 'NoCoupon') {
+                discount = parseFloat(data);
+            }
+            const totalAmount = order - discount;
+            document.getElementById('discount').textContent = `${Math.round(discount).toFixed(0)}`;
+            document.getElementById('amount').textContent = `${Math.round(totalAmount).toFixed(0)}`;
+        })
+        .catch(error => {
+            console.error('Lỗi khi gọi servlet:', error); // Xử lý lỗi nếu có
         });
-        // Gửi yêu cầu POST đến servlet
-        fetch('PurchaseServlet', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded', // Đảm bảo rằng servlet có thể xử lý request
-            },
-            body: formData.toString() // Gửi couponCode trong body
-        }) .then(response => response.text())  // Chuyển đổi phản hồi thành JSON
-            .then(data => {
-                if (data === 'NoCoupon') {
-                    discount = 0;
-                    document.getElementById('discount').textContent = `${Math.round(discount).toFixed(0)}`;
-                    let totalAmount = order - discount;
-                    document.getElementById('amount').textContent = `${Math.round(totalAmount).toFixed(0)}`;
-                    alert('Mã giảm giá đã hết lượt sử dụng');
 
-                } else {
-                    discount = parseFloat(data);
-                    document.getElementById('discount').textContent = `${Math.round(discount).toFixed(0)}`;
-                    let totalAmount = order - discount;
-                    document.getElementById('amount').textContent = `${Math.round(totalAmount).toFixed(0)}`;
-                }
-            })
-            .catch(error => {
-                console.error('Lỗi khi gọi servlet:', error); // Xử lý lỗi nếu có
-            });
-    }
 }
 
 document.getElementById('c_code').addEventListener('change', function () {
@@ -145,8 +139,11 @@ function checkMethodPayment() {
     const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
     let amount = document.getElementById('amount').textContent;
     let action = '';
+    let couponCode = document.getElementById('c_code').value;
+
     // Tạo đối tượng FormData và thêm action cùng paymentMethod vào yêu cầu
     const formData = new URLSearchParams();
+    formData.append('couponCode', couponCode);
     formData.append('paymentMethod', paymentMethod);
     const furnitureQuantities = getFurnitureQuantities();
     // Thêm dữ liệu số lượng các sản phẩm vào formData

@@ -25,7 +25,8 @@ public class CouponDB {
     public static List<Coupon> getListCoupon(List<Furniture> listFur) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            String queryStr = "SELECT c FROM Coupon c WHERE c.startDate <= :currentDate AND c.endDate >= :currentDate";
+            String queryStr = "SELECT c FROM Coupon c WHERE c.startDate <= :currentDate AND c.endDate >= :currentDate" +
+                    " AND c.currentUsage < c.useLimit";
             TypedQuery<Coupon> query = em.createQuery(queryStr, Coupon.class);
             query.setParameter("currentDate", new Date());
             List<Coupon> couponList = query.getResultList();

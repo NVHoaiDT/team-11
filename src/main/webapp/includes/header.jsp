@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <script>
   function confirmLogout() {
@@ -55,7 +56,13 @@
         </ul>
 
         <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          <li><a class="nav-link" href="#"><img src="../images/user.svg"></a></li>
+          <li class="nav-link">
+            <form action="<c:url value='/loadProfile'/>" method="get" style="display: inline;">
+              <button type="submit" class="nav-link btn btn-link p-0" style="border: none; background: none;">
+                <img src="images/user.svg" alt="User Profile" >
+              </button>
+            </form>
+          </li>
           <li><a class="nav-link" href="../PurchaseServlet"><img src="../images/cart.svg"></a></li>
           <li><a class="nav-link" href="../manageOrdersServlet?action=loadOrders"><img src="../images/orders.svg" alt="Orders"></a></li></ul>
       </div>

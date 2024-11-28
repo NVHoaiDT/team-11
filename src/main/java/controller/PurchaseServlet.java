@@ -62,7 +62,6 @@ public class PurchaseServlet extends HttpServlet {
                 cart.setCustomer(customer);
                 CartDB.insert(cart);
             }
-
             request.setAttribute("listFurniture", cart.getListFurniture());
             sc.getRequestDispatcher(url).forward(request, response);
 
@@ -120,8 +119,6 @@ public class PurchaseServlet extends HttpServlet {
                 long accountNumber = 797322626;
                 int amount = Integer.parseInt(request.getParameter("amount"));
                 String description = request.getParameter("description");
-
-
                 int acqId = 970422;
                 QRCodeRequest QRrequest = new QRCodeRequest(accountNumber, accountName, acqId, amount, description, "text", "print");
                 BankService bankService = new BankService();
@@ -134,9 +131,9 @@ public class PurchaseServlet extends HttpServlet {
 
         }else if (action.equals("coupon")){
             String couponCode = request.getParameter("couponCode");
+            System.out.println(couponCode + "123");
             int total = Integer.parseInt(request.getParameter("total"));
             List<Coupon> listCoupon = (List<Coupon>) session.getAttribute("listCoupon");
-
             String[] listCategoryID = request.getParameterValues("listCategoryID"); //Toàn bộ tên được chọn
             String[] quantityStrings = request.getParameterValues("quantity");
             int[] quantities = new int[quantityStrings.length];
@@ -152,34 +149,44 @@ public class PurchaseServlet extends HttpServlet {
             }
 
             Coupon selectedCoupon = null;
-
-            if (listCoupon != null) {
-                for (Coupon coupon : listCoupon) {
-                    if (coupon.getCouponID().equals(couponCode)) {
-                        selectedCoupon = coupon;
-                        break;
+            if(!couponCode.isEmpty()) {
+                if (listCoupon != null) {
+                    for (Coupon coupon : listCoupon) {
+                        if (coupon.getCouponID().equals(couponCode)) {
+                            selectedCoupon = coupon;
+                            break;
+                        }
                     }
                 }
             }
-            double Giamgia = selectedCoupon.calculateDiscount(list,quantities,total);
+
+            double Giamgia = 0;
+            if(selectedCoupon != null)
+            {
+                Giamgia = selectedCoupon.calculateDiscount(list,quantities,total);
+            }
+
             String GiamgiaString = String.valueOf(Giamgia);
             session.setAttribute("giamgia",GiamgiaString);
             System.out.println(GiamgiaString);
-            if(selectedCoupon.getUseLimit() <= selectedCoupon.getCurrentUsage())
-            {
-                String flag = "NoCoupon";
-                response.setContentType("text/plain");
-                response.getWriter().write(flag);            }
-            else
-            {
-                session.setAttribute("selectedCoupon", selectedCoupon);
-                response.setContentType("text/plain");
-                response.getWriter().write(GiamgiaString);
+            String flag;
+            if (selectedCoupon != null) {
+                if (selectedCoupon.getUseLimit() <= selectedCoupon.getCurrentUsage()) {
+                    flag = "FullUse";
+                } else {
+                    request.setAttribute("selectedCoupon", selectedCoupon);
+                    flag = GiamgiaString;
+                }
+            } else {
+                flag = "NoCoupon";
             }
+            response.setContentType("text/plain");
+            response.getWriter().write(flag);
+
         }
         else if (action.equals("payment")) {
             String paymentMethod = request.getParameter("paymentMethod");
-            System.out.println(paymentMethod);
+            String couponCode = request.getParameter("couponCode");
             String[] listCategoryID = request.getParameterValues("listCategoryID"); //Toàn bộ tên được chọn
             String[] quantityStrings = request.getParameterValues("quantity");
             int[] quantities = new int[quantityStrings.length];
@@ -212,7 +219,12 @@ public class PurchaseServlet extends HttpServlet {
                 Date paymentDate = null;
                 Order order = new Order(list,customer,orderDate,orderStatus);
                 Payment payment;
-                Coupon coupon = (Coupon) session.getAttribute("selectedCoupon");
+                Coupon coupon = null;
+                if(!couponCode.isEmpty())
+                {
+                    coupon = CouponDB.getCouponByID(couponCode);
+                }
+                System.out.println(couponCode);
                 Double money = Double.parseDouble(request.getParameter("amount"));
                 if(paymentMethod.equals("bank"))
                 {
@@ -231,7 +243,7 @@ public class PurchaseServlet extends HttpServlet {
                                     .append(" - Màu sắc ").append(furniture.getFurnitureColor())
                                     .append(" - Nhà sản xuất ").append(furniture.getCategory().getManufacture())
                                     .append(" - Giá tiền ").append(furniture.getFurniturePrice())
-                                    .append(" - Số lượng ").append(quantity).append("\r\n");
+                                    .append(" - Số lượng ").append(quantity).append("<br>");
                         }
                         String giamgia = (String) session.getAttribute("giamgia");
                         long discount = 0;
@@ -246,16 +258,16 @@ public class PurchaseServlet extends HttpServlet {
                         long totalPayment = payment.getMoney().longValue();
                         long total = discount + totalPayment;
 
-                        hoadon.append("Tổng cộng: ").append(total).append(" VNĐ\r\n");
-                        hoadon.append("Giảm giá: ").append(discount).append(" VNĐ\r\n");
-                        hoadon.append("Tổng thanh toán: ").append(totalPayment).append(" VNĐ\r\n");
+                        hoadon.append("Tổng cộng: ").append(total).append(" VNĐ <br>");
+                        hoadon.append("Giảm giá: ").append(discount).append(" VNĐ <br>");
+                        hoadon.append("Tổng thanh toán: ").append(totalPayment).append(" VNĐ");
                         System.out.println(hoadon);
 
                         ExecutorService executorService = Executors.newFixedThreadPool(1);
                         executorService.submit(() -> {
                             String subject = "Hóa đơn mua hàng!";
-                            String content = "Xin chào " + customer.getName() + ",\r\n"
-                                    + "Đây là hóa đơn mua hàng của bạn.\r\n" + hoadon;
+                            String content = "Xin chào " + customer.getName() + "<br>"
+                                    + "Đây là hóa đơn mua hàng của bạn.<br>" + hoadon;
                             UtilsEmail.sendEmail(customer.getEmail(), subject, content);
                         });
                         executorService.shutdown();
