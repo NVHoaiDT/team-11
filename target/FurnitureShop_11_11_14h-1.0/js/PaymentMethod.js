@@ -11,49 +11,6 @@ document.querySelectorAll('input[name="paymentMethod"]').forEach((elem) => {
     });
 });
 
-// Hàm xác nhận
-function confirmSelection() {
-    // 1. Khóa chỉnh sửa số lượng
-    let quantityInputs = document.querySelectorAll('.quantity');
-    quantityInputs.forEach(input => {
-        input.setAttribute('readonly', true);
-        input.setAttribute('disabled', true);
-    });
-
-    // 2. Hiển thị phần mã giảm giá
-    document.getElementById('coupon-section').style.display = 'block';
-    document.getElementById('payment-section').style.display = 'block';
-    // 3. Ẩn nút xác nhận và hiển thị nút quay lại
-    document.getElementById('btn-confirm').style.display = 'none';
-    document.getElementById('btn-back').style.display = 'block';
-}
-
-// Hàm quay lại
-function goBack() {
-    // 1. Ẩn phần mã giảm giá
-    document.getElementById('coupon-section').style.display = 'none';
-    document.getElementById('payment-section').style.display = 'none';
-
-    // 2. Hiển thị lại nút xác nhận và ẩn nút quay lại
-    document.getElementById('btn-confirm').style.display = 'block';
-    document.getElementById('btn-back').style.display = 'none';
-
-    // 3. Cho phép chỉnh sửa lại số lượng (nếu cần)
-    let quantityInputs = document.querySelectorAll('.quantity');
-    quantityInputs.forEach(input => {
-        input.removeAttribute('readonly');
-        input.removeAttribute('disabled');
-    });
-
-    // 4. Đặt lại giá trị giảm giá về 0
-    let discountInput = document.getElementById('c_code');
-    discountInput.value = '';  // Đặt lại mã giảm giá
-
-    // Cập nhật lại tổng thanh toán khi mã giảm giá bị xóa
-    updateAmount();
-}
-
-
 function updateTotal() {
     let grandTotal = 0;
 
@@ -62,11 +19,10 @@ function updateTotal() {
         let quantity = parseInt(input.value);
 
         // Nếu số lượng nhập vào nhỏ hơn 1, tự động đổi về 1
-        if (quantity < 1) {
+        if (isNaN(quantity) || quantity < 1) {
             quantity = 1;
-            input.value = quantity; // Cập nhật giá trị trong ô nhập
+            input.value = quantity; // Gán giá trị mặc định là 1
         }
-
         const price = parseInt(input.getAttribute('data-price'));
         const totalCell = document.getElementById(input.getAttribute('data-total'));
 
@@ -78,10 +34,8 @@ function updateTotal() {
         grandTotal += totalPrice;
     });
     // Cập nhật tổng tiền toàn bộ
-    let discount = 0;
     document.getElementById('grand-total').textContent = `${Math.round(grandTotal).toFixed(0)}`; // Làm tròn tổng tiền
-    document.getElementById('discount').textContent = `${Math.round(discount).toFixed(0)}`;
-    document.getElementById('amount').textContent = `${Math.round(grandTotal).toFixed(0)}`;
+    updateCouponDetails()
 }
 
 // Hàm cập nhật tổng thanh toán
@@ -121,6 +75,7 @@ function updateAmount() {
                     let totalAmount = order - discount;
                     document.getElementById('amount').textContent = `${Math.round(totalAmount).toFixed(0)}`;
                     alert('Mã giảm giá đã hết lượt sử dụng');
+
                 } else {
                     discount = parseFloat(data);
                     document.getElementById('discount').textContent = `${Math.round(discount).toFixed(0)}`;
@@ -134,18 +89,22 @@ function updateAmount() {
     }
 }
 
-//Hàm cập nhật thông tin của mã giảm giá
 document.getElementById('c_code').addEventListener('change', function () {
-    var selectedOption = this.options[this.selectedIndex];
+    updateCouponDetails(); // Gọi hàm khi sự kiện change xảy ra
+});
+
+// Hàm cập nhật thông tin mã giảm giá
+function updateCouponDetails() {
+    var selectedOption = document.getElementById('c_code').options[document.getElementById('c_code').selectedIndex];
 
     if (selectedOption.value !== "") {
         var couponType = selectedOption.getAttribute('data-coupon-type');
-        var couponValue = parseInt(selectedOption.getAttribute('data-coupon-value')); // Loại bỏ phần thập phân
+        var couponValue = parseInt(selectedOption.getAttribute('data-coupon-value'));
         var endDate = selectedOption.getAttribute('data-end-date');
         var conditions = selectedOption.getAttribute('data-conditions');
-        var minOrderValue = parseInt(selectedOption.getAttribute('data-min-order-value')); // Loại bỏ phần thập phân
-        var useLimit = parseInt(selectedOption.getAttribute('data-use-limit')); // Loại bỏ phần thập phân
-        var currentUsage = parseInt(selectedOption.getAttribute('data-current-usage')); // Loại bỏ phần thập phân
+        var minOrderValue = parseInt(selectedOption.getAttribute('data-min-order-value'));
+        var useLimit = parseInt(selectedOption.getAttribute('data-use-limit'));
+        var currentUsage = parseInt(selectedOption.getAttribute('data-current-usage'));
 
         document.getElementById('data-end-date').textContent = endDate;
         document.getElementById('data-conditions').textContent =
@@ -157,14 +116,14 @@ document.getElementById('c_code').addEventListener('change', function () {
         document.getElementById('data-coupon-value').textContent = (couponType === "money") ? couponValue : couponValue + "%";
         document.getElementById('data-current-usage').textContent = useLimit - currentUsage;
 
-        // Hiển thị phần chi tiết mã giảm giá
+        // Hiển thị chi tiết mã giảm giá
         document.getElementById('coupon-details').style.display = 'block';
     } else {
-        // Ẩn phần chi tiết nếu không chọn mã giảm giá
+        // Ẩn chi tiết mã giảm giá nếu không chọn mã
         document.getElementById('coupon-details').style.display = 'none';
     }
-    updateAmount(); // Hàm cập nhật tổng thanh toán
-});
+    updateAmount(); // Cập nhật tổng thanh toán
+}
 
 // lấy list idcategory và số lượng
 function getFurnitureQuantities() {
@@ -256,14 +215,18 @@ function checkMethodPayment() {
                 if (data === 'True') {
                     alert('Đặt hàng thành công!');  // Thông báo khi thành công
                     window.location.href = "shopServlet"; // Chuyển trang
-                } else {
+                } else if (data === 'False'){
                     alert('Đặt hàng thất bại, sản phẩm không đủ hoặc đã ngưng kinh doanh!');  // Thông báo khi thất bại
+                } else
+                {
+                    alert('Mã giảm giá đã hết lượt sử dụng!');
+                    location.reload();
                 }
             })
     }
 }
-let checkPaidInterval; // Biến lưu ID của setInterval
 
+let checkPaidInterval; // Biến lưu ID của setInterval
 // Hàm hiển thị modal với mã QR
 function showPaymentModal(qrCodeUrl,amount,description) {
     const modal = document.getElementById('paymentModal');
@@ -351,6 +314,13 @@ async function checkPaid(price, content) {
                         alert('Đặt hàng thành công!');  // Thông báo khi thành công
                         window.location.href = "shopServlet"; // Chuyển trang
                         return;
+                    }
+                    else if (data === 'False'){
+                        alert('Đặt hàng thất bại, sản phẩm không đủ hoặc đã ngưng kinh doanh!');  // Thông báo khi thất bại
+                    } else
+                    {
+                        alert('Mã giảm giá đã hết lượt sử dụng!');
+                        location.reload();
                     }
                 })
         }

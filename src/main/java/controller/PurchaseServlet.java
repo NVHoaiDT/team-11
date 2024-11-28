@@ -67,7 +67,6 @@ public class PurchaseServlet extends HttpServlet {
             sc.getRequestDispatcher(url).forward(request, response);
 
         } else if(action.equals("removefromcart")) {
-
             int furnitureID = Integer.parseInt(request.getParameter("furnitureID"));
             Furniture fur = FurnitureDB.getFurnitureByID(furnitureID);
             Cart cart = CartDB.removeToCart(customer,fur);
@@ -86,14 +85,12 @@ public class PurchaseServlet extends HttpServlet {
                     listFurniture.add(fur);
                     total += fur.getFurniturePrice();
                 }
-
                 List<Coupon> listCoupon = CouponDB.getListCoupon(listFurniture);
                 session.setAttribute("listCoupon", listCoupon);
                 request.setAttribute("total", total);
                 request.setAttribute("listFurniture", listFurniture);
                 request.setAttribute("customer", customer);
                 sc.getRequestDispatcher(url).forward(request, response);
-
             }
         } else if (action.equals("QRCODE")) {
             String[] listCategoryID = request.getParameterValues("listCategoryID"); //Toàn bộ tên được chọn
@@ -222,46 +219,53 @@ public class PurchaseServlet extends HttpServlet {
                     paymentDate = orderDate;
                 }
                 payment = new Payment(coupon,paymentDate,money,paymentMethod,order);
-
-                if (OrderDB.insertOrder(order) && PaymentDB.insert(payment)) {
-                    String hoadon = new String();
-                    Object[][] listFur = order.getFurnitureQuantity();
-                    for (int i = 0; i < listFur.length; i++) {
-                        Furniture furniture = (Furniture) listFur[i][0];
-                        int quantity = (int) listFur[i][1];
-                        hoadon += "Tên sản phẩm " + furniture.getCategory().getCategoryName()
-                                + " - Màu sắc " + furniture.getFurnitureColor() + " - Nhà sản xuất "
-                                + furniture.getCategory().getManufacture() + " - Giá tiền " + furniture.getFurniturePrice()
-                                + " - Số lượng " + quantity + "\n\n";
-                    }
-                    String giamgia = (String) session.getAttribute("giamgia");
-                    long discount = 0;
-                    if (giamgia != null) {
-                        try {
-                            discount = (long) Double.parseDouble(giamgia);
-                        } catch (NumberFormatException e) {
-                            discount = 0; // Gán giá trị mặc định nếu chuỗi không hợp lệ
+                if(OrderDB.insertOrder(order))
+                {
+                    if (PaymentDB.insert(payment)) {
+                        StringBuilder hoadon = new StringBuilder();
+                        Object[][] listFur = order.getFurnitureQuantity();
+                        for (int i = 0; i < listFur.length; i++) {
+                            Furniture furniture = (Furniture) listFur[i][0];
+                            int quantity = (int) listFur[i][1];
+                            hoadon.append("Tên sản phẩm ").append(furniture.getCategory().getCategoryName())
+                                    .append(" - Màu sắc ").append(furniture.getFurnitureColor())
+                                    .append(" - Nhà sản xuất ").append(furniture.getCategory().getManufacture())
+                                    .append(" - Giá tiền ").append(furniture.getFurniturePrice())
+                                    .append(" - Số lượng ").append(quantity).append("\r\n");
                         }
-                    }
-                    long totalPayment = payment.getMoney().longValue();
-                    long total = discount + totalPayment;
+                        String giamgia = (String) session.getAttribute("giamgia");
+                        long discount = 0;
+                        if (giamgia != null && !giamgia.isEmpty()) {
+                            try {
+                                discount = Math.round(Double.parseDouble(giamgia));
+                            } catch (NumberFormatException e) {
+                                System.out.println("Giảm giá không hợp lệ: " + giamgia);
+                                discount = 0;
+                            }
+                        }
+                        long totalPayment = payment.getMoney().longValue();
+                        long total = discount + totalPayment;
 
-                    hoadon += "Tổng cộng: " + total + " VNĐ\n";
-                    hoadon += "Giảm giá: " + discount + " VNĐ\n";
-                    hoadon += "Tổng thanh toán: " + totalPayment + " VNĐ\n\n";
-                    System.out.println(hoadon);
-                    /*
-                    ExecutorService executorService = Executors.newFixedThreadPool(1);
-                    executorService.submit(() -> {
-                        String subject = "Hóa đơn mua hàng!";
-                        String content = "Xin chào " + customer.getName() + ",\n\n"
-                                + "Đây là hóa đơn mua hàng của bạn.\n";
-                        UtilsEmail.sendEmail(customer.getEmail(), subject, content);
-                    });
-                    executorService.shutdown();
-                     */
-                    String flag = "True";
-                    response.getWriter().write(flag);
+                        hoadon.append("Tổng cộng: ").append(total).append(" VNĐ\r\n");
+                        hoadon.append("Giảm giá: ").append(discount).append(" VNĐ\r\n");
+                        hoadon.append("Tổng thanh toán: ").append(totalPayment).append(" VNĐ\r\n");
+                        System.out.println(hoadon);
+
+                        ExecutorService executorService = Executors.newFixedThreadPool(1);
+                        executorService.submit(() -> {
+                            String subject = "Hóa đơn mua hàng!";
+                            String content = "Xin chào " + customer.getName() + ",\r\n"
+                                    + "Đây là hóa đơn mua hàng của bạn.\r\n" + hoadon;
+                            UtilsEmail.sendEmail(customer.getEmail(), subject, content);
+                        });
+                        executorService.shutdown();
+
+                        String flag = "True";
+                        response.getWriter().write(flag);
+                    } else {
+                        String flag = "Full";
+                        response.getWriter().write(flag);
+                    }
                 } else {
                     String flag = "False";
                     response.getWriter().write(flag);

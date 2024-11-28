@@ -186,7 +186,6 @@ public class Coupon implements Serializable {
                             discount += this.getCouponValue();
                         }
                         else {
-                            System.out.println(qty);
                             discount += item.getFurniturePrice() * qty * (this.getCouponValue() / 100); // Nếu coupon giảm theo phần trăm
                         }
                     }

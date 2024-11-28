@@ -18,6 +18,9 @@ public class PaymentDB {
             // Tìm Coupon từ DB để đảm bảo nó được quản lý bởi JPA
             if(coupon != null) {
                 Coupon managedCoupon = em.find(Coupon.class, coupon.getCouponID());
+                if(managedCoupon.getCurrentUsage() >= managedCoupon.getUseLimit()) {
+                    return false;
+                }
                 managedCoupon.setCurrentUsage(managedCoupon.getCurrentUsage() + 1);
             }
 

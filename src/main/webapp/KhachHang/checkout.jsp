@@ -130,14 +130,8 @@
 
 								</tbody>
 							</table>
-							<!-- Thêm nút xác nhận -->
-							<div>
-								<button type="button" class="btn btn-black btn-lg py-3 btn-block" id="btn-confirm" onclick="confirmSelection()">Xác nhận</button>
-								<button type="button" id="btn-back" class="btn btn-black btn-lg py-3 btn-block" style="display: none;" onclick="goBack()">Quay lại</button>
-							</div>
-
-							<!-- Phần mã giảm giá (ẩn ban đầu) -->
-							<div id="coupon-section" style="display:none;">
+							<!-- Phần mã giảm giá-->
+							<div id="coupon-section">
 								<h2 class="h3 mb-3 text-black" id="coupon-title">Mã giảm giá</h2>
 								<select class="form-control w-100" id="c_code" aria-label="Coupon Code">
 									<option value="" disabled selected>Select Coupon Code</option>
@@ -237,7 +231,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group" id="payment-section" style="display:none;">
+							<div class="form-group" id="payment-section">
 							<button class="btn btn-black btn-lg py-3 btn-block" id="btn-payment" onclick="checkMethodPayment()">Thanh toán</button>
 						  </div>
 						</div>

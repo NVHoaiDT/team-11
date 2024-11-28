@@ -1,10 +1,8 @@
 package config;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class UtilsEmail {
@@ -39,8 +37,12 @@ public class UtilsEmail {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject(subject);
-
+            try {
+                message.setSubject(MimeUtility.encodeText(subject, "UTF-8", "B"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                System.out.println("Failed to encode email subject.");
+            }
             // Tạo nội dung email
             MimeBodyPart textPart = new MimeBodyPart();
             Multipart multipart = new MimeMultipart();
