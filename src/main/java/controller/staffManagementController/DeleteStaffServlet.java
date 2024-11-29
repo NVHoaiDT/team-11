@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,30 +23,46 @@ public class DeleteStaffServlet extends HttpServlet {
 
         Long staffId = Long.parseLong(request.getParameter("emp-id"));
         Staff staff = StaffDAO.getStaffById(staffId);
-        StaffDAO.delete(staff);
+
+        String action = request.getParameter("action");
         HttpSession session = request.getSession();
         List<Staff> listStaff = (List<Staff>) session.getAttribute("listStaff");
-        //listEmployee.remove(employee);
-        for (Staff s : listStaff) {
-            if (s.getPersonID() == staff.getPersonID()) {
-                listStaff.remove(s);
-                break;
+        if (action.equals("delete")) {
+            staff.setStatus("InActive");
+
+            for (Staff s : listStaff) {
+                if (Objects.equals(s.getPersonID(), staff.getPersonID())) {
+                    s.setStatus("InActive");
+                    break;
+                }
             }
         }
+        else if (action.equals("restore")) {
+            staff.setStatus("Active");
 
-        session.setAttribute("listStaff", listStaff);
+            for (Staff s : listStaff) {
+                if (Objects.equals(s.getPersonID(), staff.getPersonID())) {
+                    s.setStatus("Active");
+                    break;
+                }
+            }
+        }
+        //StaffDAO.delete(staff);
+        StaffDAO.update(staff);
+
         //gửi mail thông báo xóa tài khoản
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         executorService.submit(() -> {
             String subject = "Tạo tài khoản thành công!";
-            String content = "Xin chào " + staff.getName() + ",\n\n"
-                    + "Tài khoản nhân viên của bạn đã bị xóa khỏi hệ thống.\n"
-                    + "Cảm ơn bạn đã làm việc tại hệ thống trong thời gian qua." + "\n\n"
+            String content = "Xin chào " + staff.getName() + ",<br>"
+                    + "Tài khoản nhân viên của bạn đã bị xóa khỏi hệ thống.<br>"
+                    + "Cảm ơn bạn đã làm việc tại hệ thống trong thời gian qua." + "<br>"
                     + "Mọi thắc mắc vui lòng liên hệ Đặng Bá Hiền (0xxx-xxx-xxx)!";
             UtilsEmail.sendEmail(staff.getEmail(), subject, content);
         });
         executorService.shutdown();
 
+        session.setAttribute("listStaff", listStaff);
         response.sendRedirect("listStaff");
     }
 }

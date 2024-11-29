@@ -1,7 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this 
-*/
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this
+ */
 package business;
 
 import javax.persistence.*;
@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 public class Staff extends Person {
 
+    private String status;
     private double salary;
 
     @Temporal(TemporalType.DATE)
@@ -27,6 +28,14 @@ public class Staff extends Person {
         super(name, birthDate, address, email, password, phone, avatar);
         this.salary = salary;
         this.workDate = workDate;
+        this.status = "Active";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public double getSalary() {

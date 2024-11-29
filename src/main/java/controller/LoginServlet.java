@@ -45,8 +45,13 @@ public class LoginServlet extends HttpServlet {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("customer", customer);
-                    //
-                    url = "/KhachHang/index.jsp";
+                    if (!isProfileCompleteCus(customer)) {
+                        url = "/KhachHang/saveProfile.jsp";
+                    } else {
+                        // Nếu hồ sơ đầy đủ, chuyển đến trang index.jsp
+                        url = "/KhachHang/index.jsp";
+                    }
+
                 }
             } else if (role.equals("staff")) {
                 Staff staff = StaffDB.getStaffByEmailPass(email, pass);
@@ -54,8 +59,12 @@ public class LoginServlet extends HttpServlet {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("staff", staff);
-                    //
-                    url = "/Staff/dashboard.jsp";
+                    // Kiểm tra tính đầy đủ thông tin hồ sơ của nhân viên
+                    if (!isProfileCompleteSta(staff)) {
+                        url = "/KhachHang/saveProfile.jsp";
+                    } else {
+                        url = "/Staff/dashboard.jsp";
+                    }
                 }
             } else if (role.equals("owner")) {
                 Owner owner = OwnerDB.getOwnerByEmailPass(email, pass);
@@ -71,5 +80,19 @@ public class LoginServlet extends HttpServlet {
         }
         session.setAttribute("message", message);
         response.sendRedirect(request.getContextPath() + url);
+    }
+    /**
+     */
+    private boolean isProfileCompleteCus(Customer customer) {
+        return customer.getPhone() != null && !customer.getPhone().isEmpty() &&
+                customer.getAddress() != null && customer.getAddress().isComplete();
+    }
+
+    /**
+     * Kiểm tra xem hồ sơ của Staff có đầy đủ thông tin chưa.
+     */
+    private boolean isProfileCompleteSta(Staff staff) {
+        return staff.getPhone() != null && !staff.getPhone().isEmpty() &&
+                staff.getAddress() != null && staff.getAddress().isComplete();
     }
 }

@@ -25,7 +25,7 @@ public class Address implements Serializable {
         this.country = country;
     }
 
-    
+
     public Long getAddressID() {
         return addressID;
     }
@@ -68,5 +68,12 @@ public class Address implements Serializable {
     public String getAddress()
     {
         return street + ", " + city + ", " + province + ", " + country;
+    }
+
+    public boolean isComplete() {
+        return street != null && !street.isEmpty() &&
+                city != null && !city.isEmpty() &&
+                province != null && !province.isEmpty() &&
+                country != null && !country.isEmpty();
     }
 }

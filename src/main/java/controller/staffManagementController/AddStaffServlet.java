@@ -63,9 +63,9 @@ public class AddStaffServlet extends HttpServlet {
                 ExecutorService executorService = Executors.newFixedThreadPool(1);
                 executorService.submit(() -> {
                     String subject = "Tạo tài khoản thành công!";
-                    String content = "Xin chào " + name + ",\n\n"
-                            + "Tài khoản nhân viên của bạn đã được tạo thành công.\n"
-                            + "Mật khẩu đăng nhập: " + password + "\n\n"
+                    String content = "Xin chào " + name + ",<br>"
+                            + "Tài khoản nhân viên của bạn đã được tạo thành công.<br>"
+                            + "Mật khẩu đăng nhập: " + password + "<br>"
                             + "Không chia sẻ mật khẩu này với bất kỳ ai!";
                     UtilsEmail.sendEmail(email, subject, content);
                 });

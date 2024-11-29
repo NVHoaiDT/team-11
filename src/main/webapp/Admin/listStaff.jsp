@@ -54,6 +54,13 @@
                         <form action="${pageContext.request.contextPath}/searchStaff" method="post">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
+                                    <select name="search-status" id="search-status" class="form-control select mb-3">
+                                        <option value="all">Trạng thái...</option>
+                                        <option value="Active">Đang làm việc</option>
+                                        <option value="InActive">Đã nghỉ việc</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
                                     <select name="search-salary" id="search-salary" class="form-control select mb-3">
                                         <option value="all">Lương...</option>
                                         <option value="under10">Dưới 10 triệu</option>
@@ -99,6 +106,7 @@
                             <th>Email</th>
                             <th>Lương (VND)</th>
                             <th>Ngày làm việc</th>
+                            <th>Trạng thái</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -122,6 +130,14 @@
                                 <td><fmt:formatNumber value="${staff.salary}" pattern="0.##" /></td>
                                 <td><fmt:formatDate value="${staff.workDate}" pattern="yyyy-MM-dd" /></td>
                                 <td>
+                                    <c:if test="${staff.status == 'Active'}">
+                                        <span style="color: green; font-style: italic">Đang làm việc</span>
+                                    </c:if>
+                                    <c:if test="${staff.status == 'InActive'}">
+                                        <span style="color: red; font-style: italic">Đã nghỉ việc</span>
+                                    </c:if>
+                                </td>
+                                <td>
                                     <form action="${pageContext.request.contextPath}/editStaff" method="post" class="d-inline me-3" title="Chi tiết">
                                         <input type="hidden" name="emp-id" value="${staff.personID}"/>
                                         <button type="submit" class="btn p-0 border-0 bg-transparent">
@@ -130,9 +146,16 @@
                                     </form>
                                     <form action="${pageContext.request.contextPath}/deleteStaff" method="post" id="delete-form" class="d-inline me-3" title="Xóa">
                                         <input type="hidden" name="emp-id" value="${staff.personID}"/>
-                                        <button type="submit" class="btn p-0 border-0 bg-transparent" id="delete-button" onclick="return confirmSubmission()">
-                                            <img src="assets/img/icons/delete.svg" alt="Delete" style="width: 24px; height: 24px;">
-                                        </button>
+                                        <c:if test="${staff.status == 'Active'}">
+                                            <button type="submit" name="action" value="delete" class="btn p-0 border-0 bg-transparent" id="delete-button" onclick="return confirmSubmission('Xác nhận xóa nhân viên này?')">
+                                                <img src="assets/img/icons/delete.svg" alt="Delete" style="width: 24px; height: 24px;">
+                                            </button>
+                                        </c:if>
+                                        <c:if test="${staff.status == 'InActive'}">
+                                            <button type="submit" name="action" value="restore" class="btn p-0 border-0 bg-transparent" id="delete-button" onclick="return confirmSubmission('Xác nhận khôi phục tài khoản nhân viên này?')">
+                                                <img src="assets/img/icons/restore.svg" alt="Restore" style="width: 24px; height: 24px;">
+                                            </button>
+                                        </c:if>
                                     </form>
 
                                 </td>
@@ -156,10 +179,8 @@
 </div>
 <script src="scripts/pagination.js"></script>
 <script>
-    function confirmSubmission() {
-        const userConfirmed = confirm("Xác nhận xóa nhân viên này?");
-
-        return userConfirmed;
+    function confirmSubmission(messageConfirm) {
+        return confirm(messageConfirm);
     }
 </script>
 <c:import url="footer.jsp"/>

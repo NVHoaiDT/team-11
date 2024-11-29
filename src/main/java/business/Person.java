@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class Person implements Serializable {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +32,19 @@ public abstract class Person implements Serializable {
         this.email = email;
         this.password = password;
     }
+    @Override
+    public String toString() {
+        return "{" +
+                "\"personID\":" + personID +
+                ", \"name\":\"" + name + "\"" +
+                ", \"birthDate\":\"" + birthDate + "\"" +
+                ", \"email\":\"" + email + "\"" +
+                ", \"phone\":\"" + phone + "\"" +
+                ", \"address\":{\"street\":\"" + (address != null ? address.getStreet() : "") +
+                "\", \"city\":\"" + (address != null ? address.getCity() : "") +
+                "\", \"state\":\"" + (address != null ? address.getProvince() : "") +
+                "}";
+    }
 
     public Person(String name, Date birthDate, Address address, String email, String password, String phone, byte[] avatar) {
         this.name = name;
@@ -42,7 +55,15 @@ public abstract class Person implements Serializable {
         this.phone = phone;
         this.avatar = avatar;
     }
+    private String googleLogin; // Email đăng nhập bằng Google
 
+    public String getGoogleLogin() {
+        return googleLogin;
+    }
+
+    public void setGoogleLogin(String googleLogin) {
+        this.googleLogin = googleLogin;
+    }
 
     public Long getPersonID() {
         return personID;

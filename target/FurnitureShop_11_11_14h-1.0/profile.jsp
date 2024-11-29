@@ -32,7 +32,7 @@
                                 <div class="profile-contentimg">
                                     <c:choose>
                                         <c:when test="${not empty person}">
-                                            <img src="<c:url value='${person.profileImage}'/>" alt="img" id="blah">
+                                            <img src="<c:url value='${person.avatar}'/>" alt="img" id="blah">
                                         </c:when>
                                         <c:otherwise>
                                             <img src="<c:url value='/assets/img/customer/customer1.jpg'/>" alt="img" id="blah">
@@ -65,7 +65,7 @@
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Enter your email" value="${person.email}">
+                                    <input type="email" class="form-control" name="email" placeholder="Enter your email" value="${email}" readonly>
                                 </div>
                             </div>
 
@@ -99,10 +99,6 @@
                                     <label>State</label>
                                     <input type="text" class="form-control" name="state" value="${person.address.province}">
                                 </div>
-                                <div class="form-group">
-                                    <label>Zip Code</label>
-                                    <input type="text" class="form-control" name="zipCode" value="${person.address.zipCode}">
-                                </div>
                             </div>
 
                             <!-- Save Button -->
@@ -113,9 +109,11 @@
                     </form>
 
                     <!-- Change Password Button -->
-                    <div class="col-12 mt-3">
-                        <a href="<c:url value='/updatepassword.jsp'/>" class="btn btn-warning w-100">Change Password</a>
-                    </div>
+                    <c:if test="${showChangePasswordButton}">
+                        <div class="col-12 mt-3">
+                            <a href="<c:url value='/updatepassword.jsp'/>" class="btn btn-warning w-100">Change Password</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
 

@@ -32,12 +32,15 @@ public class PersonDao {
         }
     }
     public Person getPersonByIdOrDefault(Long personID) {
+        System.out.println("Fetching Person ID: " + personID);
         EntityManager em = emf.createEntityManager();
         try {
-            if (personID == null) {
-                personID = 1L; // Gán giá trị mặc định chỉ khi personID null
+            Person person = em.find(Person.class, personID);
+            if (person == null) {
+                // Trả về giá trị mặc định
+                return new Person("Default Name", "default@example.com", "12345678");
             }
-            return em.find(Person.class, personID);
+            return person;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -93,20 +96,4 @@ public class PersonDao {
             em.close();
         }
     }
-    /*
-    // Method to retrieve all persons
-    public List<Person> getAllPersons() {
-        EntityManager em = emf.createEntityManager();
-        try {
-            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p", Person.class);
-            return query.getResultList();
-        } catch (Exception e) {
-            System.out.println("Error retrieving persons: " + e.getMessage());
-            return null;
-        } finally {
-            em.close();
-        }
-    }
-    */
-    // Method to check login credentials
 }

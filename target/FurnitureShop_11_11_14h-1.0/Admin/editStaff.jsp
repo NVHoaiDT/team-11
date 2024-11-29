@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="col-lg-12">
-                            <button type="submit" name="action" value="edit" class="btn btn-submit me-2">Chỉnh sửa</button>
+                            <button type="submit" name="action" value="edit" class="btn btn-submit me-2" <c:if test="${staff.status == 'InActive'}">disabled</c:if>>Chỉnh sửa</button>
                             <button class="btn btn-cancel" type="button" onclick="window.location.href='${pageContext.request.contextPath}/listStaff'">Quay lại</button>
                         </div>
 
