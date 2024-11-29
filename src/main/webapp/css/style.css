@@ -820,3 +820,33 @@ textarea {
 }
 
 
+/*feedBack*/
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+
+#fb{
+  border: 2px solid #ffc107; /* Màu vàng */
+  box-shadow: 0px 4px 10px rgba(255, 193, 7, 0.5); /* Đổ bóng màu vàng nhạt */
+  border-radius: 8px; /* Bo góc cho border */
+  padding: 20px; /* Thêm khoảng cách bên trong */
+  background-color: #fffdf0; /* Nền nhạt để nổi bật */
+}
+
+.custom-divider {
+  border: 0;
+  height: 10px;
+  background-color: #ffc107; /* Màu vàng */
+  margin: 20px 0; /* Khoảng cách trên dưới */
+}

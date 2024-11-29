@@ -198,8 +198,8 @@ public class StatisticDTO {
         try {
             // JPQL query để lấy số lượng đơn đã giao và đã hủy theo tháng trong năm
             String jpql = "SELECT FUNCTION('MONTH', o.orderDate), " +
-                    "SUM(CASE WHEN o.status = :delivered THEN 1 ELSE 0 END), " +
-                    "SUM(CASE WHEN o.status = :canceled THEN 1 ELSE 0 END) " +
+                    "SUM(CASE WHEN o.status = :accepted or o.status = :feedbacked THEN 1 ELSE 0 END), " +
+                    "SUM(CASE WHEN o.status = :canceled  THEN 1 ELSE 0 END) " +
                     "FROM Order o " +
                     "WHERE FUNCTION('YEAR', o.orderDate) = :year " +
                     "GROUP BY FUNCTION('MONTH', o.orderDate) " +
@@ -207,7 +207,8 @@ public class StatisticDTO {
 
             TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
             query.setParameter("year", year);
-            query.setParameter("delivered", EOrderStatus.DELIVERED);  // So sánh với enum
+            query.setParameter("accepted", EOrderStatus.ACCEPTED);
+            query.setParameter("feedbacked", EOrderStatus.FEEDBACKED);// So sánh với enum
             query.setParameter("canceled", EOrderStatus.CANCELED);  // So sánh với enum
 
             List<Object[]> results = query.getResultList();
@@ -248,14 +249,15 @@ public class StatisticDTO {
         try {
             // JPQL query để lấy số lượng đơn đã giao và đã hủy cho mỗi năm
             String jpql = "SELECT FUNCTION('YEAR', o.orderDate), " +
-                    "SUM(CASE WHEN o.status = :delivered THEN 1 ELSE 0 END), " +
+                    "SUM(CASE WHEN o.status = :accepted or o.status = :feedbacked THEN 1 ELSE 0 END), " +
                     "SUM(CASE WHEN o.status = :canceled THEN 1 ELSE 0 END) " +
                     "FROM Order o " +
                     "GROUP BY FUNCTION('YEAR', o.orderDate) " +
                     "ORDER BY FUNCTION('YEAR', o.orderDate)";
 
             TypedQuery<Object[]> query = entityManager.createQuery(jpql, Object[].class);
-            query.setParameter("delivered", EOrderStatus.DELIVERED);
+            query.setParameter("accepted", EOrderStatus.ACCEPTED);
+            query.setParameter("feedbacked", EOrderStatus.FEEDBACKED);
             query.setParameter("canceled", EOrderStatus.CANCELED);
             List<Object[]> result = query.getResultList();
 
@@ -322,12 +324,13 @@ public class StatisticDTO {
             // JPQL query để lấy các đơn hàng đã hoàn thành và đã hủy trong năm
             String jpql = "SELECT o FROM Order o " +
                     "WHERE FUNCTION('YEAR', o.orderDate) = :year " +
-                    "AND (o.status = :delivered OR o.status = :canceled) " +
+                    "AND (o.status = :accepted OR o.status = :feedbacked OR o.status = :canceled) " +
                     "ORDER BY o.orderDate DESC"; // Sắp xếp theo ngày giảm dần
 
             TypedQuery<Order> query = entityManager.createQuery(jpql, Order.class);
             query.setParameter("year", year);
-            query.setParameter("delivered", EOrderStatus.DELIVERED);  // Trạng thái đã hoàn thành
+            query.setParameter("accepted", EOrderStatus.ACCEPTED);
+            query.setParameter("feedbacked", EOrderStatus.FEEDBACKED);// Trạng thái đã hoàn thành
             query.setParameter("canceled", EOrderStatus.CANCELED);  // Trạng thái đã hủy
 
             // Lấy kết quả
@@ -342,11 +345,12 @@ public class StatisticDTO {
         try {
             // JPQL query để lấy các đơn hàng đã giao hoặc đã hủy trong năm
             String jpql = "SELECT o FROM Order o " +
-                    "WHERE (o.status = :delivered OR o.status = :canceled) " +
+                    "WHERE (o.status = :accepted OR o.status = :feedbacked OR o.status = :canceled) " +
                     "ORDER BY o.orderDate DESC";
 
             TypedQuery<Order> query = entityManager.createQuery(jpql, Order.class);
-            query.setParameter("delivered", EOrderStatus.DELIVERED);  // Trạng thái đã giao
+            query.setParameter("accepted", EOrderStatus.ACCEPTED);
+            query.setParameter("feedbacked", EOrderStatus.FEEDBACKED);// Trạng thái đã giao
             query.setParameter("canceled", EOrderStatus.CANCELED);  // Trạng thái đã hủy
 
             // Lấy kết quả

@@ -12,6 +12,7 @@ import business.Customer;
 import data.CustomerDB;
 import mail.OTPGenerater;
 import mail.EmailSender;
+import utils.MaHoa;
 
 @WebServlet(name = "VerifyServlet", value = "/verifyServlet")
 public class VerifyServlet extends HttpServlet {
@@ -63,6 +64,8 @@ public class VerifyServlet extends HttpServlet {
             String otpEmail = (String) session.getAttribute("otp");
             String otp = request.getParameter("otp");
             Customer cus = (Customer) session.getAttribute("customerInfor");
+            String mkMahHoa = MaHoa.toSHA1(cus.getPassword());
+            cus.setPassword(mkMahHoa);
 
             Long otpCreationTime = (Long) session.getAttribute("otpCreationTime");
             long otpExpiryTime = 2 * 60 * 1000;

@@ -26,12 +26,12 @@
       <div class="collapse navbar-collapse" id="navbarsFurni">
         <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
           <li class="nav-item ">
-            <a class="nav-link" href="/KhachHang/index.jsp">Trang Chủ</a>
+            <a class="nav-link" href="../indexServler">Trang Chủ</a>
           </li>
           <li><a class="nav-link" href="../shopServlet">Mua Hàng</a></li>
           <li><a class="nav-link" href="/KhachHang/about.jsp">About us</a></li>
           <li><a class="nav-link" href="/KhachHang/services.jsp">Services</a></li>
-          <li><a class="nav-link" href="/KhachHang/blog.jsp">Blog</a></li>
+          <li><a class="nav-link" href="../feedbackServlet">Xem Đánh Giá</a></li>
           <li><a class="nav-link" href="/KhachHang/contact.jsp">Liên Lạc</a></li>
           <% if (session.getAttribute("customer") != null) { %>
           <li>
@@ -56,13 +56,7 @@
         </ul>
 
         <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          <li class="nav-link">
-            <form action="<c:url value='/loadProfile'/>" method="get" style="display: inline;">
-              <button type="submit" class="nav-link btn btn-link p-0" style="border: none; background: none;">
-                <img src="images/user.svg" alt="User Profile" >
-              </button>
-            </form>
-          </li>
+          <li><a class="nav-link" href="../loadProfile"><img src="../images/user.svg"></a></li>
           <li><a class="nav-link" href="../PurchaseServlet"><img src="../images/cart.svg"></a></li>
           <li><a class="nav-link" href="../manageOrdersServlet?action=loadOrders"><img src="../images/orders.svg" alt="Orders"></a></li></ul>
       </div>

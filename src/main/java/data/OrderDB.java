@@ -123,36 +123,4 @@ public class OrderDB {
             em.close(); // Đảm bảo đóng EntityManager
         }
     }
-
-    public static boolean feedbackOrder(Feedback feedback) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        try {
-            transaction.begin();
-
-            // Bước 1: Thêm phản hồi vào cơ sở dữ liệu
-            em.persist(feedback);
-            // Bước 2: Cập nhật trạng thái đơn hàng thành FEEDBACKED
-            String qString = "UPDATE Order o SET o.status = :status WHERE o.id = :orderId";
-            TypedQuery<Order> query = em.createQuery(qString, Order.class);
-            query.setParameter("status", EOrderStatus.FEEDBACKED);
-            query.setParameter("orderId", feedback.getOrder().getId());
-
-            int rowsUpdated = query.executeUpdate();
-
-            // Commit giao dịch nếu cả hai thao tác đều thành công
-            transaction.commit();
-
-            // Trả về true nếu đã thêm feedback và cập nhật trạng thái đơn hàng thành công
-            return rowsUpdated > 0;
-        } catch (RuntimeException e) {
-            if (transaction.isActive()) {
-                transaction.rollback(); // Rollback nếu có lỗi xảy ra
-            }
-            return false;
-        } finally {
-            em.close(); // Đảm bảo đóng EntityManager
-        }
-    }
 }

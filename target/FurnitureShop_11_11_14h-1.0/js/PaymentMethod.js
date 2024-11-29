@@ -248,15 +248,21 @@ function showPaymentModal(qrCodeUrl,amount,description) {
 }
 // Đóng modal khi nhấn vào dấu X
 function closeModal() {
+    // Hiển thị modal xác nhận
+    document.getElementById("confirmCloseModal").style.display = "block";
+}
+
+// Khi nhấn Đồng ý trong modal xác nhận
+document.getElementById("confirmCloseYes").onclick = function() {
     document.getElementById("paymentModal").style.display = "none";
+    document.getElementById("confirmCloseModal").style.display = "none"; // Ẩn modal xác nhận
     clearInterval(checkPaidInterval);
+};
 
-}
-
-// Đóng modal nếu nhấn ra ngoài modal hoặc dấu X
-window.onclick = function(event) {
-    if (event.target === document.getElementById("paymentModal")) closeModal();
-}
+// Khi nhấn Hủy trong modal xác nhận
+document.getElementById("confirmCloseNo").onclick = function() {
+    document.getElementById("confirmCloseModal").style.display = "none"; // Ẩn modal xác nhận
+};
 
 //Bộ đếm thời gian của mã QR
 let countdown;
@@ -310,7 +316,6 @@ async function checkPaid(price, content) {
                     if (data === 'True') {
                         alert('Đặt hàng thành công!');  // Thông báo khi thành công
                         window.location.href = "shopServlet"; // Chuyển trang
-                        return;
                     }
                     else if (data === 'False'){
                         alert('Đặt hàng thất bại, sản phẩm không đủ hoặc đã ngưng kinh doanh!');  // Thông báo khi thất bại

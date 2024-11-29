@@ -1,5 +1,6 @@
 package controller;
 
+
 import data.FurnitureDB;
 import business.Furniture;
 import javax.servlet.*;
@@ -24,13 +25,14 @@ public class FurnitureServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext context = getServletContext();
-        String idParam = request.getParameter("furnitureId");
-        if (idParam == null || idParam.equals("")) {
+        String idParam = request.getParameter("furnitureCategoryID");
+
+        if (idParam == null || idParam.equals("") || !idParam.matches("\\d+")) {
             response.sendRedirect(request.getHeader("Referer"));
         }
         else{
             int id = Integer.parseInt(idParam);
-            Furniture furniture = FurnitureDB.getFurnitureByID(id);
+            Furniture furniture = FurnitureDB.getFurniture(id);
             List<Furniture> listFurniture = FurnitureDB.getFurnitureNew();
             request.setAttribute("listFurniture", listFurniture);
             request.setAttribute("furniture", furniture);

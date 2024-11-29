@@ -231,6 +231,16 @@
 									</div>
 								</div>
 							</div>
+							<!-- Modal xác nhận đóng -->
+							<div id="confirmCloseModal" class="modal">
+								<div class="modal-content">
+									<p>Bạn có chắc chắn muốn đóng không?</p>
+									<div class="button-group">
+										<button id="confirmCloseYes">Đồng ý</button>
+										<button id="confirmCloseNo">Hủy</button>
+									</div>
+								</div>
+							</div>
 							<div class="form-group" id="payment-section">
 							<button class="btn btn-black btn-lg py-3 btn-block" id="btn-payment" onclick="checkMethodPayment()">Thanh toán</button>
 						  </div>

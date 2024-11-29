@@ -17,6 +17,7 @@ import business.Person;
 import data.PersonDB;
 import mail.EmailSender;
 import mail.OTPGenerater;
+import utils.MaHoa;
 
 @WebServlet(urlPatterns = {"/forgotPassword", "/ValidateOtp", "/newPassword"})
 public class ForgotPasswordServlet extends HttpServlet {
@@ -105,7 +106,8 @@ public class ForgotPasswordServlet extends HttpServlet {
             else if( pass == null || confPass == null || pass.equals("") || confPass.equals("")){
                 request.setAttribute("message", "Vui lòng nhập đầy đủ");
             } else {
-                if(PersonDB.updatePassword(email, pass)){
+                String passW = MaHoa.toSHA1(pass);
+                if(PersonDB.updatePassword(email, passW)){
                     request.setAttribute("message_success", "Đổi mật khẩu thành công");
                     session.removeAttribute("email");
                     url = "/KhachHang/login.jsp";

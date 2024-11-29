@@ -129,7 +129,8 @@
                                         <td>
                                             <c:choose>
                                                 <c:when test="${order.status == 'CANCELED'}">Đã hủy</c:when>
-                                                <c:when test="${order.status == 'DELIVERED'}">Đã giao</c:when>
+                                                <c:when test="${order.status == 'DELIVERED'}">Đã hoàn thành</c:when>
+                                                <c:when test="${order.status == 'FEEDBACKED'}">Đã hoàn thành</c:when>
                                             </c:choose>
                                         </td>
                                         <td>${order.getTotalAmount()}</td>

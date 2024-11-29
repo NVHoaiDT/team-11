@@ -129,9 +129,14 @@
 										</c:if>
 										<c:if test="${order.status == 'ACCEPTED'}">
 											<td>
-												<button type="button" class="btn-order" onclick="feedbackOrder(${order.id}, ${order.customer.personID})">Đánh giá</button>
+												<button type="button" class="btn-order" onclick="feedbackOrder(${order.id}, ${order.customer.personID})">Phản hồi</button>
 											</td>
 										</c:if>
+<%--										<c:if test="${order.status == 'FEEDBACKED'}">--%>
+<%--											<td>--%>
+<%--												<button type="button" class="btn-order" onclick="getFeedback(${order.id})">Xem phản hồi</button>--%>
+<%--											</td>--%>
+<%--										</c:if>--%>
 									</c:if>
 								</tr>
 							</tbody>
@@ -144,6 +149,42 @@
               </div>
             </div>
           </div>
+
+		<!-- Modal Hiển thị thông tin phản hồi -->
+		<div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="feedbackModalLabel">Phản hồi của đơn hàng</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<!-- Kiểm tra nếu có phản hồi và hiển thị -->
+						<c:if test="${not empty feedback}">
+							<p><strong>Đánh giá:</strong> ${feedback.rate} sao</p>
+							<p><strong>Mô tả:</strong> ${feedback.description}</p>
+						</c:if>
+						<!-- Nếu không có phản hồi -->
+						<c:if test="${empty feedback}">
+							<p>Không có phản hồi cho đơn hàng này.</p>
+						</c:if>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Kiểm tra xem có phản hồi hay không và nếu có thì hiển thị modal
+			<c:if test="${not empty feedback}">
+			var myModal = new bootstrap.Modal(document.getElementById('feedbackModal'), {
+				keyboard: false
+			});
+			myModal.show();
+			</c:if>
+		</script>
 
 		<c:import url="../includes/footer.jsp" />
 

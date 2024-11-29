@@ -16,6 +16,7 @@ import business.Owner;
 import data.CustomerDB;
 import data.StaffDB;
 import data.OwnerDB;
+import utils.MaHoa;
 
 @WebServlet(name = "login", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -38,11 +39,13 @@ public class LoginServlet extends HttpServlet {
             message = "Vui lòng nhập đủ thông tin";
         } else {
             if(role.equals("customer")) {
-                Customer customer = CustomerDB.getCustomerByEmailPass(email, pass);
+                String passW = MaHoa.toSHA1(pass);
+                Customer customer = CustomerDB.getCustomerByEmailPass(email, passW);
                 if(customer == null || customer.getStatus().equals("InActive")) {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("customer", customer);
+                    //
                     url = "/KhachHang/index.jsp";
                 }
             } else if (role.equals("staff")) {
@@ -51,6 +54,7 @@ public class LoginServlet extends HttpServlet {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("staff", staff);
+                    //
                     url = "/Staff/dashboard.jsp";
                 }
             } else if (role.equals("owner")) {

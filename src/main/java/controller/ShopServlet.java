@@ -1,5 +1,6 @@
 package controller;
 
+
 import business.Furniture;
 import data.FurnitureDB;
 import ultil.PaginationHelper;
@@ -23,24 +24,12 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
         ServletContext sc = getServletContext();
         String keyword = request.getParameter("keyword");
         String priceParam = request.getParameter("price");
         String color = request.getParameter("Color");
         String nsx = request.getParameter("NSX");
 
-        if (keyword == null){
-            keyword = "";
-        }
-        if (color == null){
-            color = "";
-        }
-        if (nsx == null){
-            nsx = "";
-        }
         if (priceParam == null){
             priceParam = "70000000";
         }
@@ -75,6 +64,5 @@ public class ShopServlet extends HttpServlet {
         request.setAttribute("listColor", listColor);
         request.setAttribute("nsx", nsx);
         request.setAttribute("listNSX", listNSX);
-        System.out.println(keyword);
         sc.getRequestDispatcher("/KhachHang/shop.jsp").forward(request, response);    }
 }

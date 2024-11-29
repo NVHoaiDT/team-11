@@ -5,8 +5,11 @@ import business.Customer;
 import business.Feedback;
 import business.ImageFeedback;
 import business.Order;
+import com.google.gson.Gson;
 import data.CustomerDB;
 import data.OrderDB;
+import data.FeedbackDB;
+import data.PaymentDB;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -98,6 +101,7 @@ public class ManageOrdersServlet extends HttpServlet {
             boolean success = OrderDB.updateOrderStatus(orderId, EOrderStatus.ACCEPTED);
 
             if (success) {
+                PaymentDB.updatePaymentDate(orderId);
                 response.setStatus(HttpServletResponse.SC_OK);
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -142,8 +146,9 @@ public class ManageOrdersServlet extends HttpServlet {
                 System.out.println("Image " + (i + 1) + ": " + base64Image.substring(0, 50) + "..."); // Print first 50 chars
             }
 
-            boolean success = OrderDB.feedbackOrder(feedback);
+            boolean success = FeedbackDB.insertFeedback(feedback);
             if (success) {
+                OrderDB.updateOrderStatus(orderId, EOrderStatus.FEEDBACKED);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("{\"status\":\"success\"}");
             } else {

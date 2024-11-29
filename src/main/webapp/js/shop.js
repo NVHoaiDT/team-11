@@ -77,16 +77,17 @@ if (nsxRadios){
 // button submit
 const buttonSubmitSearch = document.querySelector("#buttonSubmitSearch");
 if (buttonSubmitSearch){
-    buttonSubmitSearch.addEventListener("click",function (){
-        const formSearch = document.querySelector("#formSearch");
-        const colorInput = formSearch.querySelector("input[name=Color]");
-        const priceInput = formSearch.querySelector("input[name=price]");
-        const nsxInput = formSearch.querySelector("input[name=NSX]");
-        colorInput.value = "";
-        priceInput.value = "70000000";
-        nsxInput.value = "";
-        formSearch.submit();
-    })
+    buttonSubmitSearch.addEventListener("click",function (event){
+            event.preventDefault(); // Ngăn hành động mặc định của nút submit
+            const formSearch = document.querySelector("#formSearch");
+            const colorInput = formSearch.querySelector("input[name=Color]");
+            const priceInput = formSearch.querySelector("input[name=price]");
+            const nsxInput = formSearch.querySelector("input[name=NSX]");
+            colorInput.value = "";
+            priceInput.value = "70000000";
+            nsxInput.value = "";
+            formSearch.submit();
+        })
 }
 
 

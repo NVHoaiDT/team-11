@@ -175,7 +175,7 @@ public class FurnitureDAO {
             for (Furniture furniture : furnitures) {
                 // Tính số lượng các đối tượng Furniture có cùng furnitureID
                 Long count = (Long) em.createQuery(
-                                "SELECT COUNT(f) FROM Furniture f WHERE f.category.id = :id")
+                                "SELECT COUNT(f) FROM Furniture f WHERE f.category.id = :id AND f.order IS NULL")
                         .setParameter("id", furniture.getCategory().getId())
                         .getSingleResult();
 

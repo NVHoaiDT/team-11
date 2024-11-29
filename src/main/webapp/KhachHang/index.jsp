@@ -47,61 +47,43 @@
 		<div class="product-section">
 			<div class="container">
 				<div class="row">
-
-					<!-- Start Column 1 -->
+					<!-- Cột Mô Tả -->
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-						<h2 class="mb-4 section-title">Crafted with excellent material.</h2>
-						<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. </p>
-						<p><a href="shop.jsp" class="btn">Explore</a></p>
-					</div> 
-					<!-- End Column 1 -->
-
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.jsp">
-							<img src="../images/product-1.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="../images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.jsp">
-							<img src="../images/product-2.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Kruzo Aero Chair</h3>
-							<strong class="product-price">$78.00</strong>
-
-							<span class="icon-cross">
-								<img src="../images/cross.svg" class="img-fluid">
-							</span>
-						</a>
+						<h2 class="mb-4 section-title">Các sản phẩm bán chạy nhất của shop</h2>
+						<p class="mb-4">Đây là các sản phẩm được mua nhiều nhất tại shop chúng tôi</p>
+						<p><a href="../shopServlet" class="btn">Khám phá</a></p>
 					</div>
-					<!-- End Column 3 -->
 
-					<!-- Start Column 4 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.jsp">
-							<img src="../images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
-
-							<span class="icon-cross">
-								<img src="../images/cross.svg" class="img-fluid">
-							</span>
-						</a>
+					<!-- Cột Swiper -->
+					<div class="col-md-12 col-lg-9">
+						<div class="swiper-container-wrapper">
+							<div class="swiper-container">
+								<div class="swiper-wrapper">
+									<c:forEach var="Furniture" items="${listFurniture}">
+										<div class="swiper-slide">
+											<form action="../furnitureServlet" method="POST" style="display:inline;">
+												<input type="hidden" name="furnitureId" value="${Furniture.id}">
+												<input type="hidden" name="furnitureCategoryID" value="${Furniture.category.id}">
+												<a href="javascript:void(0);" class="product-item" onclick="this.closest('form').submit();">
+													<img src="data:image/png;base64,${Furniture.representativeImage.base64Data}"
+														 alt="${Furniture.representativeImage.fileName}" class="img-fluid product-thumbnail">
+													<h3 class="product-title">${Furniture.category.categoryName}</h3>
+													<h3 class="product-title">Màu: ${Furniture.furnitureColor}</h3>
+													<strong class="product-price priceValue">${Furniture.furniturePrice}</strong>
+												</a>
+											</form>
+										</div>
+									</c:forEach>
+								</div>
+								<!-- Nút điều hướng -->
+								<%--                            <div class="swiper-button-next"></div>--%>
+								<%--                            <div class="swiper-button-prev"></div>--%>
+							</div>
+						</div>
 					</div>
-					<!-- End Column 4 -->
-
 				</div>
 			</div>
 		</div>
-		<!-- End Product Section -->
 
 		<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">
