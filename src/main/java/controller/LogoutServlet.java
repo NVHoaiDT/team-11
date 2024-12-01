@@ -23,7 +23,7 @@ import java.io.IOException;
                 session.removeAttribute("owner");
             }
 
-            response.sendRedirect("/KhachHang/index.jsp");
+            response.sendRedirect("indexServlet");
         }
 
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

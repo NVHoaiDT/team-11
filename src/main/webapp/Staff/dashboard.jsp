@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/all.min.css">
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+  <script src="../scripts/logout.js"></script>
 </head>
 <body>
 <div id="global-loader">
@@ -195,7 +196,7 @@
             <a class="dropdown-item" href="../loadProfile"> <i class="me-2" data-feather="user"></i> My Profile</a>
             <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
             <hr class="m-0">
-            <a class="dropdown-item logout pb-0" href="signin.html"><img src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+            <a class="dropdown-item logout pb-0" onclick ="confirmLogout()"><img src="assets/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
           </div>
         </div>
       </li>

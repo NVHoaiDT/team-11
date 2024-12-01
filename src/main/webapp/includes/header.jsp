@@ -8,13 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-<script>
-  function confirmLogout() {
-    if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-      window.location.href = "../LogoutServlet"; // Chuyển hướng đến servlet nếu người dùng chọn "OK"
-    }
-  }
-</script>
+<script src="../scripts/logout.js"></script>
   <!-- Start Header/Navigation -->
   <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
@@ -28,10 +22,9 @@
           <li class="nav-item ">
             <a class="nav-link" href="../indexServlet">Trang Chủ</a>
           </li>
+          <li><a class="nav-link" href="/KhachHang/about.jsp">Về Chúng Tôi</a></li>
           <li><a class="nav-link" href="../shopServlet">Mua Hàng</a></li>
-          <li><a class="nav-link" href="/KhachHang/about.jsp">About us</a></li>
           <li><a class="nav-link" href="../feedbackServlet">Xem Đánh Giá</a></li>
-          <li><a class="nav-link" href="/KhachHang/contact.jsp">Liên Lạc</a></li>
           <% if (session.getAttribute("customer") != null) { %>
           <li>
             <a class="nav-link" href="<%= request.getContextPath() %>/Staff/loadStaffChatList">Chat (KH)</a>
