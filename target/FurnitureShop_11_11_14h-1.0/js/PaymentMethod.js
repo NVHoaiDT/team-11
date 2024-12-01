@@ -231,7 +231,7 @@ function showPaymentModal(qrCodeUrl,amount,description) {
     qrCodeImage.src = qrCodeUrl;
     modal.style.display = 'none';
     modal.style.display = 'block';
-
+    document.body.classList.add('modal-open'); // Ngăn cuộn trang
     // Dừng bộ đếm trước đó nếu có
     const timerDisplay = document.getElementById("timer");
     clearInterval(countdown);
@@ -250,6 +250,8 @@ function showPaymentModal(qrCodeUrl,amount,description) {
 function closeModal() {
     // Hiển thị modal xác nhận
     document.getElementById("confirmCloseModal").style.display = "block";
+    document.body.classList.remove('modal-open'); // Cho phép cuộn lại
+
 }
 
 // Khi nhấn Đồng ý trong modal xác nhận

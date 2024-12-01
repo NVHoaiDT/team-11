@@ -135,7 +135,14 @@ form .name-details .field:last-child{
 .users{
 	padding: 25px 30px;
 }
-.users header,
+.users header {
+	display: flex;
+	align-items: center;
+	padding-bottom:20px;
+	justify-content: flex-start;
+	gap: 8px;
+	border-bottom: 1px solid #e6e6e6;
+}
 .users-list a{
 	display: flex;
 	align-items: center;
@@ -344,6 +351,7 @@ form .name-details .field:last-child{
 	border-radius: 5px 0 0 5px;
 	outline: none;
 }
+
 .typing-area button{
 	width: 55px;
 	border: none;
@@ -353,4 +361,8 @@ form .name-details .field:last-child{
 	font-size: 19px;
 	cursor: pointer;
 	border-radius: 0 5px 5px 0;
+}
+
+.inactive {
+	opacity: 0.5;
 }

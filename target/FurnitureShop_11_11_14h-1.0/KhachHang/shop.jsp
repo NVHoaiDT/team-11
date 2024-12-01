@@ -132,6 +132,10 @@
 							</div>
 						</div>
 					</c:if>
+					<!-- Nút Reset -->
+					<div class="filter-section text-center mt-3">
+						<button type="submit" class="btn btn-secondary buttonSubmitSearch">Reset bộ lọc</button>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-9">

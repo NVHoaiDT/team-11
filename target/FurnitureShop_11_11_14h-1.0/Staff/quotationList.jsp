@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="utils.LabelConverter" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +35,6 @@
 </head>
 
 <body>
-
-    <%--<div id="global-loader">--%>
-    <%--    <div class="whirly-loader"></div>--%>
-    <%--</div>--%>
 
 <div class="main-wrapper">
 
@@ -281,7 +278,7 @@
             <div class="card">
                 <div class="card-body">
 
-                <%---------------------------------Table top-----------------------------------%>
+                    <%---------------------------------Table top-----------------------------------%>
                     <div class="table-top">
                         <div class="search-set">
 
@@ -317,14 +314,14 @@
                             </ul>
                         </div>
                     </div>
-                <%---------------------------------End table top-----------------------------------%>
+                    <%---------------------------------End table top-----------------------------------%>
 
 
 
-            <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
                     <form action="filterQuotations" method="get">
                         <div class="card" id="filter_inputs">
                             <div class="card-body pb-0">
@@ -362,19 +359,19 @@
                         </div>
                     </form>
 
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
                     <table class="table datanew">
                         <thead>
                         <tr>
-                            <th>
-                                <label class="checkboxs">
-                                    <input type="checkbox" id="select-all">
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </th>
+                            <%--                            <th>--%>
+                            <%--                                <label class="checkboxs">--%>
+                            <%--                                    <input type="checkbox" id="select-all">--%>
+                            <%--                                    <span class="checkmarks"></span>--%>
+                            <%--                                </label>--%>
+                            <%--                            </th>--%>
                             <th>Mã Order</th>
                             <th>Tên khách hàng</th>
                             <th>Ngày đặt hàng</th>
@@ -388,47 +385,51 @@
                             <c:when test="${filteredOrders != null}">
                                 <c:forEach var="order" items="${filteredOrders}">
                                     <tr>
-                                        <%-- Checkbox --%>
-                                        <td>
-                                            <label class="checkboxs">
-                                                <input type="checkbox" name="selectedOrders">
-                                                <span class="checkmarks"></span>
-                                            </label>
-                                        </td>
+                                            <%-- Checkbox --%>
+                                            <%--                                        <td>--%>
+                                            <%--                                            <label class="checkboxs">--%>
+                                            <%--                                                <input type="checkbox" name="selectedOrders">--%>
+                                            <%--                                                <span class="checkmarks"></span>--%>
+                                            <%--                                            </label>--%>
+                                            <%--                                        </td>--%>
 
-                                        <%-- Mã Order --%>
+                                            <%-- Mã Order --%>
                                         <td>${order.id}</td>
 
-                                        <%-- Tên khach hàng --%>
+                                            <%-- Tên khach hàng --%>
                                         <td>${order.customer.name}</td>
 
-                                        <%-- Ngày đặt hàng --%>
+                                            <%-- Ngày đặt hàng --%>
                                         <td>
                                             <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy" />
                                         </td>
 
-                                        <%-- Trạng thái đơn hàng --%>
+
+                                            <%-- Trạng thái đơn hàng hiện tại --%>
                                         <td>
-                                            <span>${order.status}</span>
+                                            <span data-current-status="${order.getStatus()}">
+                                                    ${LabelConverter.convertStatus(order.getStatus())}
+                                            </span>
                                         </td>
 
-                                        <%-- Dropdown cập nhật trạng thái --%>
+
+                                            <%-- Dropdown cập nhật trạng thái --%>
                                         <td>
                                             <label>
                                                 <select name="status-${order.id}" class="badges bg-lightgrey">
                                                     <option value="">Cập nhật:</option>
-                                                    <option value="WAITING_PROCESS">Chờ duyệt</option>
+                                                    <option value="WAITING_PROCESS">Đang chờ xử lý</option>
                                                     <option value="CANCELED">Đã hủy</option>
-                                                    <option value="DELIVERING">Đang giao</option>
-                                                    <option value="DELIVERED">Đã giao</option>
-                                                    <option value="ACCEPTED">Đã nhận hàng</option>
-                                                    <option value="REFUNDED">Đã hoàn tiền</option>
-                                                    <option value="FEEDBACKED">Đã nhận đánh giá</option>
+                                                    <option value="DELIVERING">Đang vận chuyển</option>
+                                                    <option value="DELIVERED">Đã vận chuyển</option>
+                                                    <option value="ACCEPTED">Đã xác nhận</option>
+                                                    <option value="REFUNDED">Đã trả hàng</option>
+                                                    <option value="FEEDBACKED">Đã đánh giá</option>
                                                 </select>
                                             </label>
                                         </td>
 
-                                        <%-- Nút xử lý --%>
+                                            <%-- Nút xử lý --%>
                                         <td>
                                             <button class="btn btn-primary update-status-btn" data-order-id="${order.id}">
                                                 <img src="${pageContext.request.contextPath}/assets/img/icons/transfer1.svg" alt="Xử lý">
@@ -438,50 +439,55 @@
                                 </c:forEach>
                             </c:when>
 
+
                             <c:otherwise>
                                 <c:forEach var="order" items="${orders}">
                                     <tr>
-                                        <%-- Checkbox --%>
-                                        <td>
-                                            <label class="checkboxs">
-                                                <input type="checkbox" name="selectedOrders">
-                                                <span class="checkmarks"></span>
-                                            </label>
-                                        </td>
+                                            <%--                                        &lt;%&ndash; Checkbox &ndash;%&gt;--%>
+                                            <%--                                        <td>--%>
+                                            <%--                                            <label class="checkboxs">--%>
+                                            <%--                                                <input type="checkbox" name="selectedOrders">--%>
+                                            <%--                                                <span class="checkmarks"></span>--%>
+                                            <%--                                            </label>--%>
+                                            <%--                                        </td>--%>
 
-                                        <%-- Mã Order --%>
+                                            <%-- Mã Order --%>
                                         <td>${order.id}</td>
 
-                                        <%-- Tên khách hàng --%>
+                                            <%-- Tên khách hàng --%>
                                         <td>${order.customer.name}</td>
 
-                                        <%-- Ngày đặt hàng --%>
+                                            <%-- Ngày đặt hàng --%>
                                         <td>
                                             <fmt:formatDate value="${order.orderDate}" pattern="dd/MM/yyyy" />
                                         </td>
 
-                                        <%-- Trạng thái đơn hàng --%>
+
+                                            <%-- Trạng thái đơn hàng hiện tại (ẩn trong HTML để sử dụng trong JS) --%>
                                         <td>
-                                            <span>${order.status}</span>
+                                            <span data-current-status="${order.getStatus()}">
+                                                    ${LabelConverter.convertStatus(order.getStatus())}
+                                            </span>
                                         </td>
 
-                                        <%-- Dropdown cập nhật trạng thái --%>
+
+                                            <%-- Dropdown cập nhật trạng thái --%>
                                         <td>
                                             <label>
                                                 <select name="status-${order.id}" class="badges bg-lightgrey">
                                                     <option value="">Cập nhật:</option>
-                                                    <option value="WAITING_PROCESS">Chờ duyệt</option>
+                                                    <option value="WAITING_PROCESS">Đang chờ xử lý</option>
                                                     <option value="CANCELED">Đã hủy</option>
-                                                    <option value="DELIVERING">Đang giao</option>
-                                                    <option value="DELIVERED">Đã giao</option>
-                                                    <option value="ACCEPTED">Đã nhận hàng</option>
-                                                    <option value="REFUNDED">Đã hoàn tiền</option>
-                                                    <option value="FEEDBACKED">Đã nhận đánh giá</option>
+                                                    <option value="DELIVERING">Đang vận chuyển</option>
+                                                    <option value="DELIVERED">Đã vận chuyển</option>
+                                                    <option value="ACCEPTED">Đã xác nhận</option>
+                                                    <option value="REFUNDED">Đã trả hàng</option>
+                                                    <option value="FEEDBACKED">Đã đánh giá</option>
                                                 </select>
                                             </label>
                                         </td>
 
-                                        <%-- Nút xử lý --%>
+                                            <%-- Nút xử lý --%>
                                         <td>
                                             <button class="btn btn-primary update-status-btn" data-order-id="${order.id}">
                                                 <img src="${pageContext.request.contextPath}/assets/img/icons/transfer1.svg" alt="Xử lý">
@@ -495,70 +501,90 @@
                     </table>
 
 
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
-            <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////--%>
 
-<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/jquery.slimscroll.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap4.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/jquery.dataTables.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/dataTables.bootstrap4.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap-datetimepicker.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/moment.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/plugins/select2/js/select2.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalerts.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+                    <script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
 
 
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<script>
-    $(document).on('click', '.update-status-btn', function () {
-        const orderId = $(this).data('order-id');
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <script>
+                        // trình tự cập nhật đúng
+                        const statusTransitions = {
+                            WAITING_PROCESS: ["DELIVERING", "CANCELED"],
+                            DELIVERING: ["DELIVERED"],
+                            CANCELED: [],
+                            DELIVERED: ["ACCEPTED", "REFUNDED"],
+                            ACCEPTED: ["FEEDBACKED"],
+                            REFUNDED: [],
+                            FEEDBACKED: []
+                        };
 
-        const selectName = "status-" + orderId;
+                        $(document).on('click', '.update-status-btn', function () {
+                            const orderId = $(this).data('order-id');
+                            const currentStatus = $(this).closest('tr').find('span[data-current-status]').data('current-status');
+                            const newStatus = $('select[name="status-' + orderId + '"]').val();
 
-        const newStatus = $('select[name="status-' + orderId + '"]').val();
+                            console.log("Current: " + currentStatus);
+                            console.log("New: " + newStatus);
 
-        console.log(newStatus);
+                            // Check ì correct logic
+                            if (!statusTransitions[currentStatus].includes(newStatus)) {
+                                const alertMessage =
+                                    "Bạn có chắc muốn cập nhật trạng thái đơn hàng từ " +   currentStatus + " sang " + newStatus + " không?";
+                                const confirmUpdate = confirm(alertMessage);
+                                if (!confirmUpdate)
+                                    return;
+                            }
 
-        if (!newStatus || newStatus == "") {
-            alert("Vui lòng chọn trạng thái mới!");
-            return;
-        }
+                            if (!newStatus || newStatus == "") {
+                                alert("Vui lòng chọn trạng thái mới!");
+                                return;
+                            }
 
-        $.ajax({
-            url: 'updateOrderStatus',
-            type: 'POST',
-            data: { orderId: orderId, newStatus: newStatus },
-            success: function (response) {
-                // alert(response);
-                location.reload();
-            },
-            error: function (xhr) {
-                alert("Có lỗi xảy ra: " + xhr.responseText);
-            }
-        });
-    });
-</script>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-<%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
-    <%-----------------------------------End Main content-----------------------------------%>
+                            $.ajax({
+                                url: 'updateOrderStatus',
+                                type: 'POST',
+                                data: { orderId: orderId, newStatus: newStatus },
+                                success: function (response) {
+                                    // alert(response);
+                                    location.reload();
+                                },
+                                error: function (xhr) {
+                                    alert("Có lỗi xảy ra: " + xhr.responseText);
+                                }
+                            });
+                        });
+                    </script>
+
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%--///////////////////////////////////////////////////////////////////////////////////////////////////--%>
+                    <%-----------------------------------End Main content-----------------------------------%>
 </body>
 </html>

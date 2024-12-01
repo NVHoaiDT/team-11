@@ -35,6 +35,7 @@ Author     : HUY
                     session.removeAttribute("messageDK");
                 }
             %>
+
             <button>Đăng ký</button>
         </form>
     </div>

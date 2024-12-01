@@ -6,7 +6,9 @@ import business.Order;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class FeedbackDB {
     public static boolean insertFeedback(Feedback feedback) {
@@ -38,7 +40,11 @@ public class FeedbackDB {
             String query = "SELECT f FROM Feedback f WHERE f.order.id = :orderId";
             TypedQuery<Feedback> tq = em.createQuery(query, Feedback.class);
             tq.setParameter("orderId", orderId);
-            return tq.getSingleResult();
+            List<Feedback> feedbackList = tq.getResultList();
+            if (feedbackList.isEmpty()) {
+                return null;
+            }
+            return feedbackList.get(0); // Chỉ lấy phần tử đầu tiên nếu có nhiều kết quả
         } catch (Exception e) {
             return null;
         } finally {

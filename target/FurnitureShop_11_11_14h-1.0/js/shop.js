@@ -75,9 +75,10 @@ if (nsxRadios){
 }
 
 // button submit
-const buttonSubmitSearch = document.querySelector("#buttonSubmitSearch");
+const buttonSubmitSearch = document.querySelectorAll(".buttonSubmitSearch");
 if (buttonSubmitSearch){
-    buttonSubmitSearch.addEventListener("click",function (event){
+    buttonSubmitSearch.forEach((item)=>{
+        item.addEventListener("click",function (event){
             event.preventDefault(); // Ngăn hành động mặc định của nút submit
             const formSearch = document.querySelector("#formSearch");
             const colorInput = formSearch.querySelector("input[name=Color]");
@@ -88,6 +89,7 @@ if (buttonSubmitSearch){
             nsxInput.value = "";
             formSearch.submit();
         })
+    })
 }
 
 

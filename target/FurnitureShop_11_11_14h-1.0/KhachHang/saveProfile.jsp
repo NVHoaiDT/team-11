@@ -10,8 +10,13 @@
     <meta name="keywords" content="profile, save">
     <meta name="author" content="Your Name">
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <title>Save Profile</title>
 </head>
 <body>
@@ -33,7 +38,14 @@
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Enter your full name" value="${person.name}" required>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            name="name"
+                                            placeholder="Enter your full name"
+                                            value="${displayName}"
+                                    ${empty displayName ? '' : 'readonly'}
+                                            required>
                                 </div>
                             </div>
 
@@ -41,7 +53,7 @@
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Enter your email" value="${person.email}" required>
+                                    <input type="email" class="form-control" name="email" placeholder="Enter your email" value="${displayEmail}" readonly required>
                                 </div>
                             </div>
 
@@ -54,7 +66,7 @@
                             </div>
 
                             <!-- Birth Date -->
-                            <div class="col-lg-6 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">`
                                 <div class="form-group">
                                     <label>Birth Date</label>
                                     <input type="date" class="form-control" name="birthDate" value="${person.birthDate}" required>
@@ -101,8 +113,31 @@
     </div>
 </div>
 
+<!-- jQuery and Bootstrap -->
 <script src="<c:url value='/assets/js/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/assets/js/bootstrap.bundle.min.js'/>"></script>
-<script src="<c:url value='/assets/js/script.js'/>"></script>
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<!-- SweetAlert2 Success Notification -->
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+
+    if (status === 'success') {
+        Swal.fire({
+            title: 'Thành công!',
+            text: 'Thông tin của bạn đã được lưu thành công.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(() => {
+            window.location.href = '<c:url value="/indexServlet"/>';
+        });
+    }
+
+</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ package DAO.customerDAO.impl;
 
 import DAO.customerDAO.IOrderDAO;
 import DTO.customerDTO.requestDTO.OrderRequestDTO;
+import ENumeration.EOrderStatus;
 import business.Order;
 
 import javax.persistence.EntityManager;
@@ -22,7 +23,6 @@ public class OrderDAOImpl implements IOrderDAO {
     public List<Order> getOrder(OrderRequestDTO orderRequestDTO) {
         EntityManager em = emf.createEntityManager();
         try {
-            // Bắt đầu xây dựng câu truy vấn JPQL
             StringBuilder jpql = new StringBuilder("SELECT o FROM Order o WHERE o.customer.personID = :customerId");
 
             if (orderRequestDTO.getId() != null) {
@@ -31,21 +31,33 @@ public class OrderDAOImpl implements IOrderDAO {
             if (orderRequestDTO.getOrderDate() != null) {
                 jpql.append(" AND o.orderDate = :orderDate");
             }
+            if (orderRequestDTO.getStatus() != null && !orderRequestDTO.getStatus().isEmpty()) {
+                jpql.append(" AND o.status = :status");
+            }
+
             // Tạo truy vấn
             TypedQuery<Order> query = em.createQuery(jpql.toString(), Order.class);
             query.setParameter("customerId", orderRequestDTO.getCustomerId());
 
-            if (orderRequestDTO.getId()!= null) {
+            if (orderRequestDTO.getId() != null) {
                 query.setParameter("orderId", orderRequestDTO.getId());
             }
             if (orderRequestDTO.getOrderDate() != null) {
                 query.setParameter("orderDate", orderRequestDTO.getOrderDate());
             }
 
+            // Chuyển đổi String thành EOrderStatus
+            if (orderRequestDTO.getStatus() != null && !orderRequestDTO.getStatus().isEmpty()) {
+                EOrderStatus statusEnum = EOrderStatus.valueOf(orderRequestDTO.getStatus());
+                query.setParameter("status", statusEnum);
+            }
+
+
             return query.getResultList();
         } finally {
             em.close();
         }
     }
+
 
 }

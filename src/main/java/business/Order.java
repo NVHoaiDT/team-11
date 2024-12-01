@@ -24,12 +24,15 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "order", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Furniture> listFurniture;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "CUSTOMERID")
     private Customer customer;
 
     @Temporal(TemporalType.DATE)
     private Date orderDate;
+
+    @OneToOne(mappedBy = "order")  // Mối quan hệ với Payment
+    private Payment payment;
 
     @Enumerated(EnumType.STRING)
     private EOrderStatus status;
@@ -42,6 +45,14 @@ public class Order implements Serializable {
         this.customer = customer;
         this.orderDate = orderDate;
         this.status = status;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public Long getId() {

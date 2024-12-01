@@ -8,6 +8,14 @@ public class FurnitureOfOrderResponseDTO {
     private String furnitureStatus;
     private Long    quantity;
     private Long    totalPrice;
+    private String avatar;
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getCategoryName() {
         return categoryName;

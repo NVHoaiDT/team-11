@@ -14,74 +14,89 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="ISO-8859-1">
-    <title>Chat</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/chatModule.css">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Furni Support</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/chatModule.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+</head>
+<body>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-  </head>
-  <body>
+<div class="wrapper">
+  <section class="users">
 
-  <div class="wrapper">
-    <section class="users">
+    <header>
 
-      <header>
-        <div class="content">
-          <c:if test="${customer.avatar != null}">
-            <img alt="Customer" src="data:image/jpeg;base64, ${ImageUtil.DisplayImage(customer.avatar)}">
-          </c:if>
-          <c:if test="${customer.avatar == null}">
-            <img alt="Customer" src="https://via.placeholder.com/150">
-          </c:if>
-          <div class="details">
-            <span>${customer.name}</span>
-            <p>Active</p>
-          </div>
+
+      <a href="${pageContext.request.contextPath}/KhachHang/index.jsp" class="back-icon">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+
+
+      <div class="content">
+        <c:if test="${customer.avatar != null}">
+          <img alt="Customer" src="data:image/jpeg;base64, ${ImageUtil.DisplayImage(customer.avatar)}">
+        </c:if>
+        <c:if test="${customer.avatar == null}">
+          <img alt="Customer" src="https://via.placeholder.com/150">
+        </c:if>
+        <div class="details">
+          <span>${customer.name}</span>
+          <p>Active</p>
         </div>
-      </header>
-
-      <div class="search">
-        <span class="text">Chọn nhân viên muốn chat...</span>
-        <input type="text" placeholder="Enter name to search...">
-        <button><i class="fas fa-search"></i></button>
       </div>
+    </header>
 
-      <%------------------------------------Start Staff List------------------------------------%>
-      <div class="users-list" id="user_list">
-        <c:forEach var="staff" items="${staffs}">
+    <div class="search">
+      <span class="text">Chọn nhân viên muốn chat...</span>
+      <input type="text" placeholder="Enter name to search...">
+      <button><i class="fas fa-search"></i></button>
+    </div>
 
-          <!-------------------------------- Forward chatbox -------------------------------->
-          <a href="${pageContext.request.contextPath}/Staff/chatbox?incoming_id=${customerID}&outgoing_id=${staff.personID}&currentRole=${"customer"}">
+    <%------------------------------------Start Staff List------------------------------------%>
+    <div class="users-list" id="user_list">
+      <c:forEach var="staff" items="${staffs}">
 
-            <div class="content">
+        <!-------------------------------- Forward chatbox -------------------------------->
+        <a href="${pageContext.request.contextPath}/Staff/chatbox?incoming_id=${customerID}&outgoing_id=${staff.personID}&currentRole=${"customer"}">
+
+          <div class="content ${staff.status == 'InActive' ? 'inactive' : ''}">
+
+            <c:if test="${staff.avatar != null}">
+              <img alt="Staff" src="data:image/jpeg;base64, ${ImageUtil.DisplayImage(staff.avatar)}">
+            </c:if>
+            <c:if test="${staff.avatar == null}">
+              <img alt="Staff" src="https://via.placeholder.com/150">
+            </c:if>
 
 
-              <c:if test="${staff.avatar != null}">
-                <img alt="Staff" src="data:image/jpeg;base64, ${ImageUtil.DisplayImage(staff.avatar)}">
-              </c:if>
-              <c:if test="${staff.avatar == null}">
-                <img alt="Staff" src="https://via.placeholder.com/150">
-              </c:if>
-
-
-              <div class="details">
-                <span>${staff.name}</span>
-                  <p>
-                      ${latestMessages[staff.personID] != null ? latestMessages[staff.personID] : "Chưa có tin nhắn"}
-                  </p>
-              </div>
+            <div class="details">
+                  <span>
+                      ${staff.status == 'InActive' ? "NV không còn trên hệ thống" : staff.name}
+                  </span>
+              <p>
+                  ${latestMessages[staff.personID] != null ?
+                          latestMessages[staff.personID] : "Chưa có tin nhắn"
+                          }
+              </p>
             </div>
+
+          </div>
+
+
+          <c:if test="${staff.status == 'Active'}">
             <div class="status-dot online">
               <i class="fas fa-circle"></i>
             </div>
-          </a>
-        </c:forEach>
-      </div>
-      <%------------------------------------End Customer List------------------------------------%>
+          </c:if>
 
-    </section>
-  </div>
+        </a>
+      </c:forEach>
+    </div>
+    <%------------------------------------End Customer List------------------------------------%>
 
-  </body>
+  </section>
+</div>
+
+</body>
 </html>

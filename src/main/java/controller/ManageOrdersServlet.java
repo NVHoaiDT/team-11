@@ -61,6 +61,32 @@ public class ManageOrdersServlet extends HttpServlet {
             request.setAttribute("listOrder", listOrder);
             request.getRequestDispatcher("/KhachHang/orders.jsp").forward(request, response);
         }
+
+        if ("viewFeedback".equals(action)) {
+            Long orderId = Long.valueOf(request.getParameter("orderId"));
+            Feedback feedback = FeedbackDB.getFeedbackByOrderId(orderId);
+
+            // Set up the response as JSON
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // Create a simple JSON object for feedback
+            JSONObject jsonResponse = new JSONObject();
+
+            // Assuming Feedback has appropriate methods to get data
+            jsonResponse.put("description", feedback.getDescription());
+            jsonResponse.put("rate", feedback.getRate());
+
+            // For images, assuming you have base64 encoded images
+            JSONArray imagesArray = new JSONArray();
+            for (ImageFeedback image : feedback.getImageFeedbacks()) {
+                imagesArray.put("data:image/jpeg;base64," + image.getBase64Image());
+            }
+            jsonResponse.put("images", imagesArray);
+
+            // Write the JSON response
+            response.getWriter().write(jsonResponse.toString());
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

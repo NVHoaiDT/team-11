@@ -11,9 +11,14 @@
 
   <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
   <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <title>Update Password</title>
 </head>
 <body>
+
+<!-- Include Header -->
+<c:import url="/includes/header.jsp" />
+
 <div class="main-wrapper">
   <div class="page-wrapper">
     <div class="content">
@@ -24,21 +29,9 @@
         </div>
       </div>
 
-      <!-- Thông báo thành công hoặc lỗi -->
-      <c:if test="${param.success != null}">
-        <div class="alert alert-success">
-          Password updated successfully!
-        </div>
-      </c:if>
-      <c:if test="${param.error != null}">
-        <div class="alert alert-danger">
-          There was an error updating your password. Please try again.
-        </div>
-      </c:if>
-
       <div class="card">
         <div class="card-body">
-          <form method="POST" action="/savePassword">
+          <form method="POST" action="/updatePassword">
             <div class="row">
               <!-- Current Password -->
               <div class="col-lg-6 col-sm-12">
@@ -68,20 +61,45 @@
             <!-- Submit and Cancel -->
             <div class="row">
               <div class="col-12 mt-4">
-                <button type="submit" class="btn btn-submit me-2">Update Password</button>
-                <a href="<c:url value='profile.jsp' />" class="btn btn-cancel">Cancel</a>
+                <button type="submit" class="btn btn-primary">Update Password</button>
+                <a href="<c:url value='profile.jsp' />" class="btn btn-secondary">Cancel</a>
               </div>
             </div>
           </form>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
+<!-- Include Footer -->
+<c:import url="/includes/footer.jsp" />
+
 <script src="<c:url value='/assets/js/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/assets/js/bootstrap.bundle.min.js'/>"></script>
 <script src="<c:url value='/assets/js/script.js'/>"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const success = urlParams.get('success');
+  const error = urlParams.get('error');
+
+  if (success) {
+    Swal.fire({
+      title: 'Thành công!',
+      text: decodeURIComponent(success),
+      icon: 'success',
+      confirmButtonText: 'OK'
+    });
+  } else if (error) {
+    Swal.fire({
+      title: 'Lỗi!',
+      text: 'Đã xảy ra lỗi trong quá trình cập nhật. Vui lòng thử lại.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+  }
+
+</script>
 </body>
 </html>

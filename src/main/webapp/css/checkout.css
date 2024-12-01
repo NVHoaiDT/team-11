@@ -36,7 +36,10 @@
     padding: 20px;
     border: 1px solid #888;
     width: 40%;
-    max-width: 500px;
+}
+/* Đảm bảo modal không bị di chuyển */
+body.modal-open {
+    overflow: hidden; /* Ngăn cuộn khi modal mở */
 }
 
 /* Nút đóng modal */

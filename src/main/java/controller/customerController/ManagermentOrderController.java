@@ -34,13 +34,13 @@ public class ManagermentOrderController extends HttpServlet {
 
         String customerIdStr = req.getParameter("customerId");
         Long customerId = Long.parseLong(customerIdStr);
-
+        String orderStatusStr = req.getParameter("status");
         String orderIdStr = req.getParameter("id");
-
         String orderDateParam = req.getParameter("orderDate");
 
         OrderRequestDTO searchOrder = new OrderRequestDTO();
         searchOrder.setCustomerId(customerId);
+        searchOrder.setStatus(orderStatusStr);
 
         Long orderId = null;
 
@@ -63,8 +63,8 @@ public class ManagermentOrderController extends HttpServlet {
         }
         List<OrderResponseDTO> orders = orderService.getOrder(searchOrder);
         CustomerResponseDTO responseDTO = managermentCustomerService.getCustomerById(customerId);
-        req.setAttribute("orders", orders);
         req.setAttribute("searchOrder", searchOrder);
+        req.setAttribute("orders", orders);
         req.setAttribute("customer", responseDTO);
         String url = "/Admin/listOrder.jsp";
         getServletContext().getRequestDispatcher(url).forward(req, resp);

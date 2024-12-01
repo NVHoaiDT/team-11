@@ -18,7 +18,7 @@ public class ChatboxServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String incomingIdRequest = request.getParameter("incoming_id");
@@ -41,7 +41,7 @@ public class ChatboxServlet extends HttpServlet {
         request.setAttribute("outgoingUser", outgoingUser);
         request.setAttribute("incoming_id", incomingId);
         request.setAttribute("outgoing_id", outgoingId);
-
+        request.setAttribute("current_role", currentRole);
         request.getRequestDispatcher("chatbox.jsp").forward(request, response);
     }
 }

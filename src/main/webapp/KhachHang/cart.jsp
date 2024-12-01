@@ -17,6 +17,8 @@
 	<link href="../css/tiny-slider.css" rel="stylesheet">
 	<link href="../css/style.css" rel="stylesheet">
 	<link href="../css/cart.css" rel="stylesheet">
+	<link href="../css/checkout.css" rel="stylesheet">
+
 	<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
 </head>
 
@@ -75,10 +77,18 @@
 								<td class="product-price">${furniture.furniturePrice}</td>
 								<td class="product-name">${furniture.category.manufacture}</td>
 								<td>
-									<form action="../PurchaseServlet" method="POST" style="display:inline;">
-										<input type="hidden" name="action" value="removefromcart">
-										<button type="submit" class="btn btn-black btn-sm" name="furnitureID" value="${furniture.id}">X</button>
-									</form>
+									<button type="button" class="btn btn-black btn-sm" onclick="showConfirmModal('${furniture.id}')">X</button>
+
+									<!-- Modal xác nhận -->
+									<div id="confirmCloseModal" class="modal" style="display:none;">
+										<div class="modal-content">
+											<p>Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?</p>
+											<div class="button-group">
+												<button type="button" id="confirmCloseYes" onclick="submitForm()">Đồng ý</button>
+												<button type="button" id="confirmCloseNo" onclick="closeModal()">Hủy</button>
+											</div>
+										</div>
+									</div>
 								</td>
 								<td>
 									<input type="checkbox" class="custom-checkbox" name="selectedProducts" value="${furniture.id}">
@@ -90,6 +100,7 @@
 				</div>
 			</form>
 		</div>
+
 		<div class="row">
 			<div class="col-md-6">
 				<div class="row mb-5">

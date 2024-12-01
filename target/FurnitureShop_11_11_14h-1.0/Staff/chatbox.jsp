@@ -17,21 +17,38 @@
   <section class="chat-area">
 
     <!-- user header -->
-    <header>
-        <c:if test="${outgoingUser.avatar != null}">
-          <img alt="User" src="data:image/jpeg;base64, ${ImageUtil.DisplayImage(outgoingUser.avatar)}">
-        </c:if>
-        <c:if test="${outgoingUser.avatar == null}">
-          <img alt="User" src="https://via.placeholder.com/150">
-        </c:if>
+    <header class="${outgoingUser.status == 'InActive' ? 'inactive' : ''}">
+
+
+      <c:if test="${'staff'.equals(current_role)}">
+        <a href="${pageContext.request.contextPath}/Staff/loadCustomerList" class="back-icon">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </c:if>
+      <c:if test="${!'staff'.equals(current_role)}">
+        <a href="${pageContext.request.contextPath}/Staff/loadStaffChatList" class="back-icon">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+      </c:if>
+
+
+
+      <c:if test="${outgoingUser.avatar != null}">
+        <img alt="User" src="data:image/jpeg;base64, ${ImageUtil.DisplayImage(outgoingUser.avatar)}">
+      </c:if>
+      <c:if test="${outgoingUser.avatar == null}">
+        <img alt="User" src="https://via.placeholder.com/150">
+      </c:if>
 
       <div class="details">
-        <span>${outgoingUser.name}</span>
+        <span>
+          ${outgoingUser.name}
+        </span>
         <p>${status}</p>
       </div>
     </header>
 
-    <div class="chat-box">
+    <div class="chat-box ${outgoingUser.status == 'InActive' ? 'inactive' : ''}">
       <!-------------------- Message -------------------->
       <!-------------------- End Message -------------------->
     </div>
@@ -40,8 +57,26 @@
     <form action="#" id="message_box" class="typing-area" autocomplete="off">
       <input type="hidden" name="incoming_id" id="incoming_id" value="${incoming_id}">
       <input type="hidden" name="outgoing_id" id="outgoing_id" value="${outgoing_id}">
-      <input type="text" name="message" id="message" class="input-field" placeholder="Type a message here...">
-      <button type="button" onclick="submitForm()"><i class="fab fa-telegram-plane"></i></button>
+
+      <input
+              type="text"
+              name="message"
+              id="message"
+              class="input-field"
+              placeholder="
+              ${outgoingUser.status == 'InActive' ?
+              'Người dùng không hoạt động' :
+              'Nhập tin nhắn tại đây...'}"
+      ${outgoingUser.status == 'InActive' ? 'disabled' : ''}
+      >
+      <button
+              type="button"
+              onclick="submitForm()"
+      ${outgoingUser.status == 'InActive' ? 'disabled' : ''}
+      >
+        <i class="fab fa-telegram-plane"></i>
+      </button>
+
     </form>
 
   </section>

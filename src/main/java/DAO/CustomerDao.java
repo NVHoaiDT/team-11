@@ -40,4 +40,28 @@ public class CustomerDao {
             em.close();
         }
     }
+    public boolean updatePassword(Long personID, String hashedPassword) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            // Lấy khách hàng theo personID
+            Customer customer = em.find(Customer.class, personID);
+            if (customer != null) {
+                customer.setPassword(hashedPassword);
+                em.merge(customer);
+                trans.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
+    }
 }

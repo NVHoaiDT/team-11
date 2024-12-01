@@ -36,23 +36,24 @@ public class GetStaffChatListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // session
+        // Session
         HttpSession session = request.getSession();
+        Customer customerSession = (Customer) session.getAttribute("customer");
+        Long customerID = customerSession.getPersonID();
 
-        // Fa ke session
-        // session.setAttribute("customerID", "1");
-        // String customerIDString = (String) session.getAttribute("customerID");
-        // Long customerID = Long.parseLong(customerIDString);
+        // Utf-8
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
 
-         Customer customerSession = (Customer) session.getAttribute("customer");
-         Long customerID = customerSession.getPersonID();
 
         try {
-            //get cutomer
             UserInfoDAO userInfoDAO = new UserInfoDAO();
             Customer customer = userInfoDAO.getCustomerInfoById(customerID);
 
             List<Staff> staffs = chatDAO.getStaffChatList(customerID);
+
+            System.out.println(staffs);
 
             Map<Long, String> latestMessages = new HashMap<>();
 
@@ -75,7 +76,6 @@ public class GetStaffChatListServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Có lỗi xảy ra khi xử lý yêu cầu.");
         }
 
-        // Chuyển đến JSP
         request.getRequestDispatcher("staffChatList.jsp").forward(request, response);
     }
 }

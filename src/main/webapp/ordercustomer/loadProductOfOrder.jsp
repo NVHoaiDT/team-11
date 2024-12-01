@@ -39,22 +39,26 @@
                     response.furnitureOfOrderResponseDTO.forEach(function(product, index) {
                         // Xác định trạng thái
                         let statusClass = '';
+                        let statusText = '';
+
                         if (product.furnitureStatus === 'ON_SALE') {
-                            statusClass = 'bg-success text-white'; // Xanh lá cây
+                            statusClass = 'bg-lightgreen'; // Xanh lá cây
+                            statusText = 'Đang giảm giá';
                         } else if (product.furnitureStatus === 'OUT_OF_STOCK') {
-                            statusClass = 'bg-danger text-white'; // Đỏ
-                        } else if (product.furnitureStatus === 'STOP_SELLING') {
-                            statusClass = 'bg-warning text-dark'; // Vàng
+                            statusClass = 'bg-lightgrey'; // Màu xám
+                            statusText = 'Hết Hàng';
+                        } else {
+                            statusClass = 'bg-lightred'; // Đỏ
+                            statusText = 'Hết giảm giá';
                         }
 
-                        // Cộng chuỗi HTML cho từng sản phẩm
+                        // Tạo chuỗi HTML cho từng sản phẩm
                         productRows +=
                             '<tr>' +
                             '<td>' + (index + 1) + '</td>' +
                             '<td>' + product.categoryName + '</td>' +
-                            '<td>' + product.categoryDescription + '</td>' +
-                            '<td>' + product.furniturePrice.toLocaleString() + ' VNĐ</td>' +
-                            '<td><span class="badge ' + statusClass + '">' + product.furnitureStatus + '</span></td>' +
+                            '<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;" title="' + product.categoryDescription + '">' + product.categoryDescription + '</td>' +                            '<td>' + product.furniturePrice.toLocaleString() + ' VNĐ</td>' +
+                            '<td><span class="badges ' + statusClass + '">' + statusText + '</span></td>' +
                             '<td>' + product.quantity + '</td>' +
                             '<td>' + product.totalPrice.toLocaleString() + ' VNĐ</td>' +
                             '</tr>';
@@ -75,7 +79,8 @@
                 $('#productOfOrderList').modal('show');
             },
             error: function() {
-                alert('Lỗi khi tải dữ liệu hóa đơn.');
+                console.log("error");
+                $('#orderNull').modal('show');
             }
         });
     }

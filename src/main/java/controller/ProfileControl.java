@@ -26,10 +26,15 @@ public class ProfileControl extends HttpServlet {
             return;
         }
 
+        if (person.getBirthDate() != null) {
+            request.setAttribute("birthDate", person.getBirthDate().toString());
+        }
+
         request.setAttribute("person", person);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
         requestDispatcher.forward(request, response);
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

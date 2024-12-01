@@ -5,6 +5,15 @@ public class OrderRequestDTO {
     private Long id;
     private Date orderDate;
     private Long CustomerId;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getCustomerId() {
         return CustomerId;

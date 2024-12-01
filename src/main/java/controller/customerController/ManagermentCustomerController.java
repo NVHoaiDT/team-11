@@ -25,16 +25,9 @@ public class ManagermentCustomerController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-//        Address address = new Address();
-//        address.setStreet("123 Main Street");
-//        address.setCity("Hanoi");
-//        address.setProvince("Hanoi Province");
-//        address.setCountry("Vietnam");
-//
-//        // Lưu địa chỉ vào database
-//        addressDAO.insertAddress(address);
         CustomerRequestDTO reqDTO = new CustomerRequestDTO();
         reqDTO.setName(req.getParameter("name"));
+        System.out.println(req.getParameter("name"));
         reqDTO.setPhone(req.getParameter("phone"));
         reqDTO.setEmail(req.getParameter("email"));
         List<CustomerResponseDTO> customerList = customerService.getAllCustomers(reqDTO);
@@ -43,54 +36,52 @@ public class ManagermentCustomerController extends HttpServlet {
         String url = "/Admin/listCustomer.jsp";
         getServletContext().getRequestDispatcher(url).forward(req, resp);
     }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pathInfo = req.getPathInfo();
+        String action = req.getParameter("action");
+        String reason = req.getParameter("reason");
 
-@Override
-protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String pathInfo = req.getPathInfo();
-    String action = req.getParameter("action");
-    String reason = req.getParameter("reason");
+        if (pathInfo != null && pathInfo.length() > 1) {
+            String[] idArray = pathInfo.substring(1).split(",");
+            // Chuyển đổi từ String[] sang List<Long>
+            List<Long> ids = new ArrayList<>();
+            for (String id : idArray) {
+                try {
+                    ids.add(Long.parseLong(id)); // Chuyển đổi từng phần tử String sang Long
+                } catch (NumberFormatException e) {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    resp.getWriter().write("ID không hợp lệ: " + id);
+                    return;
+                }
+            }
 
-    if (pathInfo != null && pathInfo.length() > 1) {
-        String[] idArray = pathInfo.substring(1).split(",");
-        // Chuyển đổi từ String[] sang List<Long>
-        List<Long> ids = new ArrayList<>();
-        for (String id : idArray) {
-            try {
-                ids.add(Long.parseLong(id)); // Chuyển đổi từng phần tử String sang Long
-            } catch (NumberFormatException e) {
+            if (action == null || action.isEmpty()) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resp.getWriter().write("ID không hợp lệ: " + id);
+                resp.getWriter().write("Hành động không hợp lệ.");
                 return;
             }
-        }
 
-        if (action == null || action.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Hành động không hợp lệ.");
-            return;
-        }
-
-
-        if ("lock".equals(action)) {
-            if (reason == null || reason.isEmpty()) {
+            if ("lock".equals(action)) {
+                if (reason == null || reason.isEmpty()) {
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    resp.getWriter().write("Lý do khóa tài khoản không được để trống.");
+                    return;
+                }
+                customerService.lockCustomerStatus(ids, reason);
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("Khách hàng đã được khóa tài khoản thành công.");
+            } else if ("unlock".equals(action)) {
+                customerService.unlockCustomerStatus(ids);
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("Khách hàng đã được mở khóa tài khoản thành công.");
+            } else {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resp.getWriter().write("Lý do khóa tài khoản không được để trống.");
-                return;
+                resp.getWriter().write("Hành động không được hỗ trợ.");
             }
-            customerService.lockCustomerStatus(ids, reason);
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().write("Khách hàng đã được khóa tài khoản thành công.");
-        } else if ("unlock".equals(action)) {
-            customerService.unlockCustomerStatus(ids);
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().write("Khách hàng đã được mở khóa tài khoản thành công.");
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Hành động không được hỗ trợ.");
+            resp.getWriter().write("Không tìm thấy ID khách hàng.");
         }
-    } else {
-        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        resp.getWriter().write("Không tìm thấy ID khách hàng.");
     }
-}
 }

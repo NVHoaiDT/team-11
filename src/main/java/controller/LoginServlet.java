@@ -24,8 +24,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String url = "/KhachHang/login.jsp";
@@ -38,28 +36,39 @@ public class LoginServlet extends HttpServlet {
         if (email == null || email.equals("") || pass == null || pass.equals("")) {
             message = "Vui lòng nhập đủ thông tin";
         } else {
-            if(role.equals("customer")) {
+            if (role.equals("customer")) {
                 String passW = MaHoa.toSHA1(pass);
                 Customer customer = CustomerDB.getCustomerByEmailPass(email, passW);
-                if(customer == null || customer.getStatus().equals("InActive")) {
+                if (customer == null || customer.getStatus().equals("InActive")) {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("customer", customer);
+
+                    // Load name and email for saveProfile.jsp
+                    String displayName = customer.getName();
+                    String displayEmail = (customer.getEmail() != null && !customer.getEmail().isEmpty()) ? customer.getEmail() : customer.getGoogleLogin();
+                    session.setAttribute("displayName", displayName);
+                    session.setAttribute("displayEmail", displayEmail);
+
                     if (!isProfileCompleteCus(customer)) {
                         url = "/KhachHang/saveProfile.jsp";
                     } else {
-                        // Nếu hồ sơ đầy đủ, chuyển đến trang index.jsp
-                        url = "/KhachHang/index.jsp";
+                        url = "../indexServlet";
                     }
-
                 }
             } else if (role.equals("staff")) {
                 Staff staff = StaffDB.getStaffByEmailPass(email, pass);
-                if(staff == null) {
+                if (staff == null) {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("staff", staff);
-                    // Kiểm tra tính đầy đủ thông tin hồ sơ của nhân viên
+
+                    // Load name and email for saveProfile.jsp
+                    String displayName = staff.getName();
+                    String displayEmail = staff.getEmail();
+                    session.setAttribute("displayName", displayName);
+                    session.setAttribute("displayEmail", displayEmail);
+
                     if (!isProfileCompleteSta(staff)) {
                         url = "/KhachHang/saveProfile.jsp";
                     } else {
@@ -68,7 +77,7 @@ public class LoginServlet extends HttpServlet {
                 }
             } else if (role.equals("owner")) {
                 Owner owner = OwnerDB.getOwnerByEmailPass(email, pass);
-                if(owner == null) {
+                if (owner == null) {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("owner", owner);
@@ -78,14 +87,16 @@ public class LoginServlet extends HttpServlet {
                 message = "Vui lòng chọn vai trò của bạn";
             }
         }
+
         session.setAttribute("message", message);
         response.sendRedirect(request.getContextPath() + url);
     }
+
     /**
      */
     private boolean isProfileCompleteCus(Customer customer) {
-        return customer.getPhone() != null && !customer.getPhone().isEmpty() &&
-                customer.getAddress() != null && customer.getAddress().isComplete();
+        return customer.getPhone() != null &&
+                customer.getAddress() != null;
     }
 
     /**

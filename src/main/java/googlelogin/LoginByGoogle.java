@@ -38,11 +38,14 @@ public class LoginByGoogle extends HttpServlet {
         if (customer != null) {
             session.setAttribute("customer", customer);
 
-            // Kiểm tra hồ sơ của khách hàng
             if (!isProfileCompleteCus(customer)) {
-                url = "/KhachHang/saveProfile.jsp"; // Chuyển đến trang hoàn thiện hồ sơ
+                String displayName = customer.getName();
+                String displayEmail = customer.getGoogleLogin();
+                session.setAttribute("displayName", displayName);
+                session.setAttribute("displayEmail", displayEmail);
+                url = "../indexServlet";
             } else {
-                url = "/KhachHang/index.jsp";
+                url = "../indexServlet";
             }
         } else {
             // Thêm khách hàng mới
@@ -54,15 +57,14 @@ public class LoginByGoogle extends HttpServlet {
             if (!isProfileCompleteCus(newCustomer)) {
                 url = "/KhachHang/saveProfile.jsp"; // Chuyển đến trang hoàn thiện hồ sơ
             } else {
-                url = "/KhachHang/index.jsp";
+                url = "../indexServlet";
             }
         }
-
         response.sendRedirect(request.getContextPath() + url);
     }
     private boolean isProfileCompleteCus(Customer customer) {
-        return customer.getPhone() != null && !customer.getPhone().isEmpty() &&
-                customer.getAddress() != null && customer.getAddress().isComplete();
+        return customer.getPhone() != null &&
+                customer.getAddress() != null ;
     }
 
 }

@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeedbackResponseDTO {
+    private Long id;
     private String description;
     private int rate;
     private List<String> imageFeedbacks = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getDescription() {
         return description;
     }

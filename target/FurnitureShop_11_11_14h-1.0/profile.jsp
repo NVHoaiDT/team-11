@@ -11,9 +11,15 @@
 
     <link rel="stylesheet" href="<c:url value='/assets/css/bootstrap.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/assets/css/style.css'/>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <title>User Profile</title>
 </head>
 <body>
+
+<!-- Include Header -->
+<c:import url="/includes/header.jsp" />
+
 <div class="main-wrapper">
     <div class="page-wrapper">
         <div class="content">
@@ -51,7 +57,7 @@
                         </div>
                     </div>
 
-                    <form method="POST" action="/saveProfile" enctype="multipart/form-data">
+                    <form method="POST" action="/updateProfile" enctype="multipart/form-data">
                         <div class="row">
                             <!-- Full Name -->
                             <div class="col-lg-6 col-sm-12">
@@ -81,7 +87,7 @@
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Date of Birth</label>
-                                    <input type="date" class="form-control" name="birthDate" value="${person.birthDate}">
+                                    <input type="date" class="form-control" name="birthDate" value="${birthDate}">
                                 </div>
                             </div>
 
@@ -103,12 +109,11 @@
 
                             <!-- Save Button -->
                             <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                                <button type="submit"  class="btn btn-primary w-100" href="../loadProfile">Cập nhật thông tin</button>
                             </div>
                         </div>
                     </form>
 
-                    <!-- Change Password Button -->
                     <c:if test="${showChangePasswordButton}">
                         <div class="col-12 mt-3">
                             <a href="<c:url value='/updatepassword.jsp'/>" class="btn btn-warning w-100">Change Password</a>
@@ -116,14 +121,17 @@
                     </c:if>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
+<!-- Include Footer -->
+<c:import url="/includes/footer.jsp" />
+
 <script src="<c:url value='/assets/js/jquery-3.6.0.min.js'/>"></script>
 <script src="<c:url value='/assets/js/bootstrap.bundle.min.js'/>"></script>
 <script src="<c:url value='/assets/js/script.js'/>"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Preview uploaded image
     const imgInp = document.getElementById('imgInp');
@@ -139,6 +147,27 @@
             reader.readAsDataURL(file);
         }
     });
+
+    // Display success or error message
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const error = urlParams.get('error');
+
+    if (success === 'true') {
+        Swal.fire({
+            title: 'Thành công!',
+            text: 'Cập nhật thông tin thành công!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    } else if (error === 'true') {
+        Swal.fire({
+            title: 'Lỗi!',
+            text: 'Đã xảy ra lỗi trong quá trình cập nhật. Vui lòng thử lại.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    }
 </script>
 </body>
 </html>

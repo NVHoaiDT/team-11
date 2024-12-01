@@ -1,13 +1,17 @@
 package business;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Date;
-
 
 @Entity
 public class Customer extends Person {
     private String googleLogin;
     private String status;
+
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
     public Customer() {
 
@@ -37,5 +41,16 @@ public class Customer extends Person {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+        for (Order order : orders) {
+            order.setCustomer(this); // Đảm bảo quan hệ hai chiều
+        }
     }
 }

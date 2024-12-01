@@ -290,6 +290,7 @@ public class FurnitureDB {
     }
 
     public static List<Furniture> getFurnituresHot (int topLimit){
+
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
 
@@ -302,7 +303,7 @@ public class FurnitureDB {
         TypedQuery<Integer> subQuery = em.createQuery(qStringSub, Integer.class);
         subQuery.setParameter("statusO", EOrderStatus.ACCEPTED);
         subQuery.setMaxResults(topLimit); // Chỉ lấy top N
-        List<Integer> topCategoryIds ;
+        List<Integer> topCategoryIds  = null;
         try {
             topCategoryIds = subQuery.getResultList();
         }
@@ -311,6 +312,9 @@ public class FurnitureDB {
         }
 
         System.out.println(topCategoryIds);
+        if (topCategoryIds == null || topCategoryIds.isEmpty()) {
+            return null;
+        }
 
         String qStringMain = "SELECT f FROM Furniture f WHERE " +
                 "f.category.id IN :topCategoryIds " +

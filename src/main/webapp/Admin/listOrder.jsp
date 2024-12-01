@@ -83,15 +83,39 @@
                     <div class="card-body pb-0">
                         <div class="row">
                             <input type="hidden" name="customerId" value="${searchOrder.customerId}" placeholder="Nhập mã khách hàng...">
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input type="text" name="id"  value="${searchOrder.id}" placeholder="Nhập mã sản phẩm...">
+                            <div class="col-lg-2 col-sm-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <input type="number" name="id" value="${searchOrder.id}" placeholder="Nhập mã sản phẩm..." style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
                                 </div>
                             </div>
 
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input type="date"  name="orderDate" value="${searchOrder.orderDate}" class="form-control ">
+                            <div class="col-lg-2 col-sm-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <input type="date" name="orderDate" value="${searchOrder.orderDate}" class="form-control" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-sm-6 col-12" style="margin-bottom: 15px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <select name="status" class="form-control" style="
+                                        width: 100%;
+                                        padding: 10px;
+
+                                        border: 1px solid #ccc;
+                                        background-color: #f9f9f9;
+                                        font-size: 14px;
+                                        color: #333;
+                                        transition: all 0.3s ease;
+                                    ">
+                                        <option value="" style="color: #888;">Chọn trạng thái</option>
+                                        <option value="DELIVERING" ${searchOrder.status == 'Đang giao hàng' ? 'selected' : ''}  style="background-color: #d4edda; color: #155724;">Đang giao hàng</option>
+                                        <option value="WAITING_PROCESS" ${searchOrder.status == 'Đang chờ xử lý' ? 'selected' : ''} style="background-color: #fff3cd; color: #856404;">Đang chờ xử lý</option>
+                                        <option value="CANCELED" ${searchOrder.status == 'Đã hủy' ? 'selected' : ''} style="background-color: #f8d7da; color: #721c24;">Đã hủy</option>
+                                        <option value="DELIVERED" ${searchOrder.status == 'Đã giao hàng' ? 'selected' : ''} style="background-color: #cce5ff; color: #004085;">Đã giao hàng</option>
+                                        <option value="ACCEPTED" ${searchOrder.status == 'Đã chấp nhận' ? 'selected' : ''} style="background-color: #d1ecf1; color: #0c5460;">Đã chấp nhận</option>
+                                        <option value="REFUNDED" ${searchOrder.status == 'Đã hoàn trả' ? 'selected' : ''} style="background-color: #e2e3e5; color: #6c757d;">Đã hoàn trả</option>
+                                        <option value="FEEDBACKED" ${searchOrder.status == 'Đã nhận phản hồi' ? 'selected' : ''} style="background-color: #d4edda; color: #155724;">Đã nhận phản hồi</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -149,13 +173,13 @@
                                     <td>
                                             <span class="badges
                                                 <c:choose>
-                                                    <c:when test="${order.status == 'DELIVERING'}">bg-lightgreen</c:when>
-                                                    <c:when test="${order.status == 'WAITING_PROCESS'}">bg-warning</c:when>
-                                                    <c:when test="${order.status == 'CANCELED'}">bg-danger</c:when>
-                                                    <c:when test="${order.status == 'DELIVERED'}">bg-primary</c:when>
-                                                    <c:when test="${order.status == 'ACCEPTED'}">bg-info</c:when>
-                                                    <c:when test="${order.status == 'REFUNDED'}">bg-secondary</c:when>
-                                                    <c:when test="${order.status == 'FEEDBACKED'}">bg-success</c:when>
+                                                    <c:when test="${order.status == 'Đang giao hàng'}">bg-lightgreen</c:when>
+                                                    <c:when test="${order.status == 'Đang chờ xử lý'}">bg-warning</c:when>
+                                                    <c:when test="${order.status == 'Đã hủy'}">bg-danger</c:when>
+                                                    <c:when test="${order.status == 'Đã giao hàng'}">bg-primary</c:when>
+                                                    <c:when test="${order.status == 'Đã chấp nhận'}">bg-info</c:when>
+                                                    <c:when test="${order.status == 'Đã hoàn trả'}">bg-secondary</c:when>
+                                                    <c:when test="${order.status == 'Đã nhận phản hồi'}">bg-success</c:when>
                                                     <c:otherwise>bg-secondary</c:otherwise>
                                                 </c:choose>
                                             ">
@@ -295,7 +319,45 @@
     </div>
 </div>
 
+<div class="modal fade" id="feedbackNull" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thu">Phản hồi từ khách hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#feedbackNull').modal('hide')">
+                    <span aria-hidden="true">&times; </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Chưa có phản hồi từ khách hàng.</h6>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="$('#feedbackNull').modal('hide')">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="orderNull" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thu1">Chi Tiết Hóa Đơn </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#orderNull').modal('hide')">
+                    <span aria-hidden="true">&times; </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Khách Hàng Chưa Thanh Toán</h6>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="$('#orderNull').modal('hide')">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 <%--<script src="scripts/pagination.js"></script>--%>
 <%--<script src="${pageContext.request.contextPath}/assets/js/jquery-3.6.0.min.js"></script>--%>
 <%--<script src="${pageContext.request.contextPath}/assets/js/feather.min.js"></script>--%>

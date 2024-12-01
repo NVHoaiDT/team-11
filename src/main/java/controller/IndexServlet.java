@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-
-import java.beans.Customizer;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,7 +24,9 @@ public class IndexServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext context = getServletContext();
         List<Furniture> listFurniture = FurnitureDB.getFurnituresHot(7);
+        List<Furniture> listFurnitureNew = FurnitureDB.getFurnitureNew();
         request.setAttribute("listFurniture", listFurniture);
+        request.setAttribute("listFurnitureNew", listFurnitureNew);
         context.getRequestDispatcher("/KhachHang/index.jsp").forward(request, response);
     }
 }

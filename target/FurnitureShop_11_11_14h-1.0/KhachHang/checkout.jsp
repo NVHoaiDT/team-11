@@ -210,12 +210,14 @@
 									</div>
 								</div>
 							</div>
+
 							<!-- Lớp phủ toàn trang -->
 							<div id="overlay" style="display:none">
 								<div id="loadingMessage">
 									Vui lòng đợi, đang tạo mã QR...
 								</div>
 							</div>
+
 							<!-- Modal thông báo -->
 							<div id="paymentModal" class="modal">
 								<div class="modal-content">

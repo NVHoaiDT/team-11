@@ -16,7 +16,6 @@ import java.io.IOException;
 @WebServlet(name = "LoadProfileControl", value = "/loadProfile")
 public class LoadProfileControl extends HttpServlet {
 
-    private final PersonDao personDao = new PersonDao();
     private final CustomerDao customerDao = new CustomerDao();
     private final StaffDao2 staffDao = new StaffDao2();
 
@@ -34,46 +33,53 @@ public class LoadProfileControl extends HttpServlet {
         HttpSession session = request.getSession();
 
         String url = "/profile.jsp";
-        Person person = null;
+        Customer cus = null ;
+        Staff sta = null ;
         String userType = null;
         String email = null;
         boolean showChangePasswordButton = true;
 
         if (session.getAttribute("customer") != null) {
             Customer customer = (Customer) session.getAttribute("customer");
-            person = customerDao.getCustomerById(customer.getPersonID());
-            if (person == null) {
+            cus = customerDao.getCustomerById(customer.getPersonID());
+            if (cus == null) {
                 customer.setAvatar("/assets/img/default-customer.jpg".getBytes());
-                person = customer;
+                cus = customer;
             }
             userType = "Customer";
-            email = person.getEmail() != null ? person.getEmail() : person.getGoogleLogin();
-            if (person.getEmail() == null) {
+            email = cus.getEmail() != null ? cus.getEmail() : cus.getGoogleLogin();
+            if (cus.getEmail() == null) {
                 showChangePasswordButton = false;
             }
+            request.setAttribute("person", cus);
+
         } else if (session.getAttribute("staff") != null) {
             Staff staff = (Staff) session.getAttribute("staff");
-            person = staffDao.getStaffById(staff.getPersonID());
-            if (person == null) {
+            sta = staffDao.getStaffById(staff.getPersonID());
+            if (sta == null) {
                 staff.setAvatar("/assets/img/default-staff.jpg".getBytes());
-                person = staff;
+                sta = staff;
             }
             userType = "Staff";
-            email = person.getEmail(); // Giả định Staff không có Google Login
-        } else if (session.getAttribute("owner") != null) {
-            Owner owner = (Owner) session.getAttribute("owner");
-            person = personDao.getPersonByIdOrDefault(owner.getPersonID());
-            userType = "Owner";
-            email = person.getEmail(); // Giả định Owner không có Google Login
+            email = sta.getEmail(); // Giả định Staff không có Google Login
+            request.setAttribute("person", sta);
         }
 
-        if (person == null) {
+        if (cus != null) {
+            request.setAttribute("birthDate", cus.getBirthDate() != null ? cus.getBirthDate().toString() : "");
+            request.setAttribute("person", cus);
+        } else if (sta != null) {
+            request.setAttribute("birthDate", sta.getBirthDate() != null ? sta.getBirthDate().toString() : "");
+            request.setAttribute("person", sta);
+        }
+
+
+        if (cus == null && sta == null) {
             session.setAttribute("message", "Vui lòng đăng nhập để truy cập thông tin hồ sơ.");
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        request.setAttribute("person", person);
         request.setAttribute("userType", userType);
         request.setAttribute("email", email);
         request.setAttribute("showChangePasswordButton", showChangePasswordButton);

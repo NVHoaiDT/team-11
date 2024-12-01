@@ -55,15 +55,7 @@ public class Person implements Serializable {
         this.phone = phone;
         this.avatar = avatar;
     }
-    private String googleLogin; // Email đăng nhập bằng Google
 
-    public String getGoogleLogin() {
-        return googleLogin;
-    }
-
-    public void setGoogleLogin(String googleLogin) {
-        this.googleLogin = googleLogin;
-    }
 
     public Long getPersonID() {
         return personID;

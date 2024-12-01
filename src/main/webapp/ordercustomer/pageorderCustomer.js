@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const rowsPerPage = 2;
+    const rowsPerPage = 5;
     let currentPage = 1;
 
     // Lấy tất cả các hàng trong bảng
