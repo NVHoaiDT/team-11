@@ -104,8 +104,7 @@ public class SetShiftServlet extends HttpServlet {
         Map<LocalDate, Integer> staffCount_pmShift = StaffDAO.getStaffPerShiftInMonth("pm_", month, year);
 
         String calendarTable = CalendarUtil.getHtmlCalendar(staffCount_amShift, staffCount_pmShift, month, year);
-        List<Staff> listStaff = StaffDAO.getAllStaffs();
-
+        List<Staff> listStaff = StaffDAO.getAllStaffs("Active");
         request.setAttribute("listStaff", listStaff);
         request.setAttribute("calendarTable", calendarTable);
         request.setAttribute("currentMonth", month);

@@ -44,7 +44,8 @@ public class FeedbackDB {
             if (feedbackList.isEmpty()) {
                 return null;
             }
-            return feedbackList.get(0); // Chỉ lấy phần tử đầu tiên nếu có nhiều kết quả
+            Feedback feedback = feedbackList.get(0);
+            return feedback; // Chỉ lấy phần tử đầu tiên nếu có nhiều kết quả
         } catch (Exception e) {
             return null;
         } finally {

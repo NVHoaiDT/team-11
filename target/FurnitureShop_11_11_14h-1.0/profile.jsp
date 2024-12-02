@@ -44,10 +44,6 @@
                                             <img src="<c:url value='/assets/img/customer/customer1.jpg'/>" alt="img" id="blah">
                                         </c:otherwise>
                                     </c:choose>
-                                    <div class="profileupload">
-                                        <input type="file" id="imgInp" name="profileImage">
-                                        <a href="javascript:void(0);"><img src="<c:url value='/assets/img/icons/edit-set.svg'/>" alt="edit"></a>
-                                    </div>
                                 </div>
                                 <div class="profile-contentname">
                                     <h2><c:out value="${person.name}" default="William Castillo"/></h2>
@@ -58,7 +54,13 @@
                     </div>
 
                     <form method="POST" action="/updateProfile" enctype="multipart/form-data">
+
+                        <div class="profileupload">
+                            <input type="file" id="imgInp" name="profileImage" accept="image/*">
+                            <a href="javascript:void(0);"><img src="<c:url value='/assets/img/icons/edit-set.svg'/>" alt="edit"></a>
+                        </div>
                         <div class="row">
+
                             <!-- Full Name -->
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
@@ -102,8 +104,12 @@
                                     <input type="text" class="form-control" name="city" value="${person.address.city}">
                                 </div>
                                 <div class="form-group">
-                                    <label>State</label>
-                                    <input type="text" class="form-control" name="state" value="${person.address.province}">
+                                    <label>State/Province</label>
+                                    <input type="text" class="form-control" name="province" value="${person.address.province}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input type="text" class="form-control" name="country" value="${person.address.country}">
                                 </div>
                             </div>
 

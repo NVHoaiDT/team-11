@@ -86,6 +86,12 @@ public class StaffDAO {
         String query = "SELECT s FROM Staff s";
         return em.createQuery(query, Staff.class).getResultList();
     }
+    //hàm lấy tất cả NV đang làm việc
+    public static List<Staff> getAllStaffs(String status) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        String query = "SELECT s FROM Staff s WHERE s.status = :status";
+        return em.createQuery(query, Staff.class).setParameter("status", status).getResultList();
+    }
 
     //hàm tính số NV của mỗi ca
     public static int StaffPerShift(LocalDate date, String shiftName){
@@ -141,4 +147,5 @@ public class StaffDAO {
         return em.createQuery(query, Staff.class).setParameter("shiftDate", shiftDate).
                 setParameter("shiftName", shiftName).getResultList();
     }
+
 }

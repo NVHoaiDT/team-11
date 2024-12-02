@@ -110,23 +110,28 @@
                                     <input type="text" class="form-control" name="state" value="${person.address.province}">
                                 </div>
                             </div>
-
-                            <!-- Save Button -->
-                            <div class="col-12 mt-4">
-                                <button type="submit"  class="btn btn-primary w-100" href="../loadProfile">Cập nhật thông tin</button>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" class="form-control" name="country" value="${person.address.country}">
                             </div>
                         </div>
-                    </form>
 
-                    <c:if test="${showChangePasswordButton}">
-                        <div class="col-12 mt-3">
-                            <a href="<c:url value='/updatepassword.jsp'/>" class="btn btn-warning w-100">Change Password</a>
+                        <!-- Save Button -->
+                        <div class="col-12 mt-4">
+                            <button type="submit"  class="btn btn-primary w-100" href="../loadProfile">Cập nhật thông tin</button>
                         </div>
-                    </c:if>
                 </div>
+                </form>
+
+                <c:if test="${showChangePasswordButton}">
+                    <div class="col-12 mt-3">
+                        <a href="<c:url value='/updatepassword.jsp'/>" class="btn btn-warning w-100">Change Password</a>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script src="<c:url value='/assets/js/jquery-3.6.0.min.js'/>"></script>

@@ -78,8 +78,6 @@ public class LoadProfileControl extends HttpServlet {
             request.setAttribute("avatarUrl", getAvatarUrl(sta.getAvatar()));
             request.setAttribute("person", sta);
         }
-
-
         String formattedBirthDate = "";
         try {
             if (cus != null && cus.getBirthDate() != null) {
