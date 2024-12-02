@@ -146,11 +146,11 @@
 											<button type="button" class="btn-order" onclick="feedbackOrder(${order.id}, ${order.customer.personID})">Phản hồi</button>
 										</td>
 									</c:if>
-									<c:if test="${order.status == 'FEEDBACKED'}">
-										<td>
-											<button type="button" class="btn-order"  onclick="viewFeedback(${order.id})">Xem phản hồi</button>
-										</td>
-									</c:if>
+								</c:if>
+								<c:if test="${order.status == 'FEEDBACKED'}">
+									<td>
+										<button type="button" class="btn-order"  onclick="viewFeedback(${order.id})">Xem phản hồi</button>
+									</td>
 								</c:if>
 							</tr>
 							</tbody>
