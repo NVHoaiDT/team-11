@@ -29,7 +29,7 @@ public class Furniture implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "furniture", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "furniture", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Image> furnitureImages;
 
     public Furniture(String furnitureColor, Long furniturePrice, String furnitureDescription, EFurnitureStatus furnitureStatus, Category category, List<Image> furnitureImages) {

@@ -95,4 +95,8 @@ public class Payment implements Serializable {
     public void setMoney(Double money) {
         this.money = money;
     }
+
+    public Long getLongMoney() {
+        return (money != null) ? money.longValue() : 0L;
+    }
 }

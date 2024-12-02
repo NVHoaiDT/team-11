@@ -168,7 +168,7 @@ public class FurnitureServiceImpl implements IFurnitureServices {
             FurnitureResponse dto = furnitureMapper.toDTO(furniture, quantity);
             furnitureResponseList.add(dto);
         }
-        furnitureResponseList.sort(Comparator.comparing(FurnitureResponse::getId));//
+        furnitureResponseList.sort(Comparator.comparing(FurnitureResponse::getCategoryID));//
         return furnitureResponseList;
     }
     @Override

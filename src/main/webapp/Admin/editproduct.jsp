@@ -5,7 +5,7 @@
 <c:import url="sidebar.jsp" />
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    document.title = "Thêm danh mục sản phẩm";
+    document.title = "Chỉnh sửa thông tin sản phẩm";
     const listStaffElement = document.getElementById("add-product");
     if (listStaffElement) {
       listStaffElement.classList.add("active");

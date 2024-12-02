@@ -131,7 +131,6 @@ public class PurchaseServlet extends HttpServlet {
 
         }else if (action.equals("coupon")){
             String couponCode = request.getParameter("couponCode");
-            System.out.println(couponCode + "123");
             int total = Integer.parseInt(request.getParameter("total"));
             List<Coupon> listCoupon = (List<Coupon>) session.getAttribute("listCoupon");
             String[] listCategoryID = request.getParameterValues("listCategoryID"); //Toàn bộ tên được chọn
@@ -149,7 +148,7 @@ public class PurchaseServlet extends HttpServlet {
             }
 
             Coupon selectedCoupon = null;
-            if(!couponCode.isEmpty()) {
+            if(couponCode!=null && !couponCode.isEmpty()) {
                 if (listCoupon != null) {
                     for (Coupon coupon : listCoupon) {
                         if (coupon.getCouponID().equals(couponCode)) {
@@ -220,9 +219,14 @@ public class PurchaseServlet extends HttpServlet {
                 Order order = new Order(list,customer,orderDate,orderStatus);
                 Payment payment;
                 Coupon coupon = null;
-                if(!couponCode.isEmpty())
+                String giamgia = (String) session.getAttribute("giamgia");
+                if(couponCode!=null &&!couponCode.isEmpty())
                 {
                     coupon = CouponDB.getCouponByID(couponCode);
+                }
+                else
+                {
+                    giamgia = "0";
                 }
                 System.out.println(couponCode);
                 Double money = Double.parseDouble(request.getParameter("amount"));
@@ -245,13 +249,11 @@ public class PurchaseServlet extends HttpServlet {
                                     .append(" - Giá tiền ").append(furniture.getFurniturePrice())
                                     .append(" - Số lượng ").append(quantity).append("<br>");
                         }
-                        String giamgia = (String) session.getAttribute("giamgia");
                         long discount = 0;
                         if (giamgia != null && !giamgia.isEmpty()) {
                             try {
                                 discount = Math.round(Double.parseDouble(giamgia));
                             } catch (NumberFormatException e) {
-                                System.out.println("Giảm giá không hợp lệ: " + giamgia);
                                 discount = 0;
                             }
                         }

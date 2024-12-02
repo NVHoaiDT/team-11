@@ -98,7 +98,7 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public double getTotalAmount() {
+    public Long getTotalAmount() {
         double totalAmount = 0;
         Set<Long> categoryIds = new HashSet<>(); // Set để lưu trữ categoryID duy nhất
         Long categoryPrice = 0L; //Biến để lưu giá tiền của từng category
@@ -121,7 +121,7 @@ public class Order implements Serializable {
                 totalAmount += categoryPrice * count; // Cộng giá trị của sản phẩm đại diện nhân với số lượng
             }
         }
-        return totalAmount;
+        return (long)totalAmount;
     }
 
     public Object[][] getFurnitureQuantity() {

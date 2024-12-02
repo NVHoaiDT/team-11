@@ -142,51 +142,53 @@ public class ManageProductController extends HttpServlet {
     }
     private void editFurniture(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try{
-        List<String> base64Images = new ArrayList<>();
-        for (Part part : request.getParts()) {
-            if ("images".equals(part.getName()) && part.getSize() > 0) {
-                byte[] imageBytes = part.getInputStream().readAllBytes();
-                base64Images.add(Base64.getEncoder().encodeToString(imageBytes));
+            List<String> base64Images = new ArrayList<>();
+            for (Part part : request.getParts()) {
+                if ("images".equals(part.getName()) && part.getSize() > 0) {
+                    byte[] imageBytes = part.getInputStream().readAllBytes();
+                    base64Images.add(Base64.getEncoder().encodeToString(imageBytes));
+                }
             }
-        }
-        HttpSession session = request.getSession();
-        var f= (FurnitureResponse) session.getAttribute("furniture");
-        // Lấy danh sách ảnh bị xóa
-        List<Long> removedImageIds = new ArrayList<>();
-        String removedImages = request.getParameter("removedImageIds");
-        if (removedImages != null && !removedImages.isEmpty()) {
-            String[] imageIds = removedImages.split(",");
-            for (String idStr : imageIds) {
-                removedImageIds.add(Long.parseLong(idStr));
+            HttpSession session = request.getSession();
+            var f= (FurnitureResponse) session.getAttribute("furniture");
+            // Lấy danh sách ảnh bị xóa
+            List<Long> removedImageIds = new ArrayList<>();
+            String removedImages = request.getParameter("removedImageIds");
+            if (removedImages != null && !removedImages.isEmpty()) {
+                String[] imageIds = removedImages.split(",");
+                for (String idStr : imageIds) {
+                    removedImageIds.add(Long.parseLong(idStr));
+                }
             }
+            // Tạo DTO từ thông tin request
+            FurnitureRequest furnitureRequest = new FurnitureRequest();
+            furnitureRequest.setId(Long.parseLong(request.getParameter("id")));
+            furnitureRequest.setFurnitureColor(request.getParameter("furnitureColor"));
+            furnitureRequest.setFurniturePrice(Long.parseLong(request.getParameter("furniturePrice")));
+            furnitureRequest.setFurnitureDescription(request.getParameter("furnitureDescription"));
+            furnitureRequest.setFurnitureStatus(f.getFurnitureStatus());
+            furnitureRequest.setCategoryId(f.getCategoryID());
+            furnitureRequest.setBase64Images(base64Images);
+            furnitureRequest.setRemovedImageIds(removedImageIds);
+            FurnitureResponse furnitureResponse = furnitureServices.updateFurniture(furnitureRequest);
+            // Đặt thông tin vào request để chuyển đến view
+            response.setContentType("application/json");
+            response.getWriter().write("{\"status\":\"success\", \"message\":\"Sản phẩm đã được thêm thành công\"}");
+        } catch (Exception e) {
+            // Trả về JSON lỗi
+            response.setContentType("application/json");
+            response.getWriter().write("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
         }
-        // Tạo DTO từ thông tin request
-        FurnitureRequest furnitureRequest = new FurnitureRequest();
-        furnitureRequest.setId(Long.parseLong(request.getParameter("id")));
-        furnitureRequest.setFurnitureColor(request.getParameter("furnitureColor"));
-        furnitureRequest.setFurniturePrice(Long.parseLong(request.getParameter("furniturePrice")));
-        furnitureRequest.setFurnitureDescription(request.getParameter("furnitureDescription"));
-        furnitureRequest.setFurnitureStatus(f.getFurnitureStatus());
-        furnitureRequest.setCategoryId(f.getCategoryID());
-        furnitureRequest.setBase64Images(base64Images);
-        furnitureRequest.setRemovedImageIds(removedImageIds);
-        FurnitureResponse furnitureResponse = furnitureServices.updateFurniture(furnitureRequest);
-        // Đặt thông tin vào request để chuyển đến view
-        response.setContentType("application/json");
-        response.getWriter().write("{\"status\":\"success\", \"message\":\"Sản phẩm đã được thêm thành công\"}");
-    } catch (Exception e) {
-        // Trả về JSON lỗi
-        response.setContentType("application/json");
-        response.getWriter().write("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
-    }
     }
 
     private void displayDetailFurniture(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
         String url="/Admin/product-details.jsp";
         String idPram= request.getParameter("id");
+        String quantity=request.getParameter("quantity");
         Long id = Long.parseLong(idPram);
         FurnitureResponse furnitureResponse = furnitureServices.getFurnitureByID(id);
         request.setAttribute("furniture", furnitureResponse);
+        request.setAttribute("quantity",quantity);
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);

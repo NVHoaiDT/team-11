@@ -193,7 +193,7 @@ function checkMethodPayment() {
                 // Kiểm tra nếu URL mã QR hợp lệ
                 document.getElementById('overlay').style.display = 'none';
                 if (qrCodeUrl !== 'False') {
-                    showPaymentModal(qrCodeUrl,amount,description);
+                    showPaymentModal(qrCodeUrl,amount,description,couponCode);
                 } else {
                     alert('Sản phẩm không đủ hoặc đã ngưng kinh doanh!');
                 }
@@ -225,7 +225,7 @@ function checkMethodPayment() {
 
 let checkPaidInterval; // Biến lưu ID của setInterval
 // Hàm hiển thị modal với mã QR
-function showPaymentModal(qrCodeUrl,amount,description) {
+function showPaymentModal(qrCodeUrl,amount,description,couponCode) {
     const modal = document.getElementById('paymentModal');
     const qrCodeImage = document.getElementById('qr-code-img');
     qrCodeImage.src = qrCodeUrl;
@@ -242,7 +242,7 @@ function showPaymentModal(qrCodeUrl,amount,description) {
     startCountdown(); // Gọi hàm bắt đầu đếm ngược
     setTimeout(() =>{
         checkPaidInterval = setInterval(() => {
-            checkPaid(amount,description);
+            checkPaid(amount,description,couponCode);
         },1000);
     },20000);
 }
@@ -290,7 +290,7 @@ function startCountdown() {
 //Kiểm tra chuyển khoản ngân hàng và đk dừng
 let isSsucess = false
 let stop = true;
-async function checkPaid(price, content) {
+async function checkPaid(price, content,couponCode) {
     if(isSsucess)
     {
         if(stop) {
@@ -304,6 +304,7 @@ async function checkPaid(price, content) {
                 formDataNew.append('listCategoryID', furniture.furnitureID);  // Dùng [] để gửi một mảng
                 formDataNew.append('quantity', furniture.quantity);
             });
+            formDataNew.append('couponCode', couponCode);
             formDataNew.append('paymentMethod', paymentMethod);
             formDataNew.append('amount', amount);
             formDataNew.append('action', action);
@@ -340,6 +341,7 @@ async function checkPaid(price, content) {
             console.log(lastPaid["Giá trị"]);
             console.log(lastPaid["Mô tả"]);
             console.log(content);
+            console.log(couponCode);
             if(lastPrice>= price && lastContent.includes(content))
             {
                 isSsucess = true;

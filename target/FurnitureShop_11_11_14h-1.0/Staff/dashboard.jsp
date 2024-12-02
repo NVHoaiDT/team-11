@@ -37,11 +37,12 @@
   <div class="header">
 
     <div class="header-left active">
+
       <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp" class="logo">
-        <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
+        <img src="${pageContext.request.contextPath}/images/logoshop2.png" alt="" style="height: 100px;">
       </a>
       <a href="${pageContext.request.contextPath}/Staff/dashboard.jsp" class="logo-small">
-        <img src="${pageContext.request.contextPath}/assets/img/logo-small.png" alt="">
+        <img src="${pageContext.request.contextPath}/images/logoFurni.png" alt="">
       </a>
       <a id="toggle_btn" href="javascript:void(0);">
       </a>

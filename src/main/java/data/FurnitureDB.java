@@ -57,8 +57,6 @@ public class FurnitureDB {
         if (nsx != null && !nsx.isEmpty()) {
             q.setParameter("nsx", "%" + nsx + "%");
         }
-
-        System.out.println(qString);
         q.setFirstResult(skip); // Số lượng record bỏ qua
         q.setMaxResults(limit);  // Số lượng record lấy
 
@@ -296,12 +294,13 @@ public class FurnitureDB {
 
         String qStringSub = "SELECT f2.category.id " +
                 "FROM Order o JOIN o.listFurniture f2 " +
-                "WHERE o.status = :statusO " +
+                "WHERE o.status = :statusO OR o.status = :statusO1 " +
                 "GROUP BY f2.category.id " +
                 "ORDER BY COUNT(f2) DESC";
 
         TypedQuery<Integer> subQuery = em.createQuery(qStringSub, Integer.class);
         subQuery.setParameter("statusO", EOrderStatus.ACCEPTED);
+        subQuery.setParameter("statusO1", EOrderStatus.FEEDBACKED);
         subQuery.setMaxResults(topLimit); // Chỉ lấy top N
         List<Integer> topCategoryIds  = null;
         try {

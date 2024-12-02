@@ -9,7 +9,8 @@ import javax.servlet.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Base64;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 @WebServlet(name = "ProfileControl", value = "/profile")
 @MultipartConfig
@@ -27,14 +28,15 @@ public class ProfileControl extends HttpServlet {
         }
 
         if (person.getBirthDate() != null) {
-            request.setAttribute("birthDate", person.getBirthDate().toString());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = dateFormat.format(person.getBirthDate());
+            request.setAttribute("birthDate", formattedDate);
         }
 
         request.setAttribute("person", person);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("profile.jsp");
         requestDispatcher.forward(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,7 +72,7 @@ public class ProfileControl extends HttpServlet {
             person.getAddress().setStreet(addressInput);
 
             if (birthDate != null && !birthDate.isEmpty()) {
-                person.setBirthDate(java.sql.Date.valueOf(birthDate));
+                person.setBirthDate(Date.valueOf(birthDate));
             }
 
             personDao.updatePerson(person);

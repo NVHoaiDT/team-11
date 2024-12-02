@@ -160,7 +160,7 @@
                 <td>${entry.furnitureColor}</td>
                 <td>${entry.quantity}</td> <!-- Số lượng từ DTO -->
                 <td>
-                  <a class="me-3" href="product-controller?action=displayDetailFurniture&amp;id=${entry.id}">
+                  <a class="me-3" href="product-controller?action=displayDetailFurniture&amp;id=${entry.id}&amp;quantity=${entry.quantity}">
                     <img src="assets/img/icons/eye.svg" alt="img">
                   </a>
                   <a class="me-3" href="product-controller?action=displayFurniture&amp;id=${entry.id}">

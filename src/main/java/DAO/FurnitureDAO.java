@@ -16,23 +16,23 @@ public class FurnitureDAO {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
-            int batchSize = 50; // Batch size cho mỗi lần chèn
+            int batchSize = 50; // Kích thước mỗi batch
             for (int i = 0; i < furnitures.size(); i++) {
                 Furniture furniture = furnitures.get(i);
-                // Nếu sử dụng CascadeType.PERSIST, không cần gọi em.persist() cho images nữa
-                // mà chỉ cần chắc chắn rằng các image đã được thêm vào list images của furniture
+
+                // Đảm bảo tất cả ảnh trong danh sách `furnitureImages` được liên kết đúng
                 List<Image> images = furniture.getFurnitureImages();
                 if (images != null && !images.isEmpty()) {
                     for (Image image : images) {
-                        em.persist(image); // Chèn ảnh vào bảng Image
+                        image.setFurniture(furniture); // Liên kết Image với Furniture
                     }
                 }
 
-                em.persist(furniture); // Chèn vào bảng Furniture
+                em.persist(furniture); // Lưu đối tượng Furniture cùng với các Image liên quan
 
-                // Thực hiện flush và clear sau mỗi batchSize để tối ưu bộ nhớ
+                // Flush và clear sau mỗi batch để giảm tải bộ nhớ
                 if ((i + 1) % batchSize == 0) {
-                    em.flush();  // Ghi các thay đổi vào DB
+                    em.flush();  // Đẩy thay đổi vào DB
                     em.clear();  // Giải phóng bộ nhớ của EntityManager
                 }
             }
@@ -47,6 +47,7 @@ public class FurnitureDAO {
             em.close();
         }
     }
+
     public int updateFurnitureByCategory(Furniture furniture) {
         // Kiểm tra đầu vào của đối tượng furniture
         if (furniture == null || furniture.getCategory() == null) {
@@ -67,7 +68,7 @@ public class FurnitureDAO {
                                     "f.furnitureColor = :color, " +
                                     "f.furnitureDescription = :description, " +
                                     "f.furnitureStatus = :status " +
-                                    "WHERE f.category.id = :categoryId")
+                                    "WHERE f.category.id = :categoryId and f.order is null")
                     .setParameter("price", furniture.getFurniturePrice())
                     .setParameter("color", furniture.getFurnitureColor())
                     .setParameter("description", furniture.getFurnitureDescription())
@@ -97,7 +98,7 @@ public class FurnitureDAO {
             trans.begin();
             em.createQuery(
                             "DELETE FROM Image img WHERE img.furniture.id IN " +
-                                    "(SELECT f.id FROM Furniture f WHERE f.category.id = :categoryId)")
+                                    "(SELECT f.id FROM Furniture f WHERE f.category.id = :categoryId and f.order is null)")
                     .setParameter("categoryId", categoryId)
                     .executeUpdate();
             trans.commit();
@@ -170,7 +171,7 @@ public class FurnitureDAO {
         try {
             // Lấy danh sách các Furniture từ cơ sở dữ liệu
             List<Furniture> furnitures = em.createQuery("SELECT f FROM Furniture f WHERE f.id IN (" +
-                    "SELECT MIN(f1.id) FROM Furniture f1 GROUP BY f1.category.id)", Furniture.class).getResultList();
+                    "SELECT MIN(f1.id) FROM Furniture f1 where f1.order is null Group BY f1.category.id )", Furniture.class).getResultList();
 
             for (Furniture furniture : furnitures) {
                 // Tính số lượng các đối tượng Furniture có cùng furnitureID

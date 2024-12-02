@@ -14,6 +14,9 @@
 			<property name="eclipselink.connection-pool.default.max" value="100"/>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="eclipselink.jdbc.batch-writing.size" value="50"/>
+			<property name="eclipselink.jdbc.order-inserts" value="true" />
+			<property name="eclipselink.jdbc.order-updates" value="true" />
+			<property name="eclipselink.jdbc.batch-writing.relationships" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>

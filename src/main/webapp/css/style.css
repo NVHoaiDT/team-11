@@ -850,3 +850,25 @@ textarea {
   background-color: #ffc107; /* Màu vàng */
   margin: 20px 0; /* Khoảng cách trên dưới */
 }
+.avt {
+  width: 150px; /* Chiều rộng cố định */
+  height: 150px; /* Chiều cao cố định */
+  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+  border-radius: 50%; /* Nếu muốn hình ảnh tròn */
+}
+.footer-section .list-unstyled {
+  display: flex; /* Sử dụng Flexbox để tạo bố cục ngang */
+  flex-wrap: nowrap; /* Đảm bảo không xuống dòng */
+  justify-content: space-between; /* Chia đều các mục */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.footer-section .list-unstyled li {
+  margin-right: 15px; /* Khoảng cách giữa các mục */
+}
+
+.footer-section .list-unstyled li:last-child {
+  margin-right: 0; /* Xóa khoảng cách sau mục cuối cùng */
+}

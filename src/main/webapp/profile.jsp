@@ -38,7 +38,7 @@
                                 <div class="profile-contentimg">
                                     <c:choose>
                                         <c:when test="${not empty person}">
-                                            <img src="<c:url value='${person.avatar}'/>" alt="img" id="blah">
+                                            <img src="${avatarUrl != null ? avatarUrl : '/assets/img/default.jpg'}" alt="Profile Image" id="blah">
                                         </c:when>
                                         <c:otherwise>
                                             <img src="<c:url value='/assets/img/customer/customer1.jpg'/>" alt="img" id="blah">

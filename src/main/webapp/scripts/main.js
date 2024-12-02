@@ -3,7 +3,6 @@ function previewImage(event) {
     const uploadedImagesContainer = document.getElementById("uploaded-images");
 
     // Xóa nội dung trước đó trong container
-    uploadedImagesContainer.innerHTML = "";
 
     // Lặp qua các file được chọn và tạo các phần tử ảnh preview
     Array.from(files).forEach((file) => {

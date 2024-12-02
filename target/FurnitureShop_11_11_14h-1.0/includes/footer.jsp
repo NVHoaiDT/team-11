@@ -19,9 +19,9 @@
 
       <div class="col-lg-8">
         <div class="row links-wrap">
-          <div class="col-6 col-sm-6 col-md-3">
+          <div class="col-12">
             <ul class="list-unstyled">
-              <li><a href="../indexServler">Trang Chủ</a></li>
+              <li><a href="../indexServlet">Trang Chủ</a></li>
               <li><a href="../shopServlet">Mua Hàng</a></li>
               <li><a href="/KhachHang/about.jsp">Về chúng tôi</a></li>
               <li><a href="../feedbackServlet">Xem Đánh Giá</a></li>

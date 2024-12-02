@@ -212,7 +212,7 @@
 					<li>Đảm bảo chất lượng cao với mức chi phí hợp lý</li>
 					<li>Hỗ trợ tư vấn và thi công trọn gói</li>
 				</ul>
-				<p><a herf="../shopServlet" class="btn">Khám phá Shop</a></p>
+				<p><a href="../shopServlet" class="btn">Khám phá Shop</a></p>
 			</div>
 		</div>
 	</div>

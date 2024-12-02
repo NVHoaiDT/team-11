@@ -105,13 +105,15 @@ public class SaveProfileControl extends HttpServlet {
         staffDao.updateStaff(staff);
     }
 
-    private byte[] toByteArray(InputStream inputStream) throws IOException {
+    private byte[] toByteArray(InputStream input) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        byte[] data = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(data)) != -1) {
-            buffer.write(data, 0, bytesRead);
+        byte[] data = new byte[1024];
+        int nRead;
+        while ((nRead = input.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
         }
+        buffer.flush();
         return buffer.toByteArray();
     }
+
 }

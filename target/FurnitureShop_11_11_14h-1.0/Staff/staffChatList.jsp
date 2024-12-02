@@ -28,7 +28,7 @@
     <header>
 
 
-      <a href="${pageContext.request.contextPath}/KhachHang/index.jsp" class="back-icon">
+      <a href="${pageContext.request.contextPath}/indexServlet" class="back-icon">
         <i class="fas fa-arrow-left"></i>
       </a>
 

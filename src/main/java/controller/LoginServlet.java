@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
                 }
             } else if (role.equals("staff")) {
                 Staff staff = StaffDB.getStaffByEmailPass(email, pass);
-                if (staff == null) {
+                if (staff == null || staff.getStatus().equals("InActive")) {
                     message = "Sai tài khoản hoặc mật khẩu";
                 } else {
                     session.setAttribute("staff", staff);
