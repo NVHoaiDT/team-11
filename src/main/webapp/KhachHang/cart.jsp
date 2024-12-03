@@ -19,7 +19,7 @@
 	<link href="../css/cart.css" rel="stylesheet">
 	<link href="../css/checkout.css" rel="stylesheet">
 
-	<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+	<title>Giỏ Hàng</title>
 </head>
 
 <body>

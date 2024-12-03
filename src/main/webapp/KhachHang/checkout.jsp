@@ -18,7 +18,7 @@
 		<link href="../css/style.css" rel="stylesheet">
 		<link href="../css/checkout.css" rel="stylesheet">
 
-	<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+	<title>Thanh Toán</title>
 	</head>
 
 	<body>

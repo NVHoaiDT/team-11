@@ -68,7 +68,7 @@ public class PurchaseServlet extends HttpServlet {
         } else if(action.equals("removefromcart")) {
             int furnitureID = Integer.parseInt(request.getParameter("furnitureID"));
             Furniture fur = FurnitureDB.getFurnitureByID(furnitureID);
-            Cart cart = CartDB.removeToCart(customer,fur);
+                Cart cart = CartDB.removeToCart(customer,fur);
             request.setAttribute("listFurniture", cart.getListFurniture());
             sc.getRequestDispatcher(url).forward(request, response);
         } else if (action.equals("purchase")) { // thiếu coupon !! sửa ở đây
