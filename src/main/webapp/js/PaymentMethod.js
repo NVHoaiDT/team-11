@@ -1,3 +1,4 @@
+// Hiển thị thông tin ở phương thức chuyển khoản
 document.querySelectorAll('input[name="paymentMethod"]').forEach((elem) => {
     elem.addEventListener("change", function() {
         document.getElementById("collapsebank").classList.remove("show");
@@ -251,7 +252,6 @@ function closeModal() {
     // Hiển thị modal xác nhận
     document.getElementById("confirmCloseModal").style.display = "block";
     document.body.classList.remove('modal-open'); // Cho phép cuộn lại
-
 }
 
 // Khi nhấn Đồng ý trong modal xác nhận

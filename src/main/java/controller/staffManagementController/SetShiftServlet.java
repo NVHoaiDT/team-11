@@ -52,9 +52,9 @@ public class SetShiftServlet extends HttpServlet {
             }
         } else if ("submit".equals(action)) {
             String strStaffId = request.getParameter("listStaff");
-            Long staffId = Long.parseLong(strStaffId);
             String warningMessage ="";
             if(strStaffId != null) {
+                Long staffId = Long.parseLong(strStaffId);
                 Staff staff = StaffDAO.getStaffById(staffId);
                 String[] amShifts = request.getParameterValues("shift-selection-am");
                 String[] pmShifts = request.getParameterValues("shift-selection-pm");

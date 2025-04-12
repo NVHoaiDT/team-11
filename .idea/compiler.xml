@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="FurnitureShop_11_11_14h" options="-endorseddirs &quot;C:\hoctap\Study\Web programing\Project\Project_Web\target/endorsed&quot;" />
+      <module name="FurnitureShop_11_11_14h" options="-endorseddirs &quot;C:\hoctap\Finish Study\dahocxong\Semester1_Year3\Web programing\Project\Project_Web\target/endorsed&quot;" />
     </option>
   </component>
 </project>

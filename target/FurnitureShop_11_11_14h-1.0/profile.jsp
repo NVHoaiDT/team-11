@@ -89,7 +89,7 @@
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Date of Birth</label>
-                                    <input type="date" class="form-control" name="birthDate" value="${birthDate}">
+                                    <input type="date" class="form-control" name="birthDate" value="${person.birthDate}">
                                 </div>
                             </div>
 
