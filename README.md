@@ -18,9 +18,6 @@ Different JDK versions are available on Oracle's official website:
 
 There are multiple ways to install JDK. However, for convenience and ease of use, we strongly recommend installing using the provided **installer** files.
 
-> [!NOTE]
-> We recommend using JDK 23 for verified compatibility.
-
 After downloading, open the setup file and proceed with the installation as you would with any standard setup file.
 
 In case you wish to change the installation directory, just make sure to note the new directory path.
