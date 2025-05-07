@@ -4,6 +4,8 @@ FurniShop is a Java web application that requires several configurations before 
 
 ## Install JDK
 
+##Demo
+
 FurniShop is built on Java, so you need to have [JDK (Java Development Kit)](https://www.oracle.com/java/technologies/downloads/) installed globally on your machine.
 
 The two most popular versions currently are **JDK 23 (latest version)** and **JDK 21 (LTS)**.
