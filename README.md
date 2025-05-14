@@ -1,3 +1,5 @@
+## Welcome
+
 # Geting Started
 
 FurniShop is a Java web application that requires several configurations before it can run properly. This guide will walk you through the necessary setup steps to get started.
